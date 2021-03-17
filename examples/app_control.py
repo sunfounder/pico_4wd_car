@@ -6,14 +6,14 @@ import pico_4wd as car
 NAME = 'my_4wd_car'
 
 # Client Mode
-# WIFI_MODE = "sta"
-# SSID = "MakerStarsHall"
-# PASSWORD = "sunfounder"
+WIFI_MODE = "sta"
+SSID = "MakerStarsHall"
+PASSWORD = "sunfounder"
 
 # AP Mode
-WIFI_MODE = "ap"
-SSID = ""
-PASSWORD = "12345678"
+# WIFI_MODE = "ap"
+# SSID = ""
+# PASSWORD = "12345678"
 
 ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
 ws.start()
@@ -30,7 +30,7 @@ def on_receive(data):
     if 'M_region' in data.keys():
         if data['M_region']:
             if not led_status:
-                car.set_light_color([100, 100, 100])
+                car.set_all_light_color([100, 100, 100])
                 led_status = True
         else:
             if led_status:
@@ -41,11 +41,10 @@ def on_receive(data):
     ws.send_dict['A_region'] = car.speed.get_speed()
     
     # radar
-    car.get_angle_distance()
-    ws.send_dict['D_region'] = car.angle_distance
+    ws.send_dict['D_region'] = car.get_radar_distance()
     
     # greyscale
-    ws.send_dict['L_region'] = car.get_grayscale_list()
+    ws.send_dict['L_region'] = car.get_grayscale_values()
 
 
 ws.on_receive = on_receive

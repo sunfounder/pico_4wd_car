@@ -10,35 +10,40 @@ def mapping(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 class Speed():
+
+    # wheel_perimeter(cm): 2 * pi * r
+    WP = 2.0 * math.pi * 3.3
+
     def __init__(self, pin1, pin2):
-        self.left_counter = 0
-        self.right_counter = 0
-        self.counter = 0
-        left_pin = Pin(pin1, Pin.IN)
-        right_pin = Pin(pin2, Pin.IN)
+        self.count = 0
+        # Count per second
+        self.cps = 0
+        self.speed = 0
+        left_pin = Pin(pin1, Pin.IN, Pin.PULL_UP)
+        right_pin = Pin(pin2, Pin.IN, Pin.PULL_UP)
         self.tim = Timer()
-        left_pin.irq(trigger=Pin.IRQ_RISING, handler=self.on_left)
-        right_pin.irq(trigger=Pin.IRQ_RISING, handler=self.on_right)
+        left_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_left)
+        right_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_right)
         self.tim.init(period=1000, mode=Timer.PERIODIC, callback=self.on_timer)
         
     def on_left(self, ch):
-        self.left_counter += 1
+        self.count += 1
 
     def on_right(self, ch):
-        self.right_counter += 1
+        self.count += 1
 
     def on_timer(self, ch):
-        self.counter = (self.left_counter + self.right_counter) / 2.0
-        self.left_counter = 0
-        self.right_counter = 0
+        self.cps = (self.count) / 2.0
+        # 20 count per turn
+        rps = self.cps / 20.0
+        self.speed = round(rps * self.WP, 2)
+        self.count =0
+
+    def __call__(self):
+        return self.speed
 
     def get_speed(self):
-        # 20 count per turn
-        turns = self.counter / 20.0
-        # wheel_perimeter: 2 * pi * r
-        wp = 2.0 * math.pi * 3.3
-        value = round(turns * wp, 2)
-        return value
+        return self.speed
 
 class Servo():
     MAX_PW = 2500
@@ -102,33 +107,28 @@ class Motor():
     
     @power.setter
     def power(self, power):
-        value = int(power / 100.0 * 0xffff)
-        self.value = value
+        self._power = power
+        dir = -1 if power < 0 else 1
+        value = abs(power)
+        if value != 0:
+            value = mapping(value, 0, 100, 30, 100)
+        else:
+            value = 0
+        value = int(value / 100.0 * 0xffff)
 
-    @property
-    def value(self):
-        return self._value
-    
-    @value.setter
-    def value(self, value):
-        self._value = value
-        self._power = round(value / 0xffff * 100, 2)
-        dir = -1 if value < 0 else 1
         dir *= self.dir
         if dir > 0:
             self.pin_1.duty_u16(0)
-            self.pin_2.duty_u16(abs(self._value))
+            self.pin_2.duty_u16(value)
         elif dir < 0:
-            self.pin_1.duty_u16(abs(self._value))
+            self.pin_1.duty_u16(value)
             self.pin_2.duty_u16(0)
         else:
             self.pin_1.duty_u16(0)
             self.pin_2.duty_u16(0)
 
-    def set_power(self, power):
+    def set_motor_power(self, power):
         self.power = power
-    def set_value(self, value):
-        self.value = value
 
 
 @asm_pio(sideset_init=PIO.OUT_LOW, out_shiftdir=PIO.SHIFT_LEFT, autopull=True, pull_thresh=24)
@@ -190,4 +190,5 @@ class WS2812():
     def __setitem__(self, i, value):
         value = self.list_to_hex(value)
         self.buf[i] = value
+
 
