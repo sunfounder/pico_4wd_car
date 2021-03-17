@@ -3,7 +3,7 @@ import time
 
 def main():
     while True:
-        distance = car.sonar.get_distance()
+        distance = car.ultrasonic.get_distance()
         print('distance:%0.2f' % distance)
         time.sleep(0.1)
 

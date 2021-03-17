@@ -12,7 +12,7 @@ gs0 = ADC(Pin(26))
 gs1 = ADC(Pin(27))
 gs2 = ADC(Pin(28)) 
 servo = Servo(18)
-sonar = Ultrasonic(6, 7)
+ultrasonic = Ultrasonic(6, 7)
 speed = Speed(8, 9)
 
 np =  WS2812(Pin(19, Pin.OUT), 24)
@@ -73,7 +73,7 @@ def get_distance_at(angle):
     global angle_distance
     servo.set_angle(angle)
     time.sleep(0.04)
-    distance = sonar.get_distance()
+    distance = ultrasonic.get_distance()
     angle_distance = [angle, distance]
     return distance
 
