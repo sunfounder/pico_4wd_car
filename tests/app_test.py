@@ -7,8 +7,8 @@ NAME = 'my_4wd_car'
 
 # Client Mode
 WIFI_MODE = "sta"
-SSID = "MakerStarsHall"
-PASSWORD = "sunfounder"
+# SSID = "YOUR SSID HERE"
+# PASSWORD = "YOUR PASSWORD HERE"
 
 # AP Mode
 # WIFI_MODE = "ap"
