@@ -9,24 +9,28 @@ NAME = 'my_4wd_car'
 WIFI_MODE = "sta"
 SSID = "MakerStarsHall"
 PASSWORD = "sunfounder"
-ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
 
 # AP Mode
 # WIFI_MODE = "ap"
+# SSID = ""
 # PASSWORD = "12345678"
-# ws = WS_Server(name=NAME, mode=WIFI_MODE, password=PASSWORD)
 
+ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
 ws.start()
 
 temp = None
 temp_send = None
 
 def on_receive(data):
-    # coding the control function here.
+    # write control codes here.
     
-    # coding the sensor function here.
-    print(data["K_region"])
-    # ws.send_dict['L_region'] = car.get_grayscale_list() # example for test sensor date sending.
+    # write sensor codes here.
+#     print(data["K_region"])
+    # ws.send_dict['L_region'] = car.get_grayscale_values() # example for test sensor date sending.
+    print("get_data")
+    data = car.get_radar_distance()
+    print(data)
+    ws.send_dict['D_region'] = data
 
 ws.on_receive = on_receive
 

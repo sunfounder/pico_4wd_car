@@ -1,6 +1,7 @@
-from pico_rdp import Motor, Speed, Servo, Ultrasonic, WS2812
+from pico_rdp import Motor, Speed, Servo, Ultrasonic, WS2812, mapping
 from machine import Pin, ADC
 import time
+
 
 left_front  = Motor(17, 16, dir=-1) # motor 1
 right_front = Motor(15, 14, dir=1) # motor 2
@@ -8,127 +9,163 @@ left_rear   = Motor(13, 12, dir=-1) # motor 3
 right_rear  = Motor(11, 10, dir=1) # motor 4
 motors = [left_front, right_front, left_rear, right_rear]
 
-gs0 = ADC(Pin(26))
-gs1 = ADC(Pin(27))
-gs2 = ADC(Pin(28)) 
 servo = Servo(18)
-ultrasonic = Ultrasonic(6, 7)
 speed = Speed(8, 9)
 
 np =  WS2812(Pin(19, Pin.OUT), 24)
 
-# Ultrasonic
-ANGLE_RANGE = 180
-STEP = 18
-us_step = STEP
-angle_distance = [0,0]
-current_angle = 0
-max_angle = ANGLE_RANGE/2
-min_angle = -ANGLE_RANGE/2
-scan_list = [] 
+gs0 = ADC(Pin(26))
+gs1 = ADC(Pin(27))
+gs2 = ADC(Pin(28))
+GRAYSCALE_EDGE_REFERENCE = 20
+GRAYSCALE_LINE_REFERENCE = 10000
 
-def set_light_color(color):
+# Ultrasonic
+# sonar = Ultrasonic(6, 7)
+sonar = Ultrasonic(20, 21)
+radar_data = [] 
+RADAR_WARNING_REFERENCE = 15
+RADAR_DANGER_REFERENCE = 8
+RADAR_MAX_ANGLE = 90
+RADAR_MIN_ANGLE = -90
+RADAR_STEP_ANGLE = 10
+radar_step = -RADAR_STEP_ANGLE
+radar_angle = 0
+
+def set_light_all_color(color):
     for i in range(24):
         np[i] = color#[color[0], color[1], color[2]]
     np.write()
-    
-def set_num_color(num, color):
+
+def set_light_color_at(num, color):
     np[num] = color#[color[0], color[1], color[2]]
+    np.write()
+
+def set_light_bottom_left_color(color):
+    for i in range(8):
+        write_light_color_at(i+8, color)
+    light_excute()
+
+def set_light_bottom_right_color(color):
+    for i in range(8):
+        write_light_color_at(i+16, color)
+    light_excute()
+
+def set_light_bottom_color(color):
+    for i in range(16):
+        write_light_color_at(i+8, color)
+    light_excute()
+
+def set_light_rear_color(color):
+    for i in range(8):
+        write_light_color_at(i, color)
+    light_excute()
+
+def write_light_color_at(num, color):
+    np[num] = color#[color[0], color[1], color[2]]
+
+def light_excute():
     np.write()
     
 def set_light_off():
-    for i in range(24):
-        np[i] = [0, 0, 0]
-    np.write()
+    set_light_all_color([0, 0, 0])
+
+def hue2rgb(_h, _s = 1, _b = 1):
+    _hi = int((_h/60)%6)
+    _f = _h / 60.0 - _hi
+    _p = _b * (1 - _s)
+    _q = _b * (1 - _f * _s)
+    _t = _b * (1 - (1 - _f) * _s)
+    
+    if _hi == 0:
+        _R_val = _b
+        _G_val = _t
+        _B_val = _p
+    if _hi == 1:
+        _R_val = _q
+        _G_val = _b
+        _B_val = _p
+    if _hi == 2:
+        _R_val = _p
+        _G_val = _b
+        _B_val = _t
+    if _hi == 3:
+        _R_val = _p
+        _G_val = _q
+        _B_val = _b
+    if _hi == 4:
+        _R_val = _t
+        _G_val = _p
+        _B_val = _b
+    if _hi == 5:
+        _R_val = _b
+        _G_val = _p
+        _B_val = _q
+    
+    r = int(_R_val*255)
+    g = int(_G_val*255)
+    b = int(_B_val*255)
+    return [r,g,b]
 
 # Grayscale 
-def get_grayscale_list():
-    adc_value_list = []
-    adc_value_list.append(gs0.read_u16())
-    adc_value_list.append(gs1.read_u16())
-    adc_value_list.append(gs2.read_u16())
-    return adc_value_list
+def get_grayscale_values():
+    return [gs0.read_u16(), gs1.read_u16(), gs2.read_u16()]
 
-def is_on_edge(ref):
-    ref = int(ref)
-    gs_list = get_grayscale_list()
-    if gs_list[2] <= ref or gs_list[1] <= ref or gs_list[0] <= ref:  
-        move("backward", 40)
-        time.sleep(0.5)
-        move("stop")
-    
+def is_greyscale_on_edge():
+    ref = GRAYSCALE_EDGE_REFERENCE
+    gs_list = get_grayscale_values()
+    return gs_list[2] <= ref or gs_list[1] <= ref or gs_list[0] <= ref
 
-def get_line_status(ref,fl_list):#170<x<300
-    ref = int(ref)
-    if fl_list[1] <= ref:
-        return 0
-    
-    elif fl_list[0] <= ref:
-        return -1
+def get_greyscale_status():
+    ref = GRAYSCALE_LINE_REFERENCE
+    return [int(value < ref) for value in get_grayscale_values()]
 
-    elif fl_list[2] <= ref:
-        return 1     
-
-def get_distance_at(angle):
-    global angle_distance
+# Radar
+def get_radar_distance_at(angle):
     servo.set_angle(angle)
     time.sleep(0.04)
-    distance = ultrasonic.get_distance()
-    angle_distance = [angle, distance]
+    distance = sonar.get_distance()
     return distance
 
-def get_status_at(angle, ref1=35, ref2=7):
-    dist = get_distance_at(angle)
-    if dist > ref1 or dist == -2:
+def get_radar_distance():
+    global radar_angle, radar_step
+    radar_angle += radar_step
+    if radar_angle >= RADAR_MAX_ANGLE:
+        radar_angle = RADAR_MAX_ANGLE
+        radar_step = -RADAR_STEP_ANGLE
+    elif radar_angle <= RADAR_MIN_ANGLE:
+        radar_angle = RADAR_MIN_ANGLE
+        radar_step = RADAR_STEP_ANGLE
+    distance = get_radar_distance_at(radar_angle)
+    return [radar_angle, distance]
+
+def get_radar_status_at(angle, distance):
+    if distance > RADAR_WARNING_REFERENCE or distance == -2:
         return 2
-    elif dist > ref2:
+    elif distance > RADAR_DANGER_REFERENCE:
         return 1
     else:
         return 0
 
-def get_angle_distance():
-    global scan_list, current_angle, us_step
-    current_angle += us_step
-    if current_angle >= max_angle:
-        current_angle = max_angle
-        us_step = -STEP
-    elif current_angle <= min_angle:  
-        current_angle = min_angle
-        us_step = STEP
-    get_distance_at(current_angle)
+def radar_scan():
+    global radar_data
+    angle, distance = get_radar_distance()
+    status = get_radar_status_at(angle, distance)#ref1
 
-def scan_step(ref):
-    global scan_list, current_angle, us_step
-    current_angle += us_step
-    if current_angle >= max_angle:
-        current_angle = max_angle
-        us_step = -STEP
-    elif current_angle <= min_angle:  
-        current_angle = min_angle
-        us_step = STEP
-    status = get_status_at(current_angle, ref1=ref)#ref1
-
-    scan_list.append(status)
-    if current_angle == min_angle or current_angle == max_angle:
-        if us_step < 0:
+    radar_data.append(status)
+    if angle == RADAR_MIN_ANGLE or angle == RADAR_MAX_ANGLE:
+        if radar_step < 0:
             # print("reverse")
-            scan_list.reverse()
-        # print(scan_list)
-        tmp = scan_list.copy()
-        scan_list = []
+            radar_data.reverse()
+        # print(radar_data)
+        tmp = radar_data.copy()
+        radar_data = []
         return tmp
     else:
         return False
 
-def motor_direction_calibration(motor, value):
-    # 0: positive direction
-    # 1:negative direction
-    global cali_dir_value
-    motor -= 1
-    if value == 1:
-        cali_dir_value[motor] = -1*cali_dir_value[motor]
-
-def save_set_power(powers):
+# slowly increase power of the motor, to avoid hight reverse voltage from motors
+def set_motor_power_gradually(*powers):
     flags = [True, True, True, True]
     while flags[0] or flags[1] or flags[2] or flags[3]:
         for i, motor in enumerate(motors):
@@ -141,142 +178,24 @@ def save_set_power(powers):
                 flags[i] = False
         time.sleep_ms(1)
 
-def set_power(powers):
+# set power 
+def set_motor_power(*powers):
     for i, motor in enumerate(motors):
         motor.power = powers[i]
 
 def stop():
-    set_power([0] * 4)
+    set_motor_power(0, 0, 0, 0)
 
 def move(dir, power=0):
     if dir == "forward":
-        save_set_power([power, power, power, power])
+        set_motor_power_gradually(power, power, power, power)
     elif dir == "backward":
-        save_set_power([-power, -power, -power, -power])
+        set_motor_power_gradually(-power, -power, -power, -power)
     elif dir == "left":
-        save_set_power([-power, power, -power, power])
+        set_motor_power_gradually(-power, power, -power, power)
     elif dir == "right":
-        save_set_power([power, -power, power, -power])
+        set_motor_power_gradually(power, -power, power, -power)
     else:
-        save_set_power([0, 0, 0, 0])
-        
-def track_line(ref, speed):
-    gs_list = get_grayscale_list()
-    if get_line_status(ref,gs_list) == 0:
-        move("forward", speed)      
-    elif get_line_status(ref,gs_list) == -1:
-        move("left", speed)
-    elif get_line_status(ref,gs_list) == 1:
-        move("right", speed)   
-        
-def avoid(ref, speed):
-    scan_list = scan_step(ref)
-    if scan_list:
-        tmp = scan_list[3:7]
-        if tmp != [2,2,2,2]:
-            move("right", speed)
-        else:
-            move("forward", speed)
+        set_motor_power_gradually(0, 0, 0, 0)
 
-def follow(ref, speed):
-    scan_list = scan_step(ref)
-    if scan_list != False:
-        scan_list = [str(i) for i in scan_list]
-        scan_list = "".join(scan_list)
-        paths = scan_list.split("2")
-        length_list = []
-        for path in paths:
-            length_list.append(len(path))
-        if max(length_list) == 0:
-            move("stop") 
-        else:
-            i = length_list.index(max(length_list))
-            pos = scan_list.index(paths[i])
-            pos += (len(paths[i]) - 1) / 2
-            delta = len(scan_list) / 3
-            if pos < delta:
-                move("left", speed)
-            elif pos > 2 * delta:
-                move("right", speed)
-            else:
-                if scan_list[int(len(scan_list)/2-1)] == "0":
-                    move("backward", 100)
-                else:
-                    move("forward", speed)
 
-def test_motor():
-    for i in range(101):
-        move("forward", i)
-        time.sleep(0.01)
-    for i in range(100, -101, -1):
-        move("forward", i)
-        time.sleep(0.01)
-    for i in range(-100, 1, 1):
-        move("forward", i)
-        time.sleep(0.01)
-
-def test_motor_extream():
-    print("forward")
-    move("forward", 100)
-    time.sleep(1)
-    print("backward")
-    move("backward", 100)
-    time.sleep(1)
-    print("left")
-    move("left", 100)
-    time.sleep(1)
-    print("right")
-    move("right", 100)
-    time.sleep(1)
-    print("stop")
-    move("stop", 100)
-    time.sleep(1)
-
-def test_light():
-    print("red")
-    for i in range(24):
-        set_num_color(i, [255, 0, 0])
-        time.sleep(0.01)
-    for i in range(24):
-        set_num_color(i, [0, 0, 0])
-        time.sleep(0.01)
-    print("green")
-    for i in range(24):
-        set_num_color(i, [0, 255, 0])
-        time.sleep(0.01)
-    for i in range(24):
-        set_num_color(i, [0, 0, 0])
-        time.sleep(0.01)
-    print("blue")
-    for i in range(24):
-        set_num_color(i, [0, 0, 255])
-        time.sleep(0.01)
-    for i in range(24):
-        set_num_color(i, [0, 0, 0])
-        time.sleep(0.01)
-    print("white")
-    for i in range(24):
-        set_num_color(i, [255, 255, 255])
-        time.sleep(0.01)
-    for i in range(24):
-        set_num_color(i, [0, 0, 0])
-        time.sleep(0.01)
-
-def test_grayscale():
-    while True:
-        print(get_grayscale_list())
-        time.sleep(1)
-
-def test_speed():
-    while True:
-        print(speed.get_speed())
-        time.sleep(1)
-
-def test_ultrasonic():
-    while True:
-        get_angle_distance()
-        print(angle_distance)
-        time.sleep(1)
-        
-if __name__ == "__main__":
-    test_speed()
