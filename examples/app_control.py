@@ -39,35 +39,29 @@ def on_receive(data):
             car.write_light_color_at(1, [0, 0, 0])
             car.write_light_color_at(6, [0, 0, 0])
             car.write_light_color_at(7, [0, 0, 0])
+        car.light_excute()
             
         car.move(data['K_region'], data['H_region'])
     
     # RGB LED
     if 'M_region' in data.keys():
-        if data['M_region']:
-            if not led_status:
-                car.set_light_all_color([100, 100, 100])
-                led_status = True
-        else:
-            if led_status:
-                car.set_light_off()
-                led_status = False
+        led_status = data['M_region']
             
     # speed measurement
     ws.send_dict['A_region'] = car.speed()
-    # HUE color system, Red is 0, and Green is 120
-    hue = car.mapping(car.speed(), 0, 70, 120, 0)
-    rgb = car.hue2rgb(hue)
-    for i in range(16):
-        car.write_light_color_at(i+8, rgb)
+    if led_status:
+        # HUE color system, Red is 0, and Green is 120
+        hue = car.mapping(car.speed(), 0, 70, 120, 0)
+        rgb = car.hue2rgb(hue)
+        car.set_light_bottom_color(rgb)
+    else:
+        car.set_light_off()
     
     # radar
     ws.send_dict['D_region'] = car.get_radar_distance()
     
     # greyscale
     ws.send_dict['L_region'] = car.get_grayscale_values()
-    
-    car.light_excute()
 
 
 ws.on_receive = on_receive

@@ -6,14 +6,14 @@ import pico_4wd as car
 NAME = 'my_4wd_car'
 
 # Client Mode
-# WIFI_MODE = "sta"
-# SSID = "MakerStarsHall"
-# PASSWORD = "sunfounder"
+WIFI_MODE = "sta"
+SSID = "MakerStarsHall"
+PASSWORD = "sunfounder"
 
 # AP Mode
-WIFI_MODE = "ap"
-SSID = ""
-PASSWORD = "12345678"
+# WIFI_MODE = "ap"
+# SSID = ""
+# PASSWORD = "12345678"
 
 ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
 ws.start()
@@ -25,8 +25,12 @@ def on_receive(data):
     # write control codes here.
     
     # write sensor codes here.
-    print(data["K_region"])
+#     print(data["K_region"])
     # ws.send_dict['L_region'] = car.get_grayscale_values() # example for test sensor date sending.
+    print("get_data")
+    data = car.get_radar_distance()
+    print(data)
+    ws.send_dict['D_region'] = data
 
 ws.on_receive = on_receive
 

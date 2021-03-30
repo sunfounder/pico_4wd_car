@@ -1,11 +1,11 @@
 import pico_4wd as car
 
-car.RADAR_SAVE_REFERENCE = 20
+car.RADAR_WARNING_REFERENCE = 20
 car.RADAR_DANGER_REFERENCE = 10
 car.RADAR_MAX_ANGLE = 45
 car.RADAR_MIN_ANGLE = -45
 car.RADAR_STEP_ANGLE = 10
-MOTOR_FORWARD_POWER = 20
+MOTOR_FORWARD_POWER = 40
 MOTOR_TURNING_POWER = 80
 
 def main():
@@ -35,7 +35,7 @@ def main():
 #                         car.move("backward", MOTOR_POWER)
                         car.move("stop")
                     else:
-                        car.move("forward", MOTOR_TURNING_POWER)
+                        car.move("forward", MOTOR_FORWARD_POWER)
 
 try:
     main()

@@ -24,7 +24,7 @@ GRAYSCALE_LINE_REFERENCE = 10000
 # sonar = Ultrasonic(6, 7)
 sonar = Ultrasonic(20, 21)
 radar_data = [] 
-RADAR_SAVE_REFERENCE = 15
+RADAR_WARNING_REFERENCE = 15
 RADAR_DANGER_REFERENCE = 8
 RADAR_MAX_ANGLE = 90
 RADAR_MIN_ANGLE = -90
@@ -140,7 +140,7 @@ def get_radar_distance():
     return [radar_angle, distance]
 
 def get_radar_status_at(angle, distance):
-    if distance > RADAR_SAVE_REFERENCE or distance == -2:
+    if distance > RADAR_WARNING_REFERENCE or distance == -2:
         return 2
     elif distance > RADAR_DANGER_REFERENCE:
         return 1
