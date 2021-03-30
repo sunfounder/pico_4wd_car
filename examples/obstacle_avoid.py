@@ -1,53 +1,29 @@
 import pico_4wd as car
 
-scan_list = []
-
-SAVE_REFERENCE = 15
-DANGER_REFERENCE = 8
-MOTOR_POWER = 80
-MAX_ANGLE = 45
-MIN_ANGLE = 45
-
-def get_status_at(angle, distance):
-    if distance > SAVE_REFERENCE or distance == -2:
-        return 2
-    elif distance > DANGER_REFERENCE:
-        return 1
-    else:
-        return 0
-
-def scan_step():
-    global scan_list
-    angle, distance = car.get_radar_distance()
-    status = get_status_at(angle, distance)#ref1
-
-    scan_list.append(status)
-    if angle == car.MIN_ANGLE or angle == car.MAX_ANGLE:
-        if car.RADAR_STEP < 0:
-            # print("reverse")
-            scan_list.reverse()
-        # print(scan_list)
-        tmp = scan_list.copy()
-        scan_list = []
-        return tmp
-    else:
-        return False
+car.RADAR_SAVE_REFERENCE = 20
+car.RADAR_DANGER_REFERENCE = 10
+car.RADAR_MAX_ANGLE = 45
+car.RADAR_MIN_ANGLE = -45
+car.RADAR_STEP_ANGLE = 10
+MOTOR_FORWARD_POWER = 20
+MOTOR_TURNING_POWER = 80
 
 def main():
     while True:
-        scan_list = scan_step()
-        if scan_list:
-            tmp = scan_list[3:7]
-            print(tmp)
+        radar_data = car.radar_scan()
+        if radar_data:
+            # print("radar_data: %s" % radar_data)
+            tmp = radar_data[3:7]
             if tmp != [2,2,2,2]:
-                car.move("right", MOTOR_POWER)
-                car.set_all_light_color([100, 0, 0])
+                car.move("right", MOTOR_TURNING_POWER)
+                car.set_light_all_color([100, 0, 0])
             else:
-                car.move("forward", MOTOR_POWER)
-                car.set_all_light_color([0, 100, 0])
+                car.move("forward", MOTOR_FORWARD_POWER)
+                car.set_light_all_color([0, 100, 0])
 
 try:
     main()
 finally:
     car.move("stop")
     car.set_light_off()
+

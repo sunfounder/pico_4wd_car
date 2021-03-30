@@ -2,7 +2,7 @@ import pico_4wd as car
 import time
 
 def test_motor():
-    speed = 100
+    speed = 50
     act_list = [
         "forward",
         "backward",
@@ -22,44 +22,47 @@ def test_sonar():
         time.sleep(1)
 
 def test_servo():
-    while True:
-        for angle in range(-90, 90):
-            print("angle:%s "%angle)
-            car.servo.set_angle(angle)
-            time.sleep(0.005)
-        for angle in range(90, -90, -1):
-            print("angle:%s "%angle)
-            car.servo.set_angle(angle)
-            time.sleep(0.005)
+    for angle in range(0, 90):
+        print("angle:%s "%angle)
+        car.servo.set_angle(angle)
+        time.sleep(0.005)
+    for angle in range(90, -90, -1):
+        print("angle:%s "%angle)
+        car.servo.set_angle(angle)
+        time.sleep(0.005)
+    for angle in range(-90, 0):
+        print("angle:%s "%angle)
+        car.servo.set_angle(angle)
+        time.sleep(0.005)
 
 def test_light():
     print("red")
     for i in range(24):
-        car.set_light_color(i, [255, 0, 0])
+        car.set_light_color_at(i, [255, 0, 0])
         time.sleep(0.01)
     for i in range(24):
-        car.set_light_color(i, [0, 0, 0])
+        car.set_light_color_at(i, [0, 0, 0])
         time.sleep(0.01)
     print("green")
     for i in range(24):
-        car.set_light_color(i, [0, 255, 0])
+        car.set_light_color_at(i, [0, 255, 0])
         time.sleep(0.01)
     for i in range(24):
-        car.set_light_color(i, [0, 0, 0])
+        car.set_light_color_at(i, [0, 0, 0])
         time.sleep(0.01)
     print("blue")
     for i in range(24):
-        car.set_light_color(i, [0, 0, 255])
+        car.set_light_color_at(i, [0, 0, 255])
         time.sleep(0.01)
     for i in range(24):
-        car.set_light_color(i, [0, 0, 0])
+        car.set_light_color_at(i, [0, 0, 0])
         time.sleep(0.01)
     print("white")
     for i in range(24):
-        car.set_light_color(i, [255, 255, 255])
+        car.set_light_color_at(i, [255, 255, 255])
         time.sleep(0.01)
     for i in range(24):
-        car.set_light_color(i, [0, 0, 0])
+        car.set_light_color_at(i, [0, 0, 0])
         time.sleep(0.01)
 
 def test_grayscale():
@@ -88,10 +91,10 @@ def test_speed():
 try:
     # test_motor()
     # test_sonar()
-    # test_servo()
+    test_servo()
     # test_light()
     # test_grayscale()
-    test_speed()
+    # test_speed()
 finally:
     car.move("stop")
     car.set_light_off()

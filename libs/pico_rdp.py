@@ -13,6 +13,7 @@ class Speed():
 
     # wheel_perimeter(cm): 2 * pi * r
     WP = 2.0 * math.pi * 3.3
+    TIMER = 200
 
     def __init__(self, pin1, pin2):
         self.count = 0
@@ -24,7 +25,7 @@ class Speed():
         self.tim = Timer()
         left_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_left)
         right_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_right)
-        self.tim.init(period=1000, mode=Timer.PERIODIC, callback=self.on_timer)
+        self.tim.init(period=self.TIMER, mode=Timer.PERIODIC, callback=self.on_timer)
         
     def on_left(self, ch):
         self.count += 1
@@ -33,7 +34,7 @@ class Speed():
         self.count += 1
 
     def on_timer(self, ch):
-        self.cps = (self.count) / 2.0
+        self.cps = (self.count) / 2.0 * (1000 / self.TIMER)
         # 20 count per turn
         rps = self.cps / 20.0
         self.speed = round(rps * self.WP, 2)
