@@ -23,14 +23,14 @@ GRAYSCALE_LINE_REFERENCE = 10000
 # Ultrasonic
 # sonar = Ultrasonic(6, 7)
 sonar = Ultrasonic(20, 21)
-radar_data = [] 
-RADAR_WARNING_REFERENCE = 15
-RADAR_DANGER_REFERENCE = 8
+radar_data = []
+RADAR_REFERENCE = 20
 RADAR_MAX_ANGLE = 90
 RADAR_MIN_ANGLE = -90
 RADAR_STEP_ANGLE = 10
 radar_step = -RADAR_STEP_ANGLE
 radar_angle = 0
+radar_scan_angle = 180
 
 def set_light_all_color(color):
     for i in range(24):
@@ -139,10 +139,23 @@ def get_radar_distance():
     distance = get_radar_distance_at(radar_angle)
     return [radar_angle, distance]
 
-def get_radar_status_at(angle, distance):
-    if distance > RADAR_WARNING_REFERENCE or distance == -2:
-        return 2
-    elif distance > RADAR_DANGER_REFERENCE:
+def set_radar_scan_angle(angle):
+    global RADAR_MAX_ANGLE, RADAR_MIN_ANGLE, radar_angle, radar_step, radar_scan_angle
+    if radar_scan_angle == angle:
+        return
+    radar_scan_angle = angle
+    RADAR_MAX_ANGLE = int(angle / 2)
+    RADAR_MIN_ANGLE = -RADAR_MAX_ANGLE
+    if radar_step < 0:
+        radar_angle = RADAR_MIN_ANGLE
+        radar_step = RADAR_STEP_ANGLE
+    else:
+        radar_angle = RADAR_MAX_ANGLE
+        radar_step = -RADAR_STEP_ANGLE
+    servo.set_angle(radar_angle)
+
+def get_radar_status(distance):
+    if distance > RADAR_REFERENCE:
         return 1
     else:
         return 0
@@ -150,7 +163,7 @@ def get_radar_status_at(angle, distance):
 def radar_scan():
     global radar_data
     angle, distance = get_radar_distance()
-    status = get_radar_status_at(angle, distance)#ref1
+    status = get_radar_status(distance)
 
     radar_data.append(status)
     if angle == RADAR_MIN_ANGLE or angle == RADAR_MAX_ANGLE:
@@ -162,7 +175,7 @@ def radar_scan():
         radar_data = []
         return tmp
     else:
-        return False
+        return status
 
 # slowly increase power of the motor, to avoid hight reverse voltage from motors
 def set_motor_power_gradually(*powers):
@@ -197,5 +210,4 @@ def move(dir, power=0):
         set_motor_power_gradually(power, -power, power, -power)
     else:
         set_motor_power_gradually(0, 0, 0, 0)
-
 

@@ -1,7 +1,6 @@
 import pico_4wd as car
 
-car.RADAR_WARNING_REFERENCE = 20
-car.RADAR_DANGER_REFERENCE = 10
+car.RADAR_REFERENCE = 20
 car.RADAR_MAX_ANGLE = 45
 car.RADAR_MIN_ANGLE = -45
 car.RADAR_STEP_ANGLE = 10
@@ -14,7 +13,7 @@ def main():
         if radar_data:
             radar_data = [str(i) for i in radar_data]
             radar_data = "".join(radar_data)
-            paths = radar_data.split("2")
+            paths = radar_data.split("1")
             length_list = []
             for path in paths:
                 length_list.append(len(path))
