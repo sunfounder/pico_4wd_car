@@ -107,8 +107,10 @@ class WS_Server():
         else:
             try:
                 # print("on revceive: %s" % receive)
-                receive = json.loads(receive)
-                self.on_receive(receive)
+                data = json.loads(receive)
+                if isinstance(data, str):
+                    data = json.loads(data)
+                self.on_receive(data)
             except ValueError as e:
                 print(e)
             self.send_data()
