@@ -24,8 +24,10 @@ class WS_Server():
         self.client_s = None
         self.ws = None
         self.wlan = None
-        
+
         self.send_dict["Name"] = self.name
+
+        self.set("RESET")
 
     def read(self):
         buf = ""
@@ -34,6 +36,7 @@ class WS_Server():
             if buf[0] == 0xff:
                 buf = buf[1:]
             buf = buf.decode().replace("\r\n", "")
+            # print("buf: %s" % buf)
             if buf.startswith("[DEBUG] "):
                 buf = buf.replace("[DEBUG]", "[ESP8266]")
                 print(buf)
@@ -58,9 +61,15 @@ class WS_Server():
 
     def set(self, command, value=None):
         self._command("SET", command, value)
-        result = self.read()
-        if result.startswith("[ERROR]"):
-            raise ValueError(result)
+        while True:
+            result = self.read()
+            # print("Result: %s" % result)
+            if result.startswith("[ERROR]"):
+                raise ValueError(result)
+            if result.startswith("[OK]"):
+                result = result[4:]
+                result = result.strip(" ")
+                break
         return result
 
     def _get(self, command):

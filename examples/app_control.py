@@ -3,12 +3,12 @@ import json
 import time
 import pico_4wd as car
 
-NAME = 'my_4wd_car'
+NAME = 'my_pico_car'
 
 # Client Mode
 # WIFI_MODE = "sta"
-# SSID = "YOUR SSID HERE"
-# PASSWORD = "YOUR PASSWORD HERE"
+# SSID = "YOUR_SSID_HERE"
+# PASSWORD = "YOUR_PASSWORD_HERE"
 
 # AP Mode
 WIFI_MODE = "ap"
@@ -24,6 +24,7 @@ def on_receive(data):
 
     #Move
     if 'K_region' in data.keys() and 'H_region' in data.keys():
+        # print(data['K_region'])
         if data['K_region'] == "left":
             car.write_light_color_at(0, [0, 0, 0])
             car.write_light_color_at(1, [0, 0, 0])
@@ -42,6 +43,29 @@ def on_receive(data):
         car.light_excute()
             
         car.move(data['K_region'], data['H_region'])
+    
+#     if 'K_region' in data.keys() and 'Q_region' in data.keys():
+        # print(data['K_region'])
+#         if data['K_region'] == "left":
+#             car.write_light_color_at(0, [0, 0, 0])
+#             car.write_light_color_at(1, [0, 0, 0])
+#             car.write_light_color_at(6, [50, 50, 0])
+#             car.write_light_color_at(7, [50, 50, 0])
+#         elif data['K_region'] == "right":
+#             car.write_light_color_at(0, [50, 50, 0])
+#             car.write_light_color_at(1, [50, 50, 0])
+#             car.write_light_color_at(6, [0, 0, 0])
+#             car.write_light_color_at(7, [0, 0, 0])
+#         else:
+#             car.write_light_color_at(0, [0, 0, 0])
+#             car.write_light_color_at(1, [0, 0, 0])
+#             car.write_light_color_at(6, [0, 0, 0])
+#             car.write_light_color_at(7, [0, 0, 0])
+#         car.light_excute()
+            
+#         left_speed = data['K_region'][1]
+#         right_speed = data['Q_region'][1]
+#         car.set_motor_power(left_speed, right_speed, left_speed, right_speed)
     
     # RGB LED
     if 'M_region' in data.keys():
@@ -76,4 +100,3 @@ try:
 finally:
     car.move("stop")
     car.set_light_off()
-

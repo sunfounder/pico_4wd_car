@@ -21,8 +21,7 @@ GRAYSCALE_EDGE_REFERENCE = 20
 GRAYSCALE_LINE_REFERENCE = 10000
 
 # Ultrasonic
-# sonar = Ultrasonic(6, 7)
-sonar = Ultrasonic(20, 21)
+sonar = Ultrasonic(6, 7)
 radar_data = []
 RADAR_REFERENCE = 20
 RADAR_MAX_ANGLE = 90
@@ -210,4 +209,3 @@ def move(dir, power=0):
         set_motor_power_gradually(power, -power, power, -power)
     else:
         set_motor_power_gradually(0, 0, 0, 0)
-
