@@ -8,85 +8,99 @@ Module for pico 4wd car
 
 `set_light_all_color(color)`: Set all LED color
 
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_all_color([100, 0, 0]) # set all LED color to red
-set_light_all_color([0, 100, 0]) # set all LED color to green
-set_light_all_color([0, 0, 100]) # set all LED color to blue
+import pico_4wd as car
+
+car.set_light_all_color([100, 0, 0]) # set all LED color to red
+car.set_light_all_color([0, 100, 0]) # set all LED color to green
+car.set_light_all_color([0, 0, 100]) # set all LED color to blue
 ```
 
 `set_light_color_at(num, color)`: Set single LED color
 
 - `num`: int for the position of LED, from 0 to 23
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_color_at(1, [100, 0, 0]) # set the first LED color to red
+import pico_4wd as car
+
+car.set_light_color_at(1, [100, 0, 0]) # set the first LED color to red
 
 # set rear LED strip to green
 for i in range(0, 8):
-    set_light_all_color(i, [0, 100, 0])
+    car.set_light_all_color(i, [0, 100, 0])
 # set bottom LED strip to red
 for i in range(8, 24):
-    set_light_all_color(i, [100, 0, 0])
+    car.set_light_all_color(i, [100, 0, 0])
 ```
 
 `set_light_bottom_left_color(color)`: Set bottom left LED strip color
 
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_bottom_left_color([100, 0, 0]) # set bottom left LED strip color to red
+import pico_4wd as car
+
+car.set_light_bottom_left_color([100, 0, 0]) # set bottom left LED strip color to red
 ```
 
 `set_light_bottom_right_color(color)`: Set bottom left LED strip color
 
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_bottom_right_color([100, 0, 0]) # set bottom left LED strip color to red
+import pico_4wd as car
+
+car.set_light_bottom_right_color([100, 0, 0]) # set bottom left LED strip color to red
 ```
 
 `set_light_bottom_color(color)`:  Set both bottom LED strips color
 
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_bottom_color([100, 0, 0]) # set bottom LED strip color to red
+import pico_4wd as car
+
+car.set_light_bottom_color([100, 0, 0]) # set bottom LED strip color to red
 ```
 
 `set_light_rear_color(color)`:  Set rear LED strip color
 
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-set_light_rear_color([100, 0, 0]) # set bottom LED strip color to red
+import pico_4wd as car
+
+car.set_light_rear_color([100, 0, 0]) # set bottom LED strip color to red
 ```
 
 `write_light_color_at(num, color)`: Write single LED color to buffer, but not excute
 
 - `num`: int for the position of LED, from 0 to 23
-- `color`: list of [R, G, B]
+- `color`: list of [R, G, B], R/G/B range 0~255
 - return: None
 
 ```python
-write_light_color_at(1, [100, 0, 0]) # set the first LED color to red
+import pico_4wd as car
+
+car.write_light_color_at(1, [100, 0, 0]) # set the first LED color to red
 
 # set rear LED strip to green
 for i in range(0, 8):
-    write_light_color_at(i, [0, 100, 0])
-light_excute()
+    car.write_light_color_at(i, [0, 100, 0])
+car.light_excute()
 # set bottom LED strip to red
 for i in range(8, 24):
-    write_light_color_at(i, [100, 0, 0])
-light_excute()
+    car.write_light_color_at(i, [100, 0, 0])
+car.light_excute()
 ```
 
 `light_excute()`: Excute light from buffer
@@ -94,17 +108,19 @@ light_excute()
 - return: None
 
 ```python
-write_light_color_at(1, [100, 0, 0]) # set the first LED color to red
-light_excute()
+import pico_4wd as car
+
+car.write_light_color_at(1, [100, 0, 0]) # set the first LED color to red
+car.light_excute()
 
 # set rear LED strip to green
 for i in range(0, 8):
-    write_light_color_at(i, [0, 100, 0])
-light_excute()
+    car.write_light_color_at(i, [0, 100, 0])
+car.light_excute()
 # set bottom LED strip to red
 for i in range(8, 24):
-    write_light_color_at(i, [100, 0, 0])
-light_excute()
+    car.write_light_color_at(i, [100, 0, 0])
+car.light_excute()
 ```
 
 `set_light_off()`: Turn all LED off
@@ -112,11 +128,16 @@ light_excute()
 - return: None
 
 ```python
+import pico_4wd as car
+import time
+
 # All led blink red
-set_light_all_color([100, 0, 0])
-set_light_off()
-set_light_all_color([100, 0, 0])
-set_light_off()
+while True:
+    car.set_light_all_color([100, 0, 0])
+    car.set_light_off()
+    car.set_light_all_color([100, 0, 0])
+    car.set_light_off()
+    time.sleep(1)
 ```
 
 `hue2rgb(_h, _s = 1, _b = 1)`: Convert HSB to RGB
@@ -127,153 +148,222 @@ set_light_off()
 - return: `[r, g, b]`
 
 ```python
+import pico_4wd as car
+
 # All led to red
-rgb = hue2rgb(0, 1, 1)
-set_light_all_color(rgb)
+rgb = car.hue2rgb(0, 1, 1)
+car.set_light_all_color(rgb)
 # All led to green
-rgb = hue2rgb(120, 1, 1)
-set_light_all_color(rgb)
+rgb = car.hue2rgb(120, 1, 1)
+car.set_light_all_color(rgb)
 # All led to blue
-rgb = hue2rgb(240, 1, 1)
-set_light_all_color(rgb)
+rgb = car.hue2rgb(240, 1, 1)
+car.set_light_all_color(rgb)
 ```
 
 ### Grayscale sensor
 
 `get_grayscale_values()`: Get grayscale values
 
-- return [left, middle, right], each 0~65535
+- return: [left, middle, right], each 0~65535
 
 ```python
-print(get_grayscale_values())
+import pico_4wd as car
+import time
+
+while True:
+    print(car.get_grayscale_values())
+    time.sleep(1)
 ```
 
-def is_greyscale_on_edge():
-    ref = GRAYSCALE_EDGE_REFERENCE
-    gs_list = get_grayscale_values()
-    return gs_list[2] <= ref or gs_list[1] <= ref or gs_list[0] <= ref
+`is_greyscale_on_edge()`: Check if the car is on edge according to `GRAYSCALE_EDGE_REFERENCE`
 
-def get_greyscale_status():
-    ref = GRAYSCALE_LINE_REFERENCE
-    return [int(value < ref) for value in get_grayscale_values()]
+- return: True/False
 
-# Radar
-def get_radar_distance_at(angle):
-    servo.set_angle(angle)
-    time.sleep(0.04)
-    distance = sonar.get_distance()
-    return distance
+```python
+import pico_4wd as car
+import time
 
-def get_radar_distance():
-    global radar_angle, radar_step
-    radar_angle += radar_step
-    if radar_angle >= RADAR_MAX_ANGLE:
-        radar_angle = RADAR_MAX_ANGLE
-        radar_step = -RADAR_STEP_ANGLE
-    elif radar_angle <= RADAR_MIN_ANGLE:
-        radar_angle = RADAR_MIN_ANGLE
-        radar_step = RADAR_STEP_ANGLE
-    distance = get_radar_distance_at(radar_angle)
-    return [radar_angle, distance]
+while True:
+    print(car.is_greyscale_on_edge())
+    time.sleep(1)
+```
 
-def set_radar_scan_angle(angle):
-    global RADAR_MAX_ANGLE, RADAR_MIN_ANGLE, radar_angle, radar_step, radar_scan_angle
-    if radar_scan_angle == angle:
-        return
-    radar_scan_angle = angle
-    RADAR_MAX_ANGLE = int(angle / 2)
-    RADAR_MIN_ANGLE = -RADAR_MAX_ANGLE
-    if radar_step < 0:
-        radar_angle = RADAR_MIN_ANGLE
-        radar_step = RADAR_STEP_ANGLE
+`get_greyscale_status()`: Get Grayscale status according to `GRAYSCALE_LINE_REFERENCE`
+
+- return: [status, status, status] status = 1/0 as line/not
+
+```python
+import pico_4wd as car
+import time
+
+while True:
+    print(car.get_greyscale_status())
+    time.sleep(1)
+```
+
+### Radar
+
+`get_radar_distance_at(angle)`: Turn the servo of radar at the angle and return distance
+
+- `angle`: -90~90
+- return: distance unit cm
+
+```python
+import pico_4wd as car
+import time
+
+while True:
+    print("distance: %scm"%car.get_radar_distance_at(0))
+    time.sleep(1)
+```
+
+`get_radar_distance()`:  Turn the servo of radar by step at every call of this method, and return distance
+
+- return: distance unit cm
+
+```python
+import pico_4wd as car
+import time
+
+while True:
+    print("angle: %s, distance: %scm"%(car.rada_rangle, car.get_radar_distance_at(0))
+    time.sleep(1)
+```
+
+`set_radar_scan_angle(angle)`: Set radar scan angle, 180 for a full scan, 90 for  only scan ahead
+
+- `angle`: 0~180
+- return: None
+
+```python
+import pico_4wd as car
+
+car.set_radar_scan_angle(90)
+while True:
+    print("angle: %s, distance: %scm"%(car.rada_rangle, car.get_radar_distance_at(0))
+```
+
+`get_radar_status(distance)`: Convert distance to status base on `RADAR_REFERENCE`
+
+- `distance`: distance normally get from sonar reads
+- return: 0/1 0 in under reference, 1 is over
+
+```python
+import pico_4wd as car
+import time
+
+while True:
+    distance = car.get_radar_distance_at(0)
+    print("Radar status at 90: %s" % car.get_radar_status(distance))
+    time.sleep(1)
+```
+
+`radar_scan()`: radar scan to get a list of status when scan finished or current angle status if not.
+
+- return: list of status or current status, 0 in under reference, 1 is over
+
+```python
+import pico_4wd as car
+import time
+
+while True:
+    status = radar_scan
+    if isinstance(status, int):
+        print("Scanning, current status: %s" % status)
     else:
-        radar_angle = RADAR_MAX_ANGLE
-        radar_step = -RADAR_STEP_ANGLE
-    servo.set_angle(radar_angle)
+        print("Scan finished, status: %s" % status)
+    time.sleep(1)
+```
 
-def get_radar_status(distance):
-    if distance > RADAR_REFERENCE:
-        return 1
-    else:
-        return 0
+`set_motor_power_gradually(*powers)`: slowly increase power of the motor, to avoid hight reverse voltage from motors. but this will slows the motor react, not suit for high reaction application like avoid obstacle and line tracking
 
-def radar_scan():
-    global radar_data
-    angle, distance = get_radar_distance()
-    status = get_radar_status(distance)
+- `powers`: powers for left front motor, right front motor, left rear motor, right rear motor
+- return: None
 
-    radar_data.append(status)
-    if angle == RADAR_MIN_ANGLE or angle == RADAR_MAX_ANGLE:
-        if radar_step < 0:
-            # print("reverse")
-            radar_data.reverse()
-        # print(radar_data)
-        tmp = radar_data.copy()
-        radar_data = []
-        return tmp
-    else:
-        return status
+```python
+import pico_4wd as car
+import time
 
-# slowly increase power of the motor, to avoid hight reverse voltage from motors
-def set_motor_power_gradually(*powers):
-    flags = [True, True, True, True]
-    while flags[0] or flags[1] or flags[2] or flags[3]:
-        for i, motor in enumerate(motors):
-            # print(motor.power, powers[i])
-            if motor.power > powers[i]:
-                motor.power -= 1
-            elif motor.power < powers[i]:
-                motor.power += 1
-            else:
-                flags[i] = False
-        time.sleep_ms(1)
+# all motors from 100 to -100, then -100 to 100, but gradually
+while True:
+    car.set_motor_power_gradually(100, 100, 100, 100)
+    time.sleep(1)
+    car.set_motor_power_gradually(-100, -100, -100, -100)
+    time.sleep(1)
+```
 
 # set power 
-def set_motor_power(*powers):
-    for i, motor in enumerate(motors):
-        motor.power = powers[i]
+`set_motor_power(*powers)`: Set all motor powers immediatlly, carefully use this method.
 
-def stop():
-    set_motor_power(0, 0, 0, 0)
+- `powers`: powers for left front motor, right front motor, left rear motor, right rear motor
+- return: None
 
-def move(dir, power=0):
-    if dir == "forward":
-        set_motor_power_gradually(power, power, power, power)
-    elif dir == "backward":
-        set_motor_power_gradually(-power, -power, -power, -power)
-    elif dir == "left":
-        set_motor_power_gradually(-power, power, -power, power)
-    elif dir == "right":
-        set_motor_power_gradually(power, -power, power, -power)
-    else:
-        set_motor_power_gradually(0, 0, 0, 0)
+```python
+import pico_4wd as car
+import time
 
+# all motors from 30 to -30, then -30 to 30, DONOT try from 100 to -100 or -100 to 100.
+while True:
+    car.set_motor_power(30, 30, 30, 30)
+    time.sleep(1)
+    car.set_motor_power(-30, -30, -30, -30)
+    time.sleep(1)
+```
 
-# Atrtribute
-left_front  = Motor(17, 16, dir=-1) # motor 1
-right_front = Motor(15, 14, dir=1) # motor 2
-left_rear   = Motor(13, 12, dir=-1) # motor 3
-right_rear  = Motor(11, 10, dir=1) # motor 4
-motors = [left_front, right_front, left_rear, right_rear]
+`stop()`: Stop all motors
 
-servo = Servo(18)
-speed = Speed(8, 9)
+- return: None
 
-np =  WS2812(Pin(19, Pin.OUT), 24)
+```python
+import pico_4wd as car
+import time
 
-gs0 = ADC(Pin(26))
-gs1 = ADC(Pin(27))
-gs2 = ADC(Pin(28))
-GRAYSCALE_EDGE_REFERENCE = 20
-GRAYSCALE_LINE_REFERENCE = 10000
+def main():
+    # all motors from 30 to -30, then -30 to 30, DONOT try from 100 to -100 or -100 to 100.
+    car.set_motor_power(30, 30, 30, 30)
+    time.sleep(3)
 
-# Ultrasonic
-sonar = Ultrasonic(6, 7)
-radar_data = []
-RADAR_REFERENCE = 20
-RADAR_MAX_ANGLE = 90
-RADAR_MIN_ANGLE = -90
-RADAR_STEP_ANGLE = 10
-radar_step = -RADAR_STEP_ANGLE
-radar_angle = 0
-radar_scan_angle = 180
+# Add stop to finally to stop the car when you code finished or after you terminate it
+try:
+    main()
+finally:
+    car.stop()
+```
+
+`move(dir, power=0)`: Move the Car with simple strings
+
+- dir: `"forward"`/`"backward"`/`"left"`/`"right"`
+- power: 0~100
+- return: None
+
+```python
+import pico_4wd as car
+import time
+
+def main():
+    # all motors from 30 to -30, then -30 to 30, DONOT try from 100 to -100 or -100 to 100.
+    car.move("forward", 50)
+    time.sleep(1)
+    car.move("backward", 50)
+    time.sleep(1)
+    car.move("left", 50)
+    time.sleep(1)
+    car.move("right", 50)
+    time.sleep(1)
+
+# Add stop to finally to stop the car when you code finished or after you terminate it
+try:
+    main()
+finally:
+    car.stop()
+```
+
+## Atrtribute
+
+- `GRAYSCALE_EDGE_REFERENCE`: Reference for detecting edged
+- `GRAYSCALE_LINE_REFERENCE`: Reference for detecting Line
+- `RADAR_REFERENCE`: Reference for detecting obstables
+- `RADAR_MAX_ANGLE`: Max angle for radar scanning
+- `RADAR_MIN_ANGLE`: Min angle for radar scanning
+- `RADAR_STEP_ANGLE`: Angle of every step for radar scanning
