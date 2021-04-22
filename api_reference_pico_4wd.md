@@ -227,8 +227,9 @@ import pico_4wd as car
 import time
 
 while True:
-    print("angle: %s, distance: %scm"%(car.rada_rangle, car.get_radar_distance_at(0))
-    time.sleep(1)
+    angle, distance = car.get_radar_distance()
+    print("angle: %s, distance: %scm"%(angle, distance)
+    time.sleep(0.5)
 ```
 
 `set_radar_scan_angle(angle)`: Set radar scan angle, 180 for a full scan, 90 for  only scan ahead
@@ -241,7 +242,9 @@ import pico_4wd as car
 
 car.set_radar_scan_angle(90)
 while True:
-    print("angle: %s, distance: %scm"%(car.rada_rangle, car.get_radar_distance_at(0))
+    angle, distance = car.get_radar_distance()
+    print("angle: %s, distance: %scm"%(angle, distance)
+    time.sleep(0.5)
 ```
 
 `get_radar_status(distance)`: Convert distance to status base on `RADAR_REFERENCE`
