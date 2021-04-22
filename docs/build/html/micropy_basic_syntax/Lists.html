@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Lists &mdash; pico_4wd_car  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Test Your Module" href="../test_your_module.html" />
+    <link rel="prev" title="Operators" href="Operators.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pico_4wd_car
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="micropython_basic_syntax.html">MicroPython Basic Syntax</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Indentation.html">Indentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Comments.html">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Print.html">Print()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="If...Else.html">If…Else</a></li>
+<li class="toctree-l2"><a class="reference internal" href="While Loops.html">While Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="For Loops.html">For Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Data Types.html">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Operators.html">Operators</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lists</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#list-length">List Length</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-list-items">Check List items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-list-items">Change List Items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-list-items">Add List Items</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove-list-items">Remove List Items</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../test_your_module.html">Test Your Module</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pico_4wd_car</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="micropython_basic_syntax.html">MicroPython Basic Syntax</a> &raquo;</li>
+        
+      <li>Lists</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/micropy_basic_syntax/Lists.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lists">
+<h1>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h1>
+<p>Lists are used to store multiple items in a single variable, and are created using square brackets:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">B_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Blossom&quot;</span><span class="p">,</span> <span class="s2">&quot;Bubbles&quot;</span><span class="p">,</span><span class="s2">&quot;Buttercup&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">B_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>List items are changeable, ordered, and allow duplicate values.
+The list items are indexed, with the first item having index [0], the second item having index [1], and so on.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>            <span class="c1"># duplicate</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>         <span class="c1"># ordered</span>
+<span class="n">C_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Purple&quot;</span>     <span class="c1"># changeable</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Red&#39;, &#39;Blue&#39;, &#39;Green&#39;, &#39;Blue&#39;]
+Red
+Blue
+[&#39;Red&#39;, &#39;Blue&#39;, &#39;Purple&#39;, &#39;Blue&#39;]
+</pre></div>
+</div>
+<p>A list can contain different data types:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Banana&#39;, 255, False, 3.14]
+</pre></div>
+</div>
+<div class="section" id="list-length">
+<h2>List Length<a class="headerlink" href="#list-length" title="Permalink to this headline">¶</a></h2>
+<p>To determine how many items are in the list, use the len() function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A_list</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+4
+</pre></div>
+</div>
+</div>
+<div class="section" id="check-list-items">
+<h2>Check List items<a class="headerlink" href="#check-list-items" title="Permalink to this headline">¶</a></h2>
+<p>Print the second item of the list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[255]
+</pre></div>
+</div>
+<p>Print the last one item of the list:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[3.14]
+</pre></div>
+</div>
+<p>Print the second, third item:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[255, False]
+</pre></div>
+</div>
+</div>
+<div class="section" id="change-list-items">
+<h2>Change List Items<a class="headerlink" href="#change-list-items" title="Permalink to this headline">¶</a></h2>
+<p>Change the second, third item:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="n">A_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;Orange&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Banana&#39;, True, &#39;Orange&#39;, 3.14]
+</pre></div>
+</div>
+<p>Change the second value by replacing it with two values:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]</span>
+<span class="n">A_list</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="s2">&quot;Orange&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Banana&#39;, True, &#39;Orange&#39;, False, 3.14]
+</pre></div>
+</div>
+</div>
+<div class="section" id="add-list-items">
+<h2>Add List Items<a class="headerlink" href="#add-list-items" title="Permalink to this headline">¶</a></h2>
+<p>Using the append() method to add an item:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">]</span>
+<span class="n">C_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Orange&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Red&#39;, &#39;Blue&#39;, &#39;Green&#39;, &#39;Orange&#39;]
+</pre></div>
+</div>
+<p>Insert an item as the second position:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">]</span>
+<span class="n">C_list</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Orange&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Red&#39;, &#39;Orange&#39;, &#39;Blue&#39;, &#39;Green&#39;]
+</pre></div>
+</div>
+</div>
+<div class="section" id="remove-list-items">
+<h2>Remove List Items<a class="headerlink" href="#remove-list-items" title="Permalink to this headline">¶</a></h2>
+<p>The remove() method removes the specified item.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">]</span>
+<span class="n">C_list</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s2">&quot;Blue&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Red&#39;, &#39;Green&#39;]
+</pre></div>
+</div>
+<p>The pop() method removes the specified index. If you do not specify the index, the pop() method removes the last item.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Banana&quot;</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span><span class="s2">&quot;Orange&quot;</span><span class="p">]</span>
+<span class="n">A_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>
+<span class="n">A_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">A_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+255
+[&#39;Banana&#39;, False, 3.14, True, &#39;Orange&#39;]
+&#39;Orange&#39;
+[&#39;Banana&#39;, False, 3.14, True]
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">del</span></code> keyword also removes the specified index:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">C_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[&#39;Red&#39;, &#39;Green&#39;]
+</pre></div>
+</div>
+<p>The clear() method empties the list. The list still remains, but it has no content.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">]</span>
+<span class="n">C_list</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">C_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+[]
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../test_your_module.html" class="btn btn-neutral float-right" title="Test Your Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Operators.html" class="btn btn-neutral float-left" title="Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

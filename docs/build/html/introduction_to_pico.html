@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Introduction to Raspberry Pi Pico &mdash; pico_4wd_car  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Setup Your Pico" href="setup_your_pico/setup_your_pico.html" />
+    <link rel="prev" title="Welcome to pico_4wd_car’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pico_4wd_car
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction to Raspberry Pi Pico</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pico-s-pins">Pico’s Pins</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_your_module.html">Test Your Module</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pico_4wd_car</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Introduction to Raspberry Pi Pico</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/introduction_to_pico.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduction-to-raspberry-pi-pico">
+<h1>Introduction to Raspberry Pi Pico<a class="headerlink" href="#introduction-to-raspberry-pi-pico" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="_images/pico.jpg"><img alt="_images/pico.jpg" class="align-center" src="_images/pico.jpg" style="width: 400px;" /></a>
+<p>The Raspberry Pi Pico is a microcontroller board based on the Raspberry Pi RP2040 microcontroller chip.</p>
+<p>Whether you want to learn the MicroPython programming language, take the first step in physical computing, or want to build a hardware project, Raspberry Pi Pico –
+and its amazing community – will support you every step of the way. In the project, it can control anything, from LEDs and buttons to sensors, motors, and even other microcontrollers.</p>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>21 mm × 51 mm form factor</p></li>
+<li><p>RP2040 microcontroller chip designed by Raspberry Pi in the UK</p></li>
+<li><p>Dual-core Arm Cortex-M0+ processor, flexible clock running up to 133 MHz</p></li>
+<li><p>264KB on-chip SRAM</p></li>
+<li><p>2MB on-board QSPI Flash</p></li>
+<li><p>26 multifunction GPIO pins, including 3 analog inputs</p></li>
+<li><p>2 × UART, 2 × SPI controllers, 2 × I2C controllers, 16 × PWM channels</p></li>
+<li><p>1 × USB 1.1 controller and PHY, with host and device support</p></li>
+<li><p>8 × Programmable I/O (PIO) state machines for custom peripheral support</p></li>
+<li><p>Supported input power 1.8–5.5V DC</p></li>
+<li><p>Operating temperature -20°C to +85°C</p></li>
+<li><p>Castellated module allows soldering direct to carrier boards</p></li>
+<li><p>Drag-and-drop programming using mass storage over USB</p></li>
+<li><p>Low-power sleep and dormant modes</p></li>
+<li><p>Accurate on-chip clock</p></li>
+<li><p>Temperature sensor</p></li>
+<li><p>Accelerated integer and floating-point libraries on-chip</p></li>
+</ul>
+</div>
+<div class="section" id="pico-s-pins">
+<h2>Pico’s Pins<a class="headerlink" href="#pico-s-pins" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/pico_pin.jpg" src="_images/pico_pin.jpg" />
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 28%" />
+<col style="width: 56%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>GP0-GP28</p></td>
+<td><p>General-purpose input/output pins</p></td>
+<td><p>Act as either input or output and have no fixed purpose of their own</p></td>
+</tr>
+<tr class="row-odd"><td><p>GND</p></td>
+<td><p>0 volts ground</p></td>
+<td><p>Several GND pins around Pico to make wiring easier.</p></td>
+</tr>
+<tr class="row-even"><td><p>RUN</p></td>
+<td><p>Enables or diables your Pico</p></td>
+<td><p>Start and stop your Pico from another microcontroller.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPxx_ADCx</p></td>
+<td><p>General-purpose input/output or analog input</p></td>
+<td><p>Used as an analog input as well as a digital input or output – but not both at the same time.</p></td>
+</tr>
+<tr class="row-even"><td><p>ADC_VREF</p></td>
+<td><p>Analog-to-digital converter (ADC) voltage reference</p></td>
+<td><p>A special input pin which sets a reference voltage for any analog inputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>AGND</p></td>
+<td><p>Analog-to-digital converter (ADC) 0 volts ground</p></td>
+<td><p>A special ground connection for use with the ADC_VREF pin.</p></td>
+</tr>
+<tr class="row-even"><td><p>3V3(O)</p></td>
+<td><p>3.3 volts power</p></td>
+<td><p>A source of 3.3V power, the same voltage your Pico runs at internally, generated from the VSYS input.</p></td>
+</tr>
+<tr class="row-odd"><td><p>3v3(E)</p></td>
+<td><p>Enables or disables the power</p></td>
+<td><p>Switch on or off the 3V3(O) power, can also switches your Pico off.</p></td>
+</tr>
+<tr class="row-even"><td><p>VSYS</p></td>
+<td><p>2-5 volts power</p></td>
+<td><p>A pin directly connected to your Pico’s internal power supply, which cannot be switched off without also switching Pico off.</p></td>
+</tr>
+<tr class="row-odd"><td><p>VBUS</p></td>
+<td><p>5 volts power</p></td>
+<td><p>A source of 5 V power taken from your Pico’s micro USB port, and used to power hardware which needs more than 3.3 V.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The best place to find everything you need to get started with your Raspberry Pi Pico is <a class="reference external" href="https://www.raspberrypi.org/documentation/pico/getting-started/">here</a></p>
+<p>Or you can click on the links below:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/pico-product-brief.pdf">Raspberry Pi Pico product brief</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/pico-datasheet.pdf">Raspberry Pi Pico datasheet</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/getting-started-with-pico.pdf">Getting started with Raspberry Pi Pico: C/C++ development</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-c-sdk.pdf">Raspberry Pi Pico C/C++ SDK</a></p></li>
+<li><p><a class="reference external" href="https://raspberrypi.github.io/pico-sdk-doxygen/">API-level Doxygen documentation for the Raspberry Pi Pico C/C++ SDK</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/raspberry-pi-pico-python-sdk.pdf">Raspberry Pi Pico Python SDK</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/rp2040/rp2040-datasheet.pdf">Raspberry Pi RP2040 datasheet</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/rp2040/hardware-design-with-rp2040.pdf">Hardware design with RP2040</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/RPi-Pico-R3-PUBLIC-20200119.zip">Raspberry Pi Pico design files</a></p></li>
+<li><p><a class="reference external" href="https://datasheets.raspberrypi.org/pico/Pico-R3-step.zip">Raspberry Pi Pico STEP file</a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="setup_your_pico/setup_your_pico.html" class="btn btn-neutral float-right" title="Setup Your Pico" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to pico_4wd_car’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Don’t Push Me &mdash; pico_4wd_car  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Line Track" href="example_line_track.html" />
+    <link rel="prev" title="Example" href="example.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pico_4wd_car
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_your_module.html">Test Your Module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="example.html">Example</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Don’t Push Me</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">程序流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example_line_track.html">Line Track</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_bull_fight.html">Bull Fight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_obstacle_avoid.html">Obstacle Avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_app_control.html">APP Control</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pico_4wd_car</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="example.html">Example</a> &raquo;</li>
+        
+      <li>Don’t Push Me</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/example_donot_push_me.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dont-push-me">
+<h1>Don’t Push Me<a class="headerlink" href="#dont-push-me" title="Permalink to this headline">¶</a></h1>
+<p>让我们为Pico-4wd赋予一点“自我保护意识”，让它学会使用自己的grayscale module来避免冲下悬崖。</p>
+<p>在这个示例中，小车会处于休眠状态。如果你把它推向悬崖，它会紧急唤醒，后退，并摇头表示不满。请打开 <code class="docutils literal notranslate"><span class="pre">donot_push_me.py</span></code> 使用这个示例。</p>
+<div class="section" id="id1">
+<h2>程序流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/flowchart_donot_push_me.png" src="_images/flowchart_donot_push_me.png" />
+</div>
+<div class="section" id="id2">
+<h2>代码<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pico_4wd</span> <span class="k">as</span> <span class="nn">car</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">car</span><span class="o">.</span><span class="n">GRAYSCALE_EDGE_REFERENCE</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">MOTOR_POWER</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="k">def</span> <span class="nf">shake_head</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">car</span><span class="o">.</span><span class="n">is_greyscale_on_edge</span><span class="p">():</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;backward&quot;</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_all_color</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+            <span class="n">shake_head</span><span class="p">()</span>
+            <span class="n">shake_head</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="example_line_track.html" class="btn btn-neutral float-right" title="Line Track" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="example.html" class="btn btn-neutral float-left" title="Example" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
