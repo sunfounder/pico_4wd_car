@@ -34,11 +34,13 @@ Introducing Thonny IDE
         Finally, select the MicroPython (Raspberry Pi Pico) interpreter again, click the save as button, and re-save the debugged code to your Raspberry Pi Pico. 
 
 
-        
+
 * The G, H and I arrow icons allow you to run the program step by step, but can only be started after clicking on the Degug icon. As you click on each arrow, you will notice that the yellow highlighted bar will indicate the line or section of Python that is currently evaluating.  
+
     * **G**: Take a big step, which means jumping to the next line or block of code.  
     * **H**: Take a small step means expressing each component in depth.  
     * **I**: Exit out of the debugger.  
+
 * **J**：Click it to return from debug mode to play mode.
 * **K**：Use the stop icon to stop running code. 
 * **L**：Script Area, where you can write your Python code.
