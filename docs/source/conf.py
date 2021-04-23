@@ -19,8 +19,8 @@ import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
-project = 'Sunfounder Pico-4wd car kit'
-copyright = '2021, sunfounder'
+project = 'Sunfounder Pico-4wd Car Kit'
+copyright = '2021, Sunfounder'
 author = 'Jimmy, Sunfounder'
 
 
