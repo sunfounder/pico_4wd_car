@@ -36,7 +36,7 @@ Next you will learn to install MicroPython into the Raspberry Pi Pico.
 Installing MicroPython
 ------------------------------
 
-1. Plug the Pico to your PC with a Micro USB cable.
+
 #. Press and hold the **BOOTSEL** button and plug the other end of Micro USB cable into the computer.
 #. Release the BOOTSEL button after your Pico is mount as a Mass Storage Device called RPI-RP2.
 

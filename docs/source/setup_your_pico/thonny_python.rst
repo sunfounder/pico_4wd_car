@@ -25,14 +25,16 @@ Introducing Thonny IDE
 * **E**: The play icon allows you to run the code. If you have not saved the code, save the code before it can run.
 * **F**: The Debug icon allows you to debug your code. Inevitably, you will encounter errors when writing code. Errors can take many forms, sometimes using incorrect syntax, sometimes incorrect logic. Debugging is the tool for finding and investigating errors.
 
-.. note::
+    .. note::
 
-    The Debug tool cannot be used when MicroPython (Raspberry Pi Pico) is selected as the interpreter. 
-    
-    If you want to debug your code, you need to select the interpreter as the default interpreter and save as to your computer after debugging.
+        The Debug tool cannot be used when MicroPython (Raspberry Pi Pico) is selected as the interpreter. 
+        
+        If you want to debug your code, you need to select the interpreter as the default interpreter and save as to your computer after debugging.
 
-    Finally, select the MicroPython (Raspberry Pi Pico) interpreter again, click the save as button, and re-save the debugged code to your Raspberry Pi Pico. 
+        Finally, select the MicroPython (Raspberry Pi Pico) interpreter again, click the save as button, and re-save the debugged code to your Raspberry Pi Pico. 
 
+
+        
 * The G, H and I arrow icons allow you to run the program step by step, but can only be started after clicking on the Degug icon. As you click on each arrow, you will notice that the yellow highlighted bar will indicate the line or section of Python that is currently evaluating.  
     * **G**: Take a big step, which means jumping to the next line or block of code.  
     * **H**: Take a small step means expressing each component in depth.  

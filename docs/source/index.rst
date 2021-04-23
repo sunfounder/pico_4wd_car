@@ -8,7 +8,7 @@ Welcome to Pico 4wd car's documentation!
 
 Pico-4wd 是一款基于ESP32 RDP的、很酷的、人人都可以拥有的机器人汽车套件。
 
-它配备了灰色传感器模块和超声波模块，可以进行线路跟踪、悬崖探测、跟随和避障功能。组装在汽车底部和尾部的RGB板使它成为黑暗中最酷的精灵。
+它配备了灰度传感器模块和超声波模块，可以进行线路跟踪、悬崖探测、跟随和避障功能。组装在汽车底部和尾部的RGB板使它成为黑暗中最酷的精灵。
 
 我们同时提供了基于Python的示例代码，让你可以快速上手。
 
@@ -21,9 +21,9 @@ Pico-4wd 是一款基于ESP32 RDP的、很酷的、人人都可以拥有的机�
    introduction_to_pico
    setup_your_pico/setup_your_pico
    your_first_micropython_program
-   micropy_basic_syntax/micropython_basic_syntax
    test_your_module
    example
+   micropy_basic_syntax/micropython_basic_syntax   
 
 
 Copyright Notice

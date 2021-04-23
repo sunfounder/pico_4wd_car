@@ -40,7 +40,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Example" href="example.html" />
-    <link rel="prev" title="Lists" href="micropy_basic_syntax/Lists.html" /> 
+    <link rel="prev" title="Your First MicroPython Program" href="your_first_micropython_program.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -89,13 +89,13 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="your_first_micropython_program.html">Your First MicroPython Program</a></li>
-<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Test Your Module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#servo-zeroing-during-assembly">Servo Zeroing During Assembly</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#test-modules-during-play">Test Modules During Play</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a></li>
 </ul>
 
             
@@ -175,7 +175,7 @@
 <p>这一部分适用于装配步骤中的 <strong>Assemble Ultrasonic Module</strong> （准确的说是其中的step2）。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>下方代码被简写，请打开``test.py``文件使用该代码）。</p>
+<p>下方代码被简写，请打开``test.py``文件使用该代码。</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pico_4wd</span> <span class="k">as</span> <span class="nn">car</span>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -267,7 +267,7 @@
 <p>具体的使用步骤如下：</p>
 <ol class="arabic simple">
 <li><p>将 <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_sonar()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_servo()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_light()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_grayscale()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_speed()</span></code> 这六行全部注释（To know about <a class="reference internal" href="micropy_basic_syntax/Comments.html#comments"><span class="std std-ref">Comments</span></a> here if you need）.</p></li>
-<li><p>将你需要测试的模块所对应的语句取消注释。如需测试电机，则enable <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> 。同一时间只能进行一个测试项。</p></li>
+<li><p>将你需要测试的模块所对应的语句取消注释。如需测试电机，则uncomment <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> 。同一时间只能进行一个测试项。</p></li>
 <li><p>运行程序。</p></li>
 <li><p>这些函数中的一些含有 <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True</span></code> 循环，需要手动stop them。</p></li>
 </ol>
@@ -296,7 +296,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="example.html" class="btn btn-neutral float-right" title="Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="micropy_basic_syntax/Lists.html" class="btn btn-neutral float-left" title="Lists" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="your_first_micropython_program.html" class="btn btn-neutral float-left" title="Your First MicroPython Program" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

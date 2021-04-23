@@ -13,7 +13,7 @@ Servo Zeroing During Assembly
 这一部分适用于装配步骤中的 **Assemble Ultrasonic Module** （准确的说是其中的step2）。
 
 .. note::
-    下方代码被简写，请打开``test.py``文件使用该代码）。
+    下方代码被简写，请打开``test.py``文件使用该代码。
 
 
 .. code-block::
@@ -114,7 +114,7 @@ Test Modules During Play
 
 1. 将 ``test_motor()`` , ``test_sonar()`` , ``test_servo()`` , ``test_light()`` , ``test_grayscale()`` , ``test_speed()`` 这六行全部注释（To know about :ref:`Comments` here if you need）. 
 
-#. 将你需要测试的模块所对应的语句取消注释。如需测试电机，则enable ``test_motor()`` 。同一时间只能进行一个测试项。
+#. 将你需要测试的模块所对应的语句取消注释。如需测试电机，则uncomment ``test_motor()`` 。同一时间只能进行一个测试项。
 #. 运行程序。
 #. 这些函数中的一些含有 ``while True`` 循环，需要手动stop them。
 

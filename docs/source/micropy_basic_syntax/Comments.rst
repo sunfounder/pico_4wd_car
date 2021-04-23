@@ -6,7 +6,7 @@ The comments in the code help us understand the code, make the entire code more 
 Single-line Comment
 ----------------------------
 
-Single-line comments in MicroPython begin with #, and the following text is considered a comment until the end of the line. Comments can be placed before or after the code.
+Single-line comments in MicroPython begin with # , and the following text is considered a comment until the end of the line. Comments can be placed before or after the code.
 
 **Example**
 
