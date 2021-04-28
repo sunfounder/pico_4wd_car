@@ -41,7 +41,7 @@ You can use arithmetic operators to do some common mathematical operations.
     *   - `//`
         - Floor division
 
-**Example**
+
 
 .. code-block:: python
 
@@ -129,7 +129,7 @@ Assignment operators can used to assign values to variables.
         - a <<= 6
         - a = a << 6
 
-**Example**
+
 
 .. code-block:: python
 
@@ -166,7 +166,7 @@ Comparison operators are used to compare two values.
         - Less than or equal to
 
 
-**Example**
+
 
 .. code-block:: python
 

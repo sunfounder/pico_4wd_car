@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Welcome to Pico 4wd car’s documentation! &mdash; Sunfounder Pico-4wd Car Kit  documentation</title>
+  <title>Welcome to Pico-4wd car’s documentation! &mdash; Sunfounder Pico-4wd Car Kit  documentation</title>
   
 
   
@@ -88,9 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="your_first_micropython_program.html">Your First MicroPython Program</a></li>
-<li class="toctree-l1"><a class="reference internal" href="test_your_module.html">Test Your Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_the_modules.html">Test the Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="assemble_the_car.html">Assemble the Car</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/microPython_basic_syntax.html">MicroPython Basic Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -139,7 +141,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Welcome to Pico 4wd car’s documentation!</li>
+      <li>Welcome to Pico-4wd car’s documentation!</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,11 +161,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="welcome-to-pico-4wd-car-s-documentation">
-<h1>Welcome to Pico 4wd car’s documentation!<a class="headerlink" href="#welcome-to-pico-4wd-car-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Pico-4wd 是一款基于ESP32 RDP的、很酷的、人人都可以拥有的机器人汽车套件。</p>
-<p>它配备了灰度传感器模块和超声波模块，可以进行线路跟踪、悬崖探测、跟随和避障功能。组装在汽车底部和尾部的RGB板使它成为黑暗中最酷的精灵。</p>
-<p>我们同时提供了基于Python的示例代码，让你可以快速上手。</p>
-<p>此外，你还可以使用一个APP —— SunFounder Controller，来DIY你专属的控制方法! Let’s Play!</p>
+<h1>Welcome to Pico-4wd car’s documentation!<a class="headerlink" href="#welcome-to-pico-4wd-car-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>The Pico-4wd is an Raspberry Pi Pico based, cool, robot car kit that everyone can have.</p>
+<p>Equipped with greyscale sensor module and ultrasonic module, it can perform line tracking, cliff detection, follow and obstacle avoidance functions. The RGB boards assembled at the bottom and rear of the car make it the coolest spirit in the dark.</p>
+<p>We have provided sample code based on MicroPython so you can get started quickly.</p>
+<p>In addition, you can also use an app - SunFounder Controller - to DIY your own control methods! Let’s Play!</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="introduction_to_pico.html">Introduction to Raspberry Pi Pico</a><ul>
@@ -172,8 +174,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="setup_your_pico/getting_start_with_micropython.html">Getting Start with MicroPython</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup_your_pico/thonny_python.html">Thonny Python IDE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup_your_pico/getting_started_with_micropython.html">Getting Started with MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup_your_pico/thonny_python_ide.html">Thonny Python IDE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="setup_your_pico/import_pico4wd_libraries.html">Import Pico-4wd Libraries</a></li>
 </ul>
 </li>
@@ -182,12 +184,13 @@
 <li class="toctree-l2"><a class="reference internal" href="your_first_micropython_program.html#script-mode">Script Mode</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="test_your_module.html">Test Your Module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="test_your_module.html#servo-zeroing-during-assembly">Servo Zeroing During Assembly</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test_your_module.html#test-modules-during-play">Test Modules During Play</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_the_modules.html">Test the Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="test_the_modules.html#servo-zeroing-during-assembly">Servo Zeroing During Assembly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test_the_modules.html#test-all-modules">Test All Modules</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Example</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="assemble_the_car.html">Assemble the Car</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="example_donot_push_me.html">Don’t Push Me</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_line_track.html">Line Track</a></li>
 <li class="toctree-l2"><a class="reference internal" href="example_bull_fight.html">Bull Fight</a></li>
@@ -195,18 +198,24 @@
 <li class="toctree-l2"><a class="reference internal" href="example_app_control.html">APP Control</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/micropython_basic_syntax.html">MicroPython Basic Syntax</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Indentation.html">Indentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Comments.html">Comments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Print.html">Print()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Variables.html">Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/If...Else.html">If…Else</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/While Loops.html">While Loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/For Loops.html">For Loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Data Types.html">Data Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Operators.html">Operators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/Lists.html">Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="micropy_basic_syntax/microPython_basic_syntax.html">MicroPython Basic Syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/indentation.html">Indentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/comments.html">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/print.html">Print()</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/variables.html">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/if_else.html">If Else</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/while_loops.html">While Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/for_loops.html">For Loops</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/functions.html">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/data_types.html">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/operators.html">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="micropy_basic_syntax/lists.html">Lists</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#q1-no-micropython-raspberry-pi-pico-interpreter-option-on-thonny-ide">Q1: NO MicroPython(Raspberry Pi Pico) Interpreter Option on Thonny IDE?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#q2-cannot-open-pico-code-or-save-code-to-pico-via-thonny-ide">Q2: Cannot open Pico code or save code to Pico via Thonny IDE?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="faq.html#q3-can-raspberry-pi-pico-be-used-on-thonny-and-arduino-at-the-same-time">Q3: Can Raspberry Pi Pico be used on Thonny and Arduino at the same time?</a></li>
 </ul>
 </li>
 </ul>

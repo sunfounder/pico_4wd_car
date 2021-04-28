@@ -3,16 +3,16 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Pico 4wd car's documentation!
+Welcome to Pico-4wd car's documentation!
 ==========================================
 
-Pico-4wd 是一款基于ESP32 RDP的、很酷的、人人都可以拥有的机器人汽车套件。
+The Pico-4wd is an Raspberry Pi Pico based, cool, robot car kit that everyone can have.
 
-它配备了灰度传感器模块和超声波模块，可以进行线路跟踪、悬崖探测、跟随和避障功能。组装在汽车底部和尾部的RGB板使它成为黑暗中最酷的精灵。
+Equipped with greyscale sensor module and ultrasonic module, it can perform line tracking, cliff detection, follow and obstacle avoidance functions. The RGB boards assembled at the bottom and rear of the car make it the coolest spirit in the dark.
 
-我们同时提供了基于Python的示例代码，让你可以快速上手。
+We have provided sample code based on MicroPython so you can get started quickly.
 
-此外，你还可以使用一个APP —— SunFounder Controller，来DIY你专属的控制方法! Let's Play!
+In addition, you can also use an app - SunFounder Controller - to DIY your own control methods! Let's Play!
 
 
 .. toctree::
@@ -21,9 +21,11 @@ Pico-4wd 是一款基于ESP32 RDP的、很酷的、人人都可以拥有的机�
    introduction_to_pico
    setup_your_pico/setup_your_pico
    your_first_micropython_program
-   test_your_module
-   example
-   micropy_basic_syntax/micropython_basic_syntax   
+   test_the_modules
+   assemble_the_car
+   examples
+   micropy_basic_syntax/microPython_basic_syntax   
+   faq
 
 
 Copyright Notice

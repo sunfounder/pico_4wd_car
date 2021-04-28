@@ -135,9 +135,9 @@ APP Control 玩法的具体的工作流程如下：
         car.move("stop")
         car.set_light_off()
 
-这个代码已经构成了APP控制的基本框架。在这之中你需要关注的是三个部分：
+这个代码已经构成了APP控制的基本框架。在这之中你需要关注的是这两个部分：
 
-1. 设置websocket服务器
+1. Setup websocket
 
     你可以让连接模式在 Client Mode 和 AP Mode间切换。
 
@@ -227,7 +227,11 @@ APP Control 玩法的具体的工作流程如下：
 
     最后， ``on_receive()`` 会被赋值到 ``ws.on_receive`` 从而被 ``ws.loop`` 调用。
 
-#. 传输数据（From APP to Pico-4wd）
+
+传输数据
+------------------------------------
+
+*.From APP to Pico-4wd
 
     让我们来直观的看看，Pico-4wd 会从 APP 中获得什么样的数据。在 ``on_receive`` 中直接将 ``data`` 打印出来。
 
@@ -273,9 +277,7 @@ APP Control 玩法的具体的工作流程如下：
             50
             50
 
-    在Sunfounder Controller中，用于控制的widget包括以下几种：
 
-    .. image:: img/app_widget_control.png
             
     Pico-4wd 封装有使用模块的函数，我们可以将widget的值写入这些函数中来实现一些事情。如在这里我们使用滑条控制车尾的RGB Board。
 
@@ -293,7 +295,7 @@ APP Control 玩法的具体的工作流程如下：
     具体的调用Pico-4wd模块的方法请查看 `API <https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md>`_   。  
 
 
-#. 传输数据（From Pico-4wd to APP）
+#. From Pico-4wd to APP
 
     Pico-4wd 封装有使用传感器模块的函数，如读取读取了雷达的值。
 
@@ -330,9 +332,17 @@ APP Control 玩法的具体的工作流程如下：
             print(data)
             ws.send_dict['D_region'] = data
 
-    在Sunfounder Controller中，用于输出的widget包括以下几种：
 
-    .. image:: img/app_widget_display.png
+
+Widget List
+--------------------------------
+在Sunfounder Controller中，用于控制的widget包括：
+
+.. image:: img/app_widget_control.png
+
+用于输出的widget包括：
+
+.. image:: img/app_widget_display.png
 
 
 APP Control Example

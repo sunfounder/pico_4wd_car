@@ -12,11 +12,11 @@ Create a Function
 
 .. code-block:: python
 
-    def function_name（parameters）：
+    def function_name（parameters)：
         """docstring"""
         statement(s)
 
-* A function is defined using the `def` keyword
+* A function is defined using the ``def`` keyword
 
 * A function name to uniquely identify the function. Function naming is the same as variable naming, and both follow the following rules.
     
@@ -34,7 +34,7 @@ Create a Function
 
 * Each function needs at least one statement, but if for some reason there is a function that does not contain any statement, please put in the pass statement to avoid errors.
 
-* An optional `return` statement to return a value from the function.
+* An optional ``return`` statement to return a value from the function.
 
 
 Calling a Function
@@ -42,7 +42,7 @@ Calling a Function
 
 To call a function, add parentheses after the function name.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -65,9 +65,9 @@ The return statement is used to exit a function and return to the place where it
 
     return [expression_list]
 
-The statement can contain an expression that is evaluated and returns a value. If there is no expression in the statement, or the `return` statement itself does not exist in the function, the function will return a `None` object.
+The statement can contain an expression that is evaluated and returns a value. If there is no expression in the statement, or the ``return`` statement itself does not exist in the function, the function will return a ``None`` object.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -80,7 +80,7 @@ The statement can contain an expression that is evaluated and returns a value. I
 Your first function
 None
 
-Here, `None` is the return value, because the `return` statement is not used.
+Here, ``None`` is the return value, because the ``return`` statement is not used.
 
 Arguments
 -------------
@@ -89,7 +89,7 @@ Information can be passed to the function as arguments.
 
 Specify arguments in parentheses after the function name. You can add as many arguments as you need, just separate them with commas.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -109,7 +109,7 @@ Number of Arguments
 
 By default, a function must be called with the correct number of arguments. Meaning that if your function expects 2 parameters, you have to call the function with 2 arguments, not more, and not less.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -154,7 +154,7 @@ In MicroPython, we can use the assignment operator (=) to provide a default valu
 
 If we call the function without argument, it uses the default value.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -167,9 +167,9 @@ If we call the function without argument, it uses the default value.
 >>> %Run -c $EDITOR_CONTENT
 Hello Lily, Welcome to China!
 
-In this function, the parameter `name` has no default value and is required (mandatory) during the call.
+In this function, the parameter ``name`` has no default value and is required (mandatory) during the call.
 
-On the other hand, the default value of the parameter `msg` is "Welcome to China!". Therefore, it is optional during the call. If a value is provided, it will overwrite the default value.
+On the other hand, the default value of the parameter ``msg`` is "Welcome to China!". Therefore, it is optional during the call. If a value is provided, it will overwrite the default value.
 
 Any number of arguments in the function can have a default value. However, once there is a default argument, all arguments on its right must also have default values.
 
@@ -194,7 +194,7 @@ Keyword Arguments
 
 When we call a function with certain values, these values ​​will be assigned to arguments based on their position.
 
-For example, in the above function welcome(), when we called it as welcome("Lily", "Welcome to China"), the value "Lily" gets assigned to the `name` and similarly "Welcome to China" to parameter `msg`.
+For example, in the above function welcome(), when we called it as welcome("Lily", "Welcome to China"), the value "Lily" gets assigned to the ``name`` and similarly "Welcome to China" to parameter ``msg``.
 
 MicroPython allows calling functions with keyword arguments. When we call the function in this way, the order (position) of the arguments can be changed. 
 
@@ -234,7 +234,7 @@ Sometimes, if you do not know the number of arguments that will be passed to the
 
 In the function definition, we can add an asterisk (*) before the parameter name.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -264,7 +264,7 @@ This has the benefit of meaning that you can loop through data to reach a result
 
 The developer should be very careful with recursion as it can be quite easy to slip into writing a function which never terminates, or one that uses excess amounts of memory or processor power. However, when written correctly recursion can be a very efficient and mathematically-elegant approach to programming.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -286,7 +286,7 @@ The developer should be very careful with recursion as it can be quite easy to s
 15
 21
 
-In this example, rec_func() is a function that we have defined to call itself ("recursion"). We use the `i` variable as the data, and it will decrement (-1) every time we recurse. When the condition is not greater than 0 (that is, 0), the recursion ends.
+In this example, rec_func() is a function that we have defined to call itself ("recursion"). We use the ``i`` variable as the data, and it will decrement (-1) every time we recurse. When the condition is not greater than 0 (that is, 0), the recursion ends.
 
 For new developers, it may take some time to determine how it works, and the best way to test it is to test and modify it.
 

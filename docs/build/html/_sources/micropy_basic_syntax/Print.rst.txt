@@ -6,7 +6,7 @@ The message can be a string, or any other object, the object will be converted i
 
 Print multiple objects:
 
-**Example**
+
 
 .. code-block:: python
 
@@ -17,7 +17,6 @@ Welcome! Enjoy yourself!
 
 Print tuples:
 
-**Example**
 
 .. code-block:: python
 
@@ -29,7 +28,6 @@ Print tuples:
 
 Print two messages and specify the separator:
 
-**Example**
 
 .. code-block:: python
 

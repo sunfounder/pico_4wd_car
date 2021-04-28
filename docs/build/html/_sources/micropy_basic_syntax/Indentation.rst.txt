@@ -9,7 +9,6 @@ A program that just browses the instruction list line by line is not very smart,
 
 You must put at least one space before print(), otherwise an error message "Invalid syntax" will appear. It is usually recommended to standardise spaces by pressing the Tab key uniformly.
 
-**Example**
 
 .. code-block:: python
 
@@ -23,7 +22,6 @@ SyntaxError: invalid syntax
 
 You must use the same number of spaces in the same block of code, or Python will give you an error.
 
-**Example**
 
 .. code-block:: python
 

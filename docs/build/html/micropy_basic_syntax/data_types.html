@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Data Types &mdash; Sunfounder Pico-4wd Car Kit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Sunfounder Pico-4wd Car Kit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_the_modules.html">Test the Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assemble_the_car.html">Assemble the Car</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sunfounder Pico-4wd Car Kit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Data Types</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/micropy_basic_syntax/data_types.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-types">
+<h1>Data Types<a class="headerlink" href="#data-types" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="built-in-data-types">
+<h2>Built-in Data Types<a class="headerlink" href="#built-in-data-types" title="Permalink to this headline">¶</a></h2>
+<p>MicroPython has the following data types:</p>
+<ul class="simple">
+<li><p>Text Type: str</p></li>
+<li><p>Numeric Types: int, float, complex</p></li>
+<li><p>Sequence Types: list, tuple, range</p></li>
+<li><p>Mapping Type: dict</p></li>
+<li><p>Set Types: set, frozenset</p></li>
+<li><p>Boolean Type: bool</p></li>
+<li><p>Binary Types: bytes, bytearray, memoryview</p></li>
+</ul>
+</div>
+<div class="section" id="getting-the-data-type">
+<h2>Getting the Data Type<a class="headerlink" href="#getting-the-data-type" title="Permalink to this headline">¶</a></h2>
+<p>You can get the data type of any object by using the <cite>type()</cite> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">6.8</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+&lt;class &#39;float&#39;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-data-type">
+<h2>Setting the Data Type<a class="headerlink" href="#setting-the-data-type" title="Permalink to this headline">¶</a></h2>
+<p>MicroPython does not need to set the data type specifically, it has been determined when you assign a value to the variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;welcome&quot;</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">45</span>
+<span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+&lt;class &#39;str&#39;&gt;
+&lt;class &#39;int&#39;&gt;
+&lt;class &#39;list&#39;&gt;
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-the-specific-data-type">
+<h2>Setting the Specific Data Type<a class="headerlink" href="#setting-the-specific-data-type" title="Permalink to this headline">¶</a></h2>
+<p>If you want to specify the data type, you can use the following constructor functions:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 71%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Example</p></th>
+<th class="head"><p>Date Type</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>x = int(20)</p></td>
+<td><p>int</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = float(20.5)</p></td>
+<td><p>float</p></td>
+</tr>
+<tr class="row-even"><td><p>x = complex(1j)</p></td>
+<td><p>complex</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = str(“Hello World”)</p></td>
+<td><p>str</p></td>
+</tr>
+<tr class="row-even"><td><p>x = list((“apple”, “banana”, “cherry”))</p></td>
+<td><p>list</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = tuple((“apple”, “banana”, “cherry”))</p></td>
+<td><p>tuple</p></td>
+</tr>
+<tr class="row-even"><td><p>x = range(6)</p></td>
+<td><p>range</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = dict(name=”John”, age=36)</p></td>
+<td><p>dict</p></td>
+</tr>
+<tr class="row-even"><td><p>x = set((“apple”, “banana”, “cherry”))</p></td>
+<td><p>set</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = frozenset((“apple”, “banana”, “cherry”))</p></td>
+<td><p>frozenset</p></td>
+</tr>
+<tr class="row-even"><td><p>x = bool(5)</p></td>
+<td><p>bool</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = bytes(5)</p></td>
+<td><p>bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>x = bytearray(5)</p></td>
+<td><p>bytearray</p></td>
+</tr>
+<tr class="row-odd"><td><p>x = memoryview(bytes(5))</p></td>
+<td><p>memoryview</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can print some of them to see the result.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">20.5</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">((</span><span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;banana&quot;</span><span class="p">,</span> <span class="s2">&quot;cherry&quot;</span><span class="p">))</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+20.5
+[&#39;apple&#39;, &#39;banana&#39;, &#39;cherry&#39;]
+True
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="type-conversion">
+<h2>Type Conversion<a class="headerlink" href="#type-conversion" title="Permalink to this headline">¶</a></h2>
+<p>You can convert from one type to another with the int(), float(), and complex() methods:
+Casting in python is therefore done using constructor functions:</p>
+<ul class="simple">
+<li><p>int() - constructs an integer number from an integer literal, a float literal (by removing all decimals), or a string literal (providing the string represents a whole number)</p></li>
+<li><p>float() - constructs a float number from an integer literal, a float literal or a string literal (providing the string represents a float or an integer)</p></li>
+<li><p>str() - constructs a string from a wide variety of data types, including strings, integer literals and float literals</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">3.7</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You cannot convert complex numbers into another number type.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -24,7 +24,8 @@ In addition, you can also use an app - SunFounder Controller - to DIY your own c
    test_the_modules
    assemble_the_car
    examples
-   micropy_basic_syntax/micropython_basic_syntax   
+   micropy_basic_syntax/microPython_basic_syntax   
+   faq
 
 
 Copyright Notice

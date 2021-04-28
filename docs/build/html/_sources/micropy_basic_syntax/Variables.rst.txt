@@ -14,7 +14,7 @@ Create Variable
 ------------------
 There is no command for declaring variables in MicroPython. Variables are created when you assign a value to it for the first time. It does not need to use any specific type declaration, and you can even change the type after setting the variable.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -30,7 +30,7 @@ Casting
 -------------
 If you want to specify the data type for the variable, you can do it by casting.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -46,7 +46,7 @@ Get the Type
 -------------------
 You can get the data type of a variable with the `type()` function.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -63,7 +63,7 @@ Single or Double Quotes?
 
 In MicroPython, single quotes or double quotes can be used to define string variables.
 
-**Example**
+
 
 .. code-block:: python
 
@@ -75,7 +75,7 @@ Case-Sensitive
 ---------------------
 Variable names are case-sensitive.
 
-**Example**
+
 
 .. code-block:: python
 

@@ -38,9 +38,7 @@
 
     
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Variables" href="Variables.html" />
-    <link rel="prev" title="Comments" href="Comments.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,26 +83,13 @@
               
             
             
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../your_first_micropython_program.html">Your First MicroPython Program</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../test_your_module.html">Test Your Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../example.html">Example</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="micropython_basic_syntax.html">MicroPython Basic Syntax</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Indentation.html">Indentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Comments.html">Comments</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Print()</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Variables.html">Variables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="If...Else.html">If…Else</a></li>
-<li class="toctree-l2"><a class="reference internal" href="While Loops.html">While Loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="For Loops.html">For Loops</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Functions.html">Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Data Types.html">Data Types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Operators.html">Operators</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Lists.html">Lists</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../test_the_modules.html">Test the Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../assemble_the_car.html">Assemble the Car</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples.html">Examples</a></li>
 </ul>
 
             
@@ -153,15 +138,13 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="micropython_basic_syntax.html">MicroPython Basic Syntax</a> &raquo;</li>
-        
       <li>Print()</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/micropy_basic_syntax/Print.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/micropy_basic_syntax/print.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -179,7 +162,6 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">print()</span></code> function prints the specified message to the screen, or other standard output device.
 The message can be a string, or any other object, the object will be converted into a string before written to the screen.</p>
 <p>Print multiple objects:</p>
-<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Welcome!&quot;</span><span class="p">,</span> <span class="s2">&quot;Enjoy yourself!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -188,7 +170,6 @@ Welcome! Enjoy yourself!
 </pre></div>
 </div>
 <p>Print tuples:</p>
-<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;pear&quot;</span><span class="p">,</span> <span class="s2">&quot;apple&quot;</span><span class="p">,</span> <span class="s2">&quot;grape&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
@@ -198,7 +179,6 @@ Welcome! Enjoy yourself!
 </pre></div>
 </div>
 <p>Print two messages and specify the separator:</p>
-<p><strong>Example</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;how are you?&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -213,10 +193,6 @@ Hello---how are you?
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="Variables.html" class="btn btn-neutral float-right" title="Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="Comments.html" class="btn btn-neutral float-left" title="Comments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 
