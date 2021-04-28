@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Line Track &mdash; Sunfounder Pico-4wd Car Kit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Bull Fight" href="example_bull_fight.html" />
+    <link rel="prev" title="Don’t Push Me" href="example_donot_push_me.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Sunfounder Pico-4wd Car Kit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="test_your_module.html">Test Your Module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="example.html">Example</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="example_donot_push_me.html">Don’t Push Me</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Line Track</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">程序流程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">代码</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="example_bull_fight.html">Bull Fight</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_obstacle_avoid.html">Obstacle Avoid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example_app_control.html">APP Control</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Sunfounder Pico-4wd Car Kit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="example.html">Example</a> &raquo;</li>
+        
+      <li>Line Track</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/example_line_track.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="line-track">
+<h1>Line Track<a class="headerlink" href="#line-track" title="Permalink to this headline">¶</a></h1>
+<p>让Pico-4wd走在它的专属跑道上！用1cm的黑色绝缘胶带在浅色的地面（或桌面）贴出一条轨道，运行这个程序，你会看到Pico-4wd会沿着轨道疾奔。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>在过急的弯道会导致脱轨！</p>
+</div>
+<p>这个程序还有一些小彩蛋： Pico-4wd在直行时，尾灯（尾部的RGB Board）会亮起绿灯；在转弯时，尾灯一侧会亮起黄灯；在急转弯时，尾灯一侧会亮起红灯。</p>
+<div class="section" id="id1">
+<h2>程序流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/flowchart_line_track.png" src="_images/flowchart_line_track.png" />
+</div>
+<div class="section" id="id2">
+<h2>代码<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pico_4wd</span> <span class="k">as</span> <span class="nn">car</span>
+
+<span class="n">MOTOR_POWER</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">car</span><span class="o">.</span><span class="n">GRAYSCALE_LINE_REFERENCE</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">gs_data</span> <span class="o">=</span> <span class="n">car</span><span class="o">.</span><span class="n">get_greyscale_status</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">gs_data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_motor_power</span><span class="p">(</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_bottom_color</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">gs_data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_motor_power</span><span class="p">(</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_bottom_left_color</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">gs_data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_motor_power</span><span class="p">(</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="o">-</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="o">-</span><span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_bottom_left_color</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">gs_data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_motor_power</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_bottom_right_color</span><span class="p">([</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">gs_data</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_motor_power</span><span class="p">(</span><span class="o">-</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="o">-</span><span class="n">MOTOR_POWER</span><span class="p">,</span> <span class="n">MOTOR_POWER</span><span class="p">)</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+            <span class="n">car</span><span class="o">.</span><span class="n">set_light_bottom_right_color</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="example_bull_fight.html" class="btn btn-neutral float-right" title="Bull Fight" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="example_donot_push_me.html" class="btn btn-neutral float-left" title="Don’t Push Me" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

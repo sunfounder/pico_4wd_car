@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Operators &mdash; Sunfounder Pico-4wd Car Kit  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Sunfounder Pico-4wd Car Kit
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction_to_pico.html">Introduction to Raspberry Pi Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup_your_pico/setup_your_pico.html">Setup Your Pico</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../your_first_micropython_program.html">Your First MicroPython Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../test_your_module.html">Test Your Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example.html">Example</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Sunfounder Pico-4wd Car Kit</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Operators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/micropy_basic_syntax/operators.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="operators">
+<h1>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h1>
+<p>Operators are used to perform operations on variables and values.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#arithmetic-operators"><span class="std std-ref">Arithmetic Operators</span></a></p></li>
+<li><p><a class="reference internal" href="#assignment-operators"><span class="std std-ref">Assignment operators</span></a></p></li>
+<li><p><a class="reference internal" href="#comparison-operators"><span class="std std-ref">Comparison Operators</span></a></p></li>
+<li><p><a class="reference internal" href="#logical-operators"><span class="std std-ref">Logical Operators</span></a></p></li>
+<li><p><a class="reference internal" href="#identity-operators"><span class="std std-ref">Identity Operators</span></a></p></li>
+<li><p><a class="reference internal" href="#membership-operators"><span class="std std-ref">Membership Operators</span></a></p></li>
+<li><p><a class="reference internal" href="#bitwise-operators"><span class="std std-ref">Bitwise Operators</span></a></p></li>
+</ul>
+<div class="section" id="arithmetic-operators">
+<h2>Arithmetic Operators<a class="headerlink" href="#arithmetic-operators" title="Permalink to this headline">¶</a></h2>
+<p>You can use arithmetic operators to do some common mathematical operations.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>+</cite></p></td>
+<td><p>Addition</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>-</cite></p></td>
+<td><p>Subtraction</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>*</cite></p></td>
+<td><p>Multiplication</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>/</cite></p></td>
+<td><p>Division</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>%</cite></p></td>
+<td><p>Modulus</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>**</cite></p></td>
+<td><p>Exponentiation</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>//</cite></p></td>
+<td><p>Floor division</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">x</span> <span class="o">/</span> <span class="n">y</span>
+<span class="n">e</span> <span class="o">=</span> <span class="n">x</span> <span class="o">%</span> <span class="n">y</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">x</span> <span class="o">**</span> <span class="n">y</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">x</span> <span class="o">//</span> <span class="n">y</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+8
+2
+15
+1.666667
+2
+125
+1
+8
+2
+15
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="assignment-operators">
+<h2>Assignment operators<a class="headerlink" href="#assignment-operators" title="Permalink to this headline">¶</a></h2>
+<p>Assignment operators can used to assign values to variables.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 43%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Same As</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><cite>=</cite></p></td>
+<td><p>a = 6</p></td>
+<td><p>a =6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>+=</cite></p></td>
+<td><p>a += 6</p></td>
+<td><p>a = a + 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>-=</cite></p></td>
+<td><p>a -= 6</p></td>
+<td><p>a = a - 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>*=</cite></p></td>
+<td><p>a <cite>*=</cite> 6</p></td>
+<td><p>a = a * 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>/=</cite></p></td>
+<td><p>a /= 6</p></td>
+<td><p>a = a / 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>%=</cite></p></td>
+<td><p>a %= 6</p></td>
+<td><p>a = a % 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>**=</cite></p></td>
+<td><p>a <cite>**=</cite> 6</p></td>
+<td><p>a = a ** 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>//=</cite></p></td>
+<td><p>a //= 6</p></td>
+<td><p>a = a // 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>&amp;=</cite></p></td>
+<td><p>a &amp;= 6</p></td>
+<td><p>a = a &amp; 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>|=</cite></p></td>
+<td><p>a <cite>|=</cite> 6</p></td>
+<td><p>a = a | 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>^=</cite></p></td>
+<td><p>a ^= 6</p></td>
+<td><p>a = a ^ 6</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>&gt;&gt;=</cite></p></td>
+<td><p>a &gt;&gt;= 6</p></td>
+<td><p>a = a &gt;&gt; 6</p></td>
+</tr>
+<tr class="row-even"><td><p><cite>&lt;&lt;=</cite></p></td>
+<td><p>a &lt;&lt;= 6</p></td>
+<td><p>a = a &lt;&lt; 6</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">a</span> <span class="o">*=</span> <span class="mi">6</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">Run</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
+<span class="go">36</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comparison-operators">
+<h2>Comparison Operators<a class="headerlink" href="#comparison-operators" title="Permalink to this headline">¶</a></h2>
+<p>Comparison operators are used to compare two values.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>==</p></td>
+<td><p>Equal</p></td>
+</tr>
+<tr class="row-odd"><td><p>!=</p></td>
+<td><p>Not equal</p></td>
+</tr>
+<tr class="row-even"><td><p>&lt;</p></td>
+<td><p>Less than</p></td>
+</tr>
+<tr class="row-odd"><td><p>&gt;</p></td>
+<td><p>Greater than</p></td>
+</tr>
+<tr class="row-even"><td><p>&gt;=</p></td>
+<td><p>Greater than or equal to</p></td>
+</tr>
+<tr class="row-odd"><td><p>&lt;=</p></td>
+<td><p>Less than or equal to</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">8</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">&gt;</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">Run</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span>
+<span class="go">False</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>Return <strong>False</strong>, beause the <strong>a</strong> is less than the <strong>b</strong>.</p>
+</div>
+<div class="section" id="logical-operators">
+<h2>Logical Operators<a class="headerlink" href="#logical-operators" title="Permalink to this headline">¶</a></h2>
+<p>Logical operators are used to combine conditional statements.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>and</p></td>
+<td><p>Returns True if both statements are true</p></td>
+</tr>
+<tr class="row-odd"><td><p>or</p></td>
+<td><p>Returns True if one of the statements is true</p></td>
+</tr>
+<tr class="row-even"><td><p>not</p></td>
+<td><p>Reverse the result, returns False if the result is true</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+True
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="identity-operators">
+<h2>Identity Operators<a class="headerlink" href="#identity-operators" title="Permalink to this headline">¶</a></h2>
+<p>Identity operators are used to compare the objects, not if they are equal, but if they are actually the same object, with the same memory location.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>is</p></td>
+<td><p>Returns True if both variables are the same object</p></td>
+</tr>
+<tr class="row-odd"><td><p>is not</p></td>
+<td><p>Returns True if both variables are not the same object</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;welcome&quot;</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;welcome&quot;</span><span class="p">]</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">a</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">c</span><span class="p">)</span>
+<span class="c1"># returns True because z is the same object as x</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1"># returns False because x is not the same object as y, even if they have the same content</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1"># returns True because x is equal to y</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+True
+False
+True
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="membership-operators">
+<h2>Membership Operators<a class="headerlink" href="#membership-operators" title="Permalink to this headline">¶</a></h2>
+<p>Membership operators are used to test if a sequence is presented in an object.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>in</p></td>
+<td><p>Returns True if a sequence with the specified value is present in the object</p></td>
+</tr>
+<tr class="row-odd"><td><p>not in</p></td>
+<td><p>Returns True if a sequence with the specified value is not present in the object</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;welcome&quot;</span><span class="p">,</span> <span class="s2">&quot;Goodmorning&quot;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;welcome&quot;</span> <span class="ow">in</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+True
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="bitwise-operators">
+<h2>Bitwise Operators<a class="headerlink" href="#bitwise-operators" title="Permalink to this headline">¶</a></h2>
+<p>Bitwise operators are used to compare (binary) numbers.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 25%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Operator</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>&amp;</p></td>
+<td><p>AND</p></td>
+<td><p>Sets each bit to 1 if both bits are 1</p></td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</td>
+<td><p>OR</p></td>
+<td><p>Sets each bit to 1 if one of two bits is 1</p></td>
+</tr>
+<tr class="row-even"><td><p>^</p></td>
+<td><p>XOR</p></td>
+<td><p>Sets each bit to 1 if only one of two bits is 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>~</p></td>
+<td><p>NOT</p></td>
+<td><p>Inverts all the bits</p></td>
+</tr>
+<tr class="row-even"><td><p>&lt;&lt;</p></td>
+<td><p>Zero fill left shift</p></td>
+<td><p>Shift left by pushing zeros in from the right and let the leftmost bits fall off</p></td>
+</tr>
+<tr class="row-odd"><td><p>&gt;&gt;</p></td>
+<td><p>Signed right shift</p></td>
+<td><p>Shift right by pushing copies of the leftmost bit in from the left, and let the rightmost bits fall off</p></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">num</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">num</span> <span class="o">|</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; %Run -c $EDITOR_CONTENT
+0
+3
+4
+&gt;&gt;&gt;
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Sunfounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
