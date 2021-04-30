@@ -1,17 +1,17 @@
 Don’t Push Me
 ================
 
-让我们为Pico-4wd赋予一点“自我保护意识”，让它学会使用自己的grayscale module来避免冲下悬崖。
+Let us give Pico-4wd a little **self-protection awareness** and let it learn to use its own grayscale module to avoid rushing down the cliff.
 
-在这个示例中，小车会处于休眠状态。如果你把它推向悬崖，它会紧急唤醒，后退，并摇头表示不满。请打开 ``donot_push_me.py`` 使用这个示例。
+In this example, the car will be dormant. If you push it to a cliff, it will be awakened urgently, then back up, and shake its head to express dissatisfaction. Please open ``donot_push_me.py`` to use this example.
 
-程序流程
+How it Work?
 --------------
 
 .. image:: img/flowchart_donot_push_me.png
 
 
-代码
+Code
 ----------------
 
 .. code-block:: python

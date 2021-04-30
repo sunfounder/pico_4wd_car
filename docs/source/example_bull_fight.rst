@@ -1,16 +1,16 @@
 Bull Fight
 ================
 
-让Pico-4wd变成一个调皮的牛牛！在空旷的地方，它睡觉；当你出现在它眼前时，它会追着你打闹；在它面前放个足球，它玩。
+Make Pico-4wd a mischievous bull! On the open ground, it sleeps; when you appear in front of it, it will chase you and play; put a soccer in front of it and it plays.
 
 
-程序流程
+How it works
 --------------
 
 .. image:: img/flowchart_bull_fight.png
 
 
-代码
+Code
 ----------------
 
 .. code-block:: python

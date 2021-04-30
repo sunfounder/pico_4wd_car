@@ -1,21 +1,21 @@
 Line Track
 ===================
 
-让Pico-4wd走在它的专属跑道上！用1cm的黑色绝缘胶带在浅色的地面（或桌面）贴出一条轨道，运行这个程序，你会看到Pico-4wd会沿着轨道疾奔。
+Let Pico-4wd walk on its exclusive avenue! Use 1cm of black insulating tape to paste a track on a light-colored ground (or desktop). Run this program, and you will see Pico-4wd sprinting into the track.
 
 .. warning::
-    在过急的弯道会导致脱轨！
+    In sharp bend will cause derailment!
 
-这个程序还有一些小彩蛋： Pico-4wd在直行时，尾灯（尾部的RGB Board）会亮起绿灯；在转弯时，尾灯一侧会亮起黄灯；在急转弯时，尾灯一侧会亮起红灯。
+There are some small eggs in this program: When the Pico-4wd is going straight, the tail light (the RGB Board at the tail) will light up in green; when turning, the side of the tail light will light up in yellow; 
+when turning sharply, the side of the tail light will light up in red.
 
-
-程序流程
+How it Works
 --------------
 
 .. image:: img/flowchart_line_track.png
 
 
-代码
+Code
 ----------------
 
 .. code-block:: python

@@ -1,15 +1,17 @@
 Obstacle Avoid
 ==========================
 
-让Pico-4wd做一点有挑战性的任务：自动避障！不是简单的检测到障碍物时后退，而是通过雷达扫描四周，找到最宽敞的道路。你可以搭建一个大小适宜的球门，看着它找准合适的位置缓缓跨过。
+Let Pico-4wd do a challenging task: automatic obstacle avoidance! Instead of simply stepping back when an obstacle is detected, the radar scans the surrounding area to find the widest road.
 
-程序流程
+You can build a goal of the right size and watch it find the right place and slowly cross it.
+
+How it Works
 --------------
 
 .. image:: img/flowchart_obstacle_avoid.png
 
 
-代码
+Code
 ----------------
 .. code-block:: python
 

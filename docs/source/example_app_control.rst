@@ -1,7 +1,7 @@
 APP Control
 =================
 
-这个章节将会指引你使用Sunfounder Controller APP来远程玩耍pico-4wd，这意味着你可以在户外使用手机/平板来控制它四处游荡。
+This section will guide you to use Sunfounder Controller APP to play pico-4wd remotely, which means you can use your phone/tablet to control it wandering around outdoors.
 
 
 How to do?
@@ -9,9 +9,9 @@ How to do?
 
 1. Coding
 
-    为了方便理解，让我们使用 **tests** 文件夹下的 ``app_test.py`` （这个代码将会在后面讲解） 来完成第一个 Sunfounder Controller 的实验吧！
+    To make things easier, let's use ``app_test.py`` in the **tests** folder (this code will be explained later) for the first Sunfounder Controller experiment!
     
-    运行程序后（此时Pico RDP应也在工作状态），Pico-4wd并没有什么现象。Thonny script 则会出现以下的提示：
+    After running the program (Pico RDP should also be working at this time), Pico-4wd does not show anything, while the Thonny script shows the following message:
     
     .. code-block:: 
 
@@ -22,17 +22,17 @@ How to do?
 
 #. Install Sunfounder Controller
 
-    Search for **Sunfounder Controller** in APP Store (or Google Play). Download it.
+    Search for **Sunfounder Controller** in APP Store (or Google Play) and download it.
 
     .. image:: img/app_install.png
-  
 
+#. Connect to mobile devices.
 
-#. 连接设备。
+    Find **my_4wd_car** on the WLAN of the mobile phone (tablet), enter the password (12345678) and connect to it. This is an ``AP`` released by Pico RDP and is not connected to the World Wide Web.
+    
+    If you need to keep the phone (tablet) network, you can switch to ``STA`` mode, which will be discussed later.
 
-    在手机（平板）的WLAN上找到 ``my_4wd_car`` ,连接它，密码是 ``12345678`` ,这是由Pico RDP释放出来的AP，是不连通万维网的。(如果你需要保持手机(平板)的网络，则可以改用STA模式，这将在后面说道。)
-
-    连接成功后，Thonny script 则会显示新连接设备的IP：
+    After the connection is successful, the Thonny script will show the IP of the newly connected device:
 
     .. code-block:: python
         :emphasize-lines: 5
@@ -43,55 +43,57 @@ How to do?
             start
             Connected from 192.168.4.3    
 
-#. Open **Sunfounder Controller** , and you will see the HOME PAGE，点击最右上方的icon完成Pico-4wd与手机（平板）的连接.
+#. Open **Sunfounder Controller** , and you will see the home page，click the **connect** icon on the top right corner to complete the connection between Pico-4wd and the phone (tablet).
 
     .. image:: img/app_home_page.jpg
 
-    * 中间的大的加号按键可以创建控制器，你可以在Sunfounder Controller中创建多个控制器方案。
-    * 点击左上角的icon可以查看 “ABOUT US”
-    * 右上方红字显示的是Sunfounder Controller当前的连接状况。如果连接到设备（如Pico-4wd）将会变成白色字体。
-    * 编辑按键可以允许你删除多余的控制器。
-    * 你会需要点击最右上方的链接icon来链接到设备。需要注意的是，只有在设备正在运行程序时，Sunfounder Controller才能成功连接（重新烧录代码后将需要重新连接）。
+    * The big **plus** button in the middle can create a controller, and you can create multiple controller schemes in Sunfounder Controller.
+    * Click on the **exclamation mark** icon in the upper left corner to view "ABOUT US"
+    * The red letter on the upper right shows the current connection status of Sunfounder Controller. If it is connected to a device (such as Pico-4wd), it will become a white font.
+    * The **edit** icon allows you to delete redundant controllers.
+    * You will need to click the **link** icon at the top right to connect to the mobile device. It should be noted that the Sunfounder Controller can connect successfully only when the device is running the program (you will need to reconnect after re-burning the code).
 
-
-#. 创建一个控制器，你将能看到一个个的box(一些是矩形，一些是正方形)，我们需要调整它们，以适用于 ``app_test.py`` 。
+#. Create a controller, you will be able to see boxes (some are rectangles, some are squares), we need to adjust them to apply to ``app_test.py``.
 
     .. image:: img/app_test_controller_1.jpg
 
-    点击区域D，选择 “雷达” widget。
+    Click on area D and select the **radar scanning** widget.
 
     .. image:: img/app_test_controller_2.jpg
 
-    点击区域H，选择 “滑条” widget。
+    Click on area H and sclect the **Slider** widget。
 
     .. image:: img/app_test_controller_3.jpg
 
-    点击最右上方的 save icon，控制器会被保存。同时进入工作状态，空的 widget box 隐藏。 （此时原来的 save icon 将会变成 edit icon，点击它可以返回edit状态，以调整widget）。
+    Click the **save** icon at the top right, and the controller will be saved. At the same time it enters the working state, and the empty widget box is hidden.
+    
+    At this time, the original **save** icon will become an **edit** icon, click on it to return to the edit state to adjust the widget.
 
     .. image:: img/app_test_controller_4.jpg
 
-#. 运行。
-
-    点击 edit icon 旁边的 run icon，Pico-4wd终于动起来了！（如果未能如期望进行，或 Run icon 旁显示 "Disconnected" ，请重新进行Pico-4wd与手机（平板）的连接，and try again!）
+#. Click the run icon next to the edit icon, Pico-4wd finally starts to move！
     
-    你将能看到 Pico-4wd 的雷达正在扫描，Sunfounder Controller 上的 D box会显示扫描结果；你拨动 H box 的滑条，车尾部的 RGB Board 也会点亮相应的灯。
+
+    If it fails to proceed as expected, or **Disconnected** is displayed next to the **Run** icon, please reconnect the Pico-4wd to the phone (tablet), and try again!
+    
+    * You will be able to see that the Pico-4wd radar is scanning, and the D box on the Sunfounder Controller will show the scan results.
+    * If you flip the slider of the H box, the RGB Board at the rear of the car will lights up the corresponding lights.
 
 
-
-How it work?
+How it works?
 -----------------
 
-Pico-4wd和Sunfounder Controller之间的通信基于websocket协议。
+The communication between Pico-4wd and Sunfounder Controller is based on the ``websocket protocol``.
 
 * `WebSocket - Wikipedia <https://en.wikipedia.org/wiki/WebSocket>`_
 
-其功能已经被写入在了 ``ws.py`` 中，我们在章节 :ref:`Import Pico-4wd Libraries` 已经将其载入。
+Its function has been written in ``ws.py``, we have loaded it in the chapter :ref:`Import Pico-4wd Libraries`.
 
-APP Control 玩法的具体的工作流程如下：
+The specific workflow of APP Control gameplay is as follows:
 
 .. image:: img/flowchart_app_control.png
 
-代码如下：
+**Code**
 
 .. code-block:: python
 
@@ -135,13 +137,18 @@ APP Control 玩法的具体的工作流程如下：
         car.move("stop")
         car.set_light_off()
 
-这个代码已经构成了APP控制的基本框架。在这之中你需要关注的是这两个部分：
+
+This code constitutes the basic framework of APP control. Here, you need to pay attention to the following two parts:
 
 1. Setup websocket
 
-    你可以让连接模式在 Client Mode 和 AP Mode间切换。
+    There are two connection mode between Sunfounder Controller and Pico-4wd car: One is **AP** mode, the other is **STA** mode.
 
-    默认情况下，Pico-4wd的默认连接方式是 **AP Mode** ：Pico RDP放出热点（Wifi名是代码中的 ``NAME``，在这里是 ``my_4wd_car`` ），手机(平板)连接到这个WLAN中。这个模式可以让你在任何场合遥控Pico-4wd，但是会让你的手机(平板)暂时无法连接网络。
+    * **AP Mode**: You need to connect Sunfounder Contorller to the hotspot released by Pico-4wd car.
+    * **STA Mode**: You need to connect Sunfounder Controller and Pico-4wd car to the same LAN.
+    
+    The default connection mode is **AP Mode**: The car releases the hotspot (the Wifi name is ``NAME`` in the code, here is ``my_4wd_car``), the mobile phone (tablet) is connected to this WLAN. 
+    This mode allows you to remotely control Pico-4wd in any situation, but will make your phone (tablet) temporarily unable to connect to the Internet.
 
     .. code-block:: python
         :emphasize-lines: 3,4,5,6,8,9,10,11
@@ -161,9 +168,11 @@ APP Control 玩法的具体的工作流程如下：
         ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
         ws.start()
 
-    你也可以该用 **Client Mode** : 让Pico RDP连接到你的家庭WLAN，你的手机(平板)也应当连接在同一个WLAN下。这个模式与AP模式相反，不会影响手机（平板）的正常使用，但是会限制你的Pico-4wd不能离开WLAN的辐射范围。
+    You can also use **STA** mode: Let Pico-4wd car connects to your home WLAN, and your mobile phone (tablet) should also be connected to the same WLAN. 
+    
+    This mode is opposite to the **AP** mode and will not affect the normal use of the mobile phone (tablet), but will limit your Pico-4wd car from leaving the WLAN radiation range.
 
-    启动该模式的方法是注释掉 ``## AP Mode`` 下的3行，取消注释 ``## Client Mode`` 下的三行，同时将 SSID 和 PASSWORD 改成你的家庭 WIFI。
+    The way to start this mode is to comment out the three lines under ``## AP Mode``, uncomment the three lines under ``## Client Mode``, and change the SSID and PASSWORD to your home WIFI at the same time.
 
     .. code-block:: python
         :emphasize-lines: 3,4,5,6,8,9,10,11
@@ -183,16 +192,16 @@ APP Control 玩法的具体的工作流程如下：
         ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)    
         ws.start()
 
-    完成连接模式设置后，Websocket将会架设并启动服务器。
+    After completing the connection mode settings, Websocket will set up and start the server.
 
     .. code-block:: python
 
         ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)    
         ws.start()    
 
-#. 响应程序
+#. Responding
 
-    Pico-4wd 与 Sunfounder Controller 的具体运作代码写在 ``on_receive()`` 函数上。通常，我们需要将 APP控制Pico-4wd的代码写在前方，APP展示Pico-4wd传感器数据的代码写在后方。
+    The specific operation code of Pico-4wd and Sunfounder Controller is written on the ``on_receive()'' function. Usually, we need to write the codes for APP to control Pico-4wd on the front and the codes for APP to show Pico-4wd sensor data on the back.
 
     .. code-block:: python
 
@@ -205,7 +214,7 @@ APP Control 玩法的具体的工作流程如下：
 
         ws.on_receive = on_receive
     
-    在这个示例中，我们写入了 H 区域滑条控制RGB Board灯光点亮数目的控制代码；以及 D 区域展示雷达检测结果的展示代码。
+    As shown below, we have written the controls code for the H area slider to control the number of lights on the RGB Board; and the sensor codes for the D area to show the radar detection results.
 
     .. code-block:: python
 
@@ -225,15 +234,15 @@ APP Control 玩法的具体的工作流程如下：
 
         ws.on_receive = on_receive
 
-    最后， ``on_receive()`` 会被赋值到 ``ws.on_receive`` 从而被 ``ws.loop`` 调用。
+    Finally, ``on_receive()`` will be assigned to ``ws.on_receive`` and then called by ``ws.loop``.
 
 
-传输数据
+Transfer Data
 ------------------------------------
 
-*.From APP to Pico-4wd
+**From APP to Pico-4wd**
 
-    让我们来直观的看看，Pico-4wd 会从 APP 中获得什么样的数据。在 ``on_receive`` 中直接将 ``data`` 打印出来。
+    Let's take a look at what kind of data Pico-4wd will get from the APP. Print ``data`` directly in ``on_receive``.
 
     .. code-block:: python
 
@@ -245,17 +254,17 @@ APP Control 玩法的具体的工作流程如下：
             pass
 
 
-    你将能看到以下的字符串：
+    You will be able to see the following string:
 
     .. code-block:: python
 
         {'J_region': None, 'A_region': None, 'L_region': None, 'K_region': None, 'F_region': None, 'M_region': None, 'H_region': 50, 'Q_region': None, 'G_region': None, 'I_region': None, 'B_region': None, 'D_region': None, 'C_region': None, 'N_region': None, 'E_region': None, 'P_region': None, 'O_region': None}
 
-    如我们所见，我们看到 H Box 的值为50 ( `'H_region': 50` ) ，而其他为 None ， 这是因为我们只在 H Box 添加了用于控制的 widget。（ D 区域的widget不用于控制只用于显示。）
+    As we can see, the value of H Box is 50 (``H_region': 50``), and the others are None. This is because we only add one control widget (H Box). The widget in the D area is not used for control but only for show.
 
-    我们可以在 Box 中添加其他的widget，也能用相同的方法查看到这些widget传入Pico-4wd的值。
+    We can also add other control widgets, and use the same method to view the values ​​sent by these widgets to Pico-4wd.
 
-    而需要使用时，只需通过label即可取出对应widget的值。如下方，打印 H Box widget 的值：
+    You can get the value of the corresponding widget by just using the label. As shown below, print the value of the H Box widget:
 
     .. code-block:: python
 
@@ -277,9 +286,7 @@ APP Control 玩法的具体的工作流程如下：
             50
             50
 
-
-            
-    Pico-4wd 封装有使用模块的函数，我们可以将widget的值写入这些函数中来实现一些事情。如在这里我们使用滑条控制车尾的RGB Board。
+    As shown below, use the obtained H Box widget (Slider) value to control the RGB Board at the rear of the car.
 
     .. code-block:: python
 
@@ -292,12 +299,11 @@ APP Control 玩法的具体的工作流程如下：
                 car.write_light_color_at(i, [0, 0, 0])
             car.light_excute()
 
-    具体的调用Pico-4wd模块的方法请查看 `API <https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md>`_   。  
+    You can use `API <https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md>`_ file to help you understand the functions in the code.
 
+**From Pico-4wd to APP**
 
-#. From Pico-4wd to APP
-
-    Pico-4wd 封装有使用传感器模块的函数，如读取读取了雷达的值。
+    Now let's see what kind of data Pico-4wd will send to the APP. The following code is used to obtain the ultrasonic detection distance.
 
     .. code-block:: python
 
@@ -320,9 +326,9 @@ APP Control 玩法的具体的工作流程如下：
             [-50, 40.12]
             [-60, 36.431]  
     
-    具体的调用Pico-4wd模块的方法请查看 `API <https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md>`_ 。
+    You can use `API <https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md>`_ file to help you understand the functions in the code.
 
-    将这些函数值直接返回到对应的 Box 即可。将其雷达的值输出到D区域的雷达widget。
+    Now use the ``send_dict'' function to show the distance value in D Widget.
 
     .. code-block:: python
 
@@ -333,22 +339,10 @@ APP Control 玩法的具体的工作流程如下：
             ws.send_dict['D_region'] = data
 
 
-
-Widget List
---------------------------------
-在Sunfounder Controller中，用于控制的widget包括：
-
-.. image:: img/app_widget_control.png
-
-用于输出的widget包括：
-
-.. image:: img/app_widget_display.png
-
-
 APP Control Example
 ----------------------------
 
-现在，请打开 **examples** 中de  ``app_control.py`` ，尝试完整的APP遥控玩法吧！
+Now, please open de ``app_control.py`` in **examples** and try the complete APP remote control gameplay!
 
 .. image:: img/app_control_example.jpg
 
@@ -433,3 +427,14 @@ APP Control Example
     finally:
         car.move("stop")
         car.set_light_off()
+
+Widget List
+--------------------------------
+
+The control widgets are shown in the table:
+
+.. image:: img/app_widget_control.png
+
+The data widgets are shown in the table:
+
+.. image:: img/app_widget_display.png

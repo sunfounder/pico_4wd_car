@@ -1,38 +1,172 @@
 Test the Modules
 ==================================
 
-.. note::
-    Make sure you have completed the settings in :ref:`Setup Your Pico` before proceeding with this chapter.
+This chapter is suitable for usability testing of the modules before assembly; or for final commissioning and maintenance of the Pico-4wd after assembly has been completed.
 
-Under the **test** folder find ``test.py``, a file specifically designed to test that Pico-4wd works, please open it with Thonny IDE.
+Make sure you have completed the settings in :ref:`Setup Your Pico` before proceeding with this chapter.
 
-为了让模块可以顺利工作，您需要为Pico RDP供电，并toggle the power switch。
+Power up the Pico RDP
+-----------------------
+
+In order to make the module work, you need to power up the Pico RDP and turn the power switch to ON.
 
 .. image:: img/wiring_test_battery.png
 
+Test.py
+---------------
 
-
-Servo Zeroing During Assembly
---------------------------------------
-
-This part applies to the ***Assemble Ultrasonic Module** in the chapter :ref:`Assemble the Car` (to be precise, step 2).
+Under the **test** folder find ``test.py``, a file specifically designed to test that Pico-4wd works, please open it with Thonny IDE.
 
 .. note::
     The code below is abbreviated, please open the ``test.py`` file to use the code.
 
-
 .. code-block::
-    :emphasize-lines: 10,36
+    :emphasize-lines: 4,5,6,7,8,9,10,11,12,13,14,15,16
 
     import pico_4wd as car
     import time
 
     def test_motor():
-        #...
+        speed = 50
+        act_list = [
+            "forward",
+            "backward",
+            "left",
+            "right",
+            "stop",
+        ]
+        for act in act_list:
+            print(act)
+            car.move(act, speed)
+            time.sleep(1)
 
     def test_sonar():
         #...
 
+    def test_servo():
+        #...
+
+    def test_light():
+        #...
+
+    def test_grayscale():
+        #...
+
+    def test_speed():
+        #...
+
+    try:
+        test_motor()
+        # test_sonar()
+        # test_servo()
+        # test_light()
+        # test_grayscale()
+        # test_speed()
+    finally:
+        car.move("stop")
+        car.set_light_off()
+
+The test steps are shown below:
+
+1. Comment out all six lines of ``test_motor()`` , ``test_sonar()`` , ``test_servo()`` , ``test_light()`` , ``test_grayscale()`` , ``test_speed()`` in ``try``.
+
+#. Uncomment the statement corresponding to the module you need to test. If you need to test a motor, uncomment ``test_motor()``. You can only run one test item at a time.
+#. Make sure that the module is wired correctly to the main control board.
+#. Run the program by clicking the **green play** icon at the top left to run the current script, and then click the **STOP** icon to Stop/Restart backend.
+#. Some of these functions contain ``while True`` loops and you will need to stop them manually.
+
+
+Test the Motors
+---------------------
+
+.. image:: img/wiring_test_motor.png
+
+Uncomment the ``test_motor()`` function and run ``test.py``.
+
+This function will make the four motors work in a regular pattern. If you complete the assembly, this function will make the Pico-4wd perform five movements: forward, backward, left, right and stop.
+
+Test the Ultrasonic Module
+-----------------------------
+
+.. image:: img/wiring_test_ultrasonic.png
+
+Uncomment the ``test_sonar()`` function and run ``test.py``.
+
+This function will allow the ultrasonic module to detect an obstacle in front of it and print the distance of the obstacle.
+
+Test the RGB Boards
+--------------------
+
+.. image:: img/wiring_test_rgb.png
+
+Uncomment the ``test_light()`` function and run ``test.py``.
+
+This function will cause the 24 LEDs (all on the 3 RGB boards) to emit red, green, blue and white light in turn.
+
+Test the Grayscale Sensor Module
+---------------------------------
+
+.. image:: img/wiring_test_3ch.png
+
+
+Uncomment the ``test_grayscale()`` function and run ``test.py``.
+
+This function will print the values of the three probes of the grayscale module. When using it you should keep the probes about 7mm from the ground. 
+
+* Normally, on a white ground it will detect a value above **50000**.
+* On a black ground it will detect a value below **40000**.
+* On a cliff it will detect a value below **10000**. 
+* If the reading is **0**, this means that the probe has not detected the ground.
+
+Now calibrate this module.
+
+* Place it above the white ground and turn the potentiometer clockwise so that the reading is greater than **50000** (usually between 20000-65535). 
+* Then place it above the dark ground and turn the potentiometer counterclockwise to make it less than **10000** (usually between 30000 and 60000). 
+* Repeat several times to get the maximum difference in both cases.
+
+Test the Speed Module
+------------------------
+
+.. image:: img/wiring_test_speed.png
+
+
+Uncomment the ``test_speed()`` function and run ``test.py``.
+
+After the code runs, when you back and forth put the jammed paper into the U-shaped slot on the speed module/take it out.
+The Shell in Thonny IDE will print the current speed.
+
+If you have already installed it, this function will make the Pico-4wd move forward at variable speed and print out the motor power (as a percentage) and the travel speed (cm/s). 
+To use it you should hover the car so that the motor rotation is not obstructed.
+
+.. note::
+    The Thonny IDE contains a line graph tool, please open it by clicking **View** > **Plotter** in the navigation bar to help you see how the printed values are changing.
+
+Test the Servo
+--------------------------------------
+
+Uncomment the ``test_motor()`` in ``test.py`` as shown below, and then run the code.
+
+Its function is to make the servo axis deflect once and finally freeze at 0°. You can load an idle Servo Arm on the Servo shaft before executing the program to better observe whether the program is executed smoothly. 
+
+This part applies to the **Assemble Ultrasonic Module** in the chapter :ref:`Assemble the Car` (to be precise, step 2).
+
+.. note::
+    In the next chapter :ref:`Assemble the Car`, the servo needs to be kept at 0°, so after the code is run this time, do not turn the servo shaft until the car is assembled.
+    
+    If you accidentally turn the servo axis, please take down the rocker arm, run this code (uncomment ``test_servo()``) again, and then continue to assemble.
+
+.. code-block:: python
+    :emphasize-lines: 10,36
+    
+    import pico_4wd as car
+    import time
+    
+    def test_motor():
+        #...
+    
+    def test_sonar():
+        #...
+    
     def test_servo():
         for angle in range(0, 90):
             print("angle:%s "%angle)
@@ -46,16 +180,16 @@ This part applies to the ***Assemble Ultrasonic Module** in the chapter :ref:`As
             print("angle:%s "%angle)
             car.servo.set_angle(angle)
             time.sleep(0.005)
-
+    
     def test_light():
         #...
-
+    
     def test_grayscale():
         #...
-
+    
     def test_speed():
         #...
-
+    
     try:
         # test_motor()
         # test_sonar()
@@ -66,102 +200,9 @@ This part applies to the ***Assemble Ultrasonic Module** in the chapter :ref:`As
     finally:
         car.move("stop")
         car.set_light_off()
+    
+    
 
+    
 
-There are 6 test functions in this file. We annotated five of them and executed ``test_servo()`` in ``try``. 
-
-Its function is to make the servo axis deflect once and finally freeze at 0°.You can load an idle Servo Arm on the Servo shaft before executing the program to better observe whether the program is executed smoothly. 
-
-After the Servo is reset to zero, you can continue with the next installation steps.
-
-Test All Modules
-------------------------------
-
-这一部分适用于组装前对模块进行可用性测试；或者在完成组装后，对Pico-4wd进行最终调试和维护。
-
-.. note::
-    下方代码被简写，请打开``test.py``文件使用该代码）。
-
-
-.. code-block::
-    :emphasize-lines: 23,24,25,26,27,28
-
-    import pico_4wd as car
-    import time
-
-    def test_motor():
-        #...
-
-    def test_sonar():
-        #...
-
-    def test_servo():
-        #...
-
-    def test_light():
-        #...
-
-    def test_grayscale():
-        #...
-
-    def test_speed():
-        #...
-
-    try:
-        # test_motor()
-        # test_sonar()
-        test_servo()
-        # test_light()
-        # test_grayscale()
-        # test_speed()
-    finally:
-        car.move("stop")
-        car.set_light_off()
-
-具体的使用步骤如下：
-
-1. 将 ``test_motor()`` , ``test_sonar()`` , ``test_servo()`` , ``test_light()`` , ``test_grayscale()`` , ``test_speed()`` 这六行全部注释（To know about :ref:`Comments` here if you need）. 
-
-#. 将你需要测试的模块所对应的语句取消注释。如需测试电机，则uncomment ``test_motor()`` 。同一时间只能进行一个测试项。
-#. 确认该模块与主控板已连线正确。
-#. 运行程序。
-#. 这些函数中的一些含有 ``while True`` 循环，需要手动stop them。
-
-
-每一个模块测试函数对应的接线与工作现象如下：
-
-**test_motor()**
-
-.. image:: img/wiring_test_motor.png
-
-该函数会让四个motor按规律工作。如果你安装完毕，该函数会让Pico-4wd执行前进、后退、左转、右转、停止五个动作。
-
-**test_sonar()**
-
-.. image:: img/wiring_test_motor.png
-
-该函数会让超声波模块检测其前方的障碍物，并打印障碍物的距离。
-
-**test_light()**
-
-.. image:: img/wiring_test_rgb.png
-
-该函数会让24个LED（3个RGB board上所有的）依次发出红光、依次发出绿光、依次发出蓝光、依次发出白光。
-
-**test_grayscale()**
-
-.. image:: img/wiring_test_3ch.png
-
-该函数会打印grayscale module三个探测头的值。使用时你应当将小车放在桌面， the probe should be about 5 mm from the ground.  Normally, it will detect a value above ``5000`` on white ground. On black ground, it will detect values below ``4000``. On a cliff, it will detect a value below ``1000`` . (If the reading is ``0`` , it means that the probe does not detect the ground.)
-
-**test_speed()**
-
-.. image:: img/wiring_test_speed.png
-
-该函数会根据模块的U型槽中码盘遮断光传递的频率来实现速度测试。你可以用卡纸在U型槽中快速晃动来模拟码盘旋转，以此简单检测speed module是否损毁。
-
-如果你已经安装完成，该函数会让Pico-4wd变速前进，并将马达功率（百分比）及行驶速度(cm/s)打印出来。使用时你应当悬空小车，让马达转动不被阻碍。
-
-.. note::
-    Thonny IDE中含有折线图工具，请在导航栏中点击 View > Plotter 打开它，以助于你查看打印值的变化情况。
 

@@ -89,9 +89,9 @@ def test_speed():
             helper(power)
 
 try:
-    # test_motor()
+    test_motor()
     # test_sonar()
-    test_servo()
+    # test_servo()
     # test_light()
     # test_grayscale()
     # test_speed()
