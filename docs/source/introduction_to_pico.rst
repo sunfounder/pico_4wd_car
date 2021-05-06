@@ -117,7 +117,7 @@ Features
 * 12 x PWM channel, 3 x ADC channel, 4 x GPIO pins.
 * One channel SH1.0-4P port: I2C port. Compatible with QwIIC and STEMMA QT
 
-Pico's Pins
-------------
+Pico RDP's Pins
+------------------------
 
 .. image:: img/pico_drp_pin.png
