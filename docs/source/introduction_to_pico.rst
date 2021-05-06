@@ -89,3 +89,35 @@ Or you can click on the links below:
 * `Hardware design with RP2040 <https://datasheets.raspberrypi.org/rp2040/hardware-design-with-rp2040.pdf>`_
 * `Raspberry Pi Pico design files <https://datasheets.raspberrypi.org/pico/RPi-Pico-R3-PUBLIC-20200119.zip>`_
 * `Raspberry Pi Pico STEP file <https://datasheets.raspberrypi.org/pico/Pico-R3-step.zip>`_
+
+
+
+Introduction to Pico RDP
+===================================
+
+Pico Robot Development Platform (RDP) is a Wi-Fi expansion module supporting Raspberry Pi Pico with Espressif's ESP8266 module.
+
+It integrates industry-leading Wi-Fi solution, rich peripheral interfaces, and supports multiple compilers for development.
+
+It also has IO expansion interface circuit, LED power indicator circuit, voltage measurement circuit and 4-channel DC motor driver circuit on board.
+
+When you use Pico RDP for development and debugging, you can connect peripherals as you need, and the rich external interfaces can make your project more interesting.
+
+Features
+------------------
+
+* Microcontroller: Raspberry Pi Pico module
+* Wi-Fi: ESP8266 Wi-Fi module, 802.11 b/g/n (802.11n, speeds up to 150 Mbps), 2.4 GHz ~ 2.5 GHz frequency range
+* RUN button: reset button
+* Input voltage: 7.0-30.0V (PH2.0-2P)
+* Output voltage: 7.0-30.0V (PH2.0-2P), 5.0V, 3.3V
+* Output current: 5V/5A, 3.3V/1A
+* One channel SH1.0-4P port: I2C port.
+* Four channel XH2.54-4P port: DC motor port
+* 12 x PWM channel, 3 x ADC channel, 4 x GPIO pins.
+* One channel SH1.0-4P port: I2C port. Compatible with QwIIC and STEMMA QT
+
+Pico's Pins
+------------
+
+.. image:: img/pico_drp_pin.jpg
