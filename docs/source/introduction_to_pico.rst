@@ -120,4 +120,4 @@ Features
 Pico's Pins
 ------------
 
-.. image:: img/pico_drp_pin.jpg
+.. image:: img/pico_drp_pin.png
