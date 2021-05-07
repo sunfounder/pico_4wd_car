@@ -144,6 +144,8 @@ To use it you should hover the car so that the motor rotation is not obstructed.
 Test the Servo
 --------------------------------------
 
+.. image:: img/wiring_test_servo.png
+
 Uncomment the ``test_motor()`` in ``test.py`` as shown below, and then run the code.
 
 Its function is to make the servo axis deflect once and finally freeze at 0°. You can load an idle Servo Arm on the Servo shaft before executing the program to better observe whether the program is executed smoothly. 
