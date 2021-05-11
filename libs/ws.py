@@ -19,7 +19,7 @@ class WS_Server():
         self.password = password
         self.mode = mode.lower()
         self.port = port
-        self.uart = UART(1, 115200)
+        self.uart = UART(1, 115200, timeout=10000, timeout_char=1000)
         self.listen_s = None
         self.client_s = None
         self.ws = None
