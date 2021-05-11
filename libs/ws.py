@@ -31,8 +31,11 @@ class WS_Server():
 
     def read(self):
         buf = ""
-        while 1:
+        while 1: 
             buf = self.uart.readline()
+            if buf == None:
+                time.sleep_ms(10)
+                continue
             if buf[0] == 0xff:
                 buf = buf[1:]
             buf = buf.decode().replace("\r\n", "")
