@@ -64,7 +64,7 @@ class Servo():
             angle = -90
         if angle > 90:
             angle = 90
-        High_level_time = mapping(angle, -90, 90, self.MAX_PW, self.MIN_PW)
+        High_level_time = mapping(angle, 90, -90, self.MAX_PW, self.MIN_PW)
         pwr =  High_level_time / 20000
         value = int(pwr*self.PERIOD)
         self.servo.duty_u16(value)

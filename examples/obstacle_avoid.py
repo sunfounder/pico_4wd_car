@@ -40,6 +40,7 @@ def get_dir(radar_data):
         return "forward"
 
 def main():
+    global status
     # General
     while True:
         radar_data = car.radar_scan()
