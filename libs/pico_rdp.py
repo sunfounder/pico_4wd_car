@@ -16,29 +16,38 @@ class Speed():
     TIMER = 200
 
     def __init__(self, pin1, pin2):
-        self.count = 0
+        self.left_count = 0
+        self.right_count = 0
         # Count per second
-        self.cps = 0
+        self.left_cps = 0
+        self.right_cps = 0
         self.speed = 0
-        left_pin = Pin(pin1, Pin.IN, Pin.PULL_UP)
-        right_pin = Pin(pin2, Pin.IN, Pin.PULL_UP)
+        self.left_speed = 0
+        self.right_speed = 0
+        self.left_pin = Pin(pin1, Pin.IN, Pin.PULL_UP)
+        self.right_pin = Pin(pin2, Pin.IN, Pin.PULL_UP)
         self.tim = Timer()
-        left_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_left)
-        right_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_right)
+        self.left_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_left)
+        self.right_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_right)
         self.tim.init(period=self.TIMER, mode=Timer.PERIODIC, callback=self.on_timer)
         
     def on_left(self, ch):
-        self.count += 1
+            self.left_count += 1
 
     def on_right(self, ch):
-        self.count += 1
+            self.right_count += 1
 
     def on_timer(self, ch):
-        self.cps = (self.count) / 2.0 * (1000 / self.TIMER)
-        # 20 count per turn
-        rps = self.cps / 20.0
-        self.speed = round(rps * self.WP, 2)
-        self.count =0
+        print(self.left_count)
+        self.left_cps = (self.left_count) * (1000 / self.TIMER)
+        self.left_rps = self.left_cps / 20.0
+        self.left_speed = round(self.left_rps * self.WP, 2)
+        self.right_cps = (self.right_count) * (1000 / self.TIMER)
+        self.right_rps = self.right_cps / 20.0
+        self.right_speed = round(self.right_rps * self.WP, 2)
+        self.speed = round((self.left_speed + self.right_speed) / 2, 2)
+        self.left_count = 0
+        self.right_count = 0
 
     def __call__(self):
         return self.speed
@@ -123,15 +132,16 @@ class Motor():
         else:
             value = mapping(abs(power), 0, 100, 20, 100)
         value = int(value / 100.0 * 0xffff)
+        value = 0xffff - value
         if dir > 0:
-            self.pin_1.duty_u16(0)
-            self.pin_2.duty_u16(value)
-        elif dir < 0:
             self.pin_1.duty_u16(value)
-            self.pin_2.duty_u16(0)
+            self.pin_2.duty_u16(0xffff)
+        elif dir < 0:
+            self.pin_1.duty_u16(0xffff)
+            self.pin_2.duty_u16(value)
         else:
-            self.pin_1.duty_u16(0)
-            self.pin_2.duty_u16(0)
+            self.pin_1.duty_u16(0xffff)
+            self.pin_2.duty_u16(0xffff)
 
     def set_motor_power(self, power):
         self.power = power
@@ -196,3 +206,4 @@ class WS2812():
     def __setitem__(self, i, value):
         value = self.list_to_hex(value)
         self.buf[i] = value
+
