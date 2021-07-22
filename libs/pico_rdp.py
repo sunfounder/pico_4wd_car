@@ -32,13 +32,14 @@ class Speed():
         self.tim.init(period=self.TIMER, mode=Timer.PERIODIC, callback=self.on_timer)
         
     def on_left(self, ch):
+        if self.left_pin.value() == 0:
             self.left_count += 1
 
     def on_right(self, ch):
+        if self.right_pin.value() == 0:
             self.right_count += 1
 
     def on_timer(self, ch):
-        print(self.left_count)
         self.left_cps = (self.left_count) * (1000 / self.TIMER)
         self.left_rps = self.left_cps / 20.0
         self.left_speed = round(self.left_rps * self.WP, 2)
@@ -105,8 +106,8 @@ class Motor():
     def __init__(self, pin_a, pin_b, dir=1):
         self.pin_1 = PWM(Pin(pin_a, Pin.OUT))
         self.pin_2 = PWM(Pin(pin_b, Pin.OUT))
-        self.pin_1.freq(500)
-        self.pin_2.freq(500)
+        self.pin_1.freq(20000)
+        self.pin_2.freq(20000)
         self.dir = dir
         self._power = 0
         self._value = 0
@@ -206,4 +207,3 @@ class WS2812():
     def __setitem__(self, i, value):
         value = self.list_to_hex(value)
         self.buf[i] = value
-

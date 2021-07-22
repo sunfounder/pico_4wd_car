@@ -108,6 +108,7 @@ class WS_Server():
     def loop(self):
         # print("waiting for uart data...")
         receive = self.read()
+        # print("Received.")
         # print("ws loop, receive: %s" % receive)
         if receive == None:
             return
