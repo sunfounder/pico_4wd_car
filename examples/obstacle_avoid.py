@@ -33,9 +33,9 @@ def get_dir(radar_data):
     delta = len(radar_data) / 3
     
     if pos < delta:
-        return "right"
-    elif pos > 2 * delta:
         return "left"
+    elif pos > 2 * delta:
+        return "right"
     else:
         return "forward"
 
@@ -60,11 +60,11 @@ def main():
 
         if direction == "left":
             print("turn left")
-            distance = car.get_radar_distance_at(FORWARD_SCAN_ANGLE/2)
+            distance = car.get_radar_distance_at(-FORWARD_SCAN_ANGLE/2)
             time.sleep(0.5)
             car.move("left", MOTOR_TURNING_POWER)
             while True:
-                distance = car.get_radar_distance_at(FORWARD_SCAN_ANGLE/2)
+                distance = car.get_radar_distance_at(-FORWARD_SCAN_ANGLE/2)
                 status = car.get_radar_status(distance)
                 if status == 1:
                     break
@@ -72,11 +72,11 @@ def main():
             car.set_radar_scan_angle(FORWARD_SCAN_ANGLE)
         elif direction == "right":
             print("turn right")
-            distance = car.get_radar_distance_at(-FORWARD_SCAN_ANGLE/2)
+            distance = car.get_radar_distance_at(FORWARD_SCAN_ANGLE/2)
             time.sleep(0.5)
             car.move("right", MOTOR_TURNING_POWER)
             while True:
-                distance = car.get_radar_distance_at(-FORWARD_SCAN_ANGLE/2)
+                distance = car.get_radar_distance_at(FORWARD_SCAN_ANGLE/2)
                 status = car.get_radar_status(distance)
                 if status == 1:
                     break
