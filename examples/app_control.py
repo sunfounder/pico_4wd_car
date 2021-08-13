@@ -57,6 +57,9 @@ def on_receive(data):
     else:
         car.set_light_bottom_color([0,0,0])
     
+    # mileage
+    ws.send_dict['E'] = car.speed.mileage
+
     # radar
     ws.send_dict['D'] = car.get_radar_distance()
     

@@ -30,6 +30,10 @@ class Speed():
         self.left_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_left)
         self.right_pin.irq(trigger=Pin.IRQ_FALLING, handler=self.on_right)
         self.tim.init(period=self.TIMER, mode=Timer.PERIODIC, callback=self.on_timer)
+
+        # self.data = fileDB("data")
+        # self._mileage = float(self.data.get("mileage", default=0))
+        self._mileage = 0
         
     def on_left(self, ch):
         if self.left_pin.value() == 0:
@@ -47,6 +51,8 @@ class Speed():
         self.right_rps = self.right_cps / 20.0
         self.right_speed = round(self.right_rps * self.WP, 2)
         self.speed = round((self.left_speed + self.right_speed) / 2, 2)
+        self._mileage += self.speed * (self.TIMER/1000)/ 100
+        # self.data.set("mileage",  self._mileage)
         self.left_count = 0
         self.right_count = 0
 
@@ -55,6 +61,15 @@ class Speed():
 
     def get_speed(self):
         return self.speed
+
+    @property
+    def mileage(self):
+        return self._mileage
+
+    @mileage.setter
+    def mileage(self, value):
+        self._mileage = value
+        # raise ValueError("Mileage changing is not allowed!")
 
 class Servo():
     MAX_PW = 2500
@@ -207,3 +222,67 @@ class WS2812():
     def __setitem__(self, i, value):
         value = self.list_to_hex(value)
         self.buf[i] = value
+
+class fileDB(object):
+	"""A file based database.
+
+    A file based database, read and write arguements in the specific file.
+    """
+	def __init__(self, db=None):
+		'''Init the db_file is a file to save the datas.'''
+
+		# Check if db_file is defined
+		if db != None:
+			self.db = db
+		else:
+			self.db = "config"
+
+	def get(self, name, default=None):
+		"""Get value by data's name. Default value is for the arguemants do not exist"""
+		try:
+			conf = open(self.db,'r')
+			lines=conf.readlines()
+			conf.close()
+			file_len=len(lines)-1
+			flag = False
+			# Find the arguement and set the value
+			for i in range(file_len):
+				if lines[i][0] != '#':
+					if lines[i].split('=')[0].strip() == name:
+						value = lines[i].split('=')[1].replace(' ', '').strip()
+						flag = True
+			if flag:
+				return value
+			else:
+				return default
+		except OSError:
+			conf = open(self.db,'w')
+			conf.write("")
+			conf.close()
+			return default
+		except :
+			return default
+	
+	def set(self, name, value):
+		"""Set value by data's name. Or create one if the arguement does not exist"""
+
+		# Read the file
+		conf = open(self.db,'r')
+		lines=conf.readlines()
+		conf.close()
+		file_len=len(lines)-1
+		flag = False
+		# Find the arguement and set the value
+		for i in range(file_len):
+			if lines[i][0] != '#':
+				if lines[i].split('=')[0].strip() == name:
+					lines[i] = '%s = %s\n' % (name, value)
+					flag = True
+		# If arguement does not exist, create one
+		if not flag:
+			lines.append('%s = %s\n\n' % (name, value))
+
+		# Save the file
+		conf = open(self.db,'w')
+		conf.write("\n".join(lines))
+		conf.close()
