@@ -23,7 +23,7 @@ def on_receive(data):
     global led_status
 
     #Move
-    if 'K' in data.keys() and 'H' in data.keys():
+    if 'K' in data.keys() and 'A' in data.keys():
         if data['K'] == "left":
             car.write_light_color_at(0, [0, 0, 0])
             car.write_light_color_at(1, [0, 0, 0])
@@ -41,14 +41,14 @@ def on_receive(data):
             car.write_light_color_at(7, [0, 0, 0])
         car.light_excute()
             
-        car.move(data['K'], data['H'])
+        car.move(data['K'], data['A'])
     
     # RGB LED
-    if 'M' in data.keys():
-        led_status = data['M']
+    if 'G' in data.keys():
+        led_status = data['G']
             
     # Speed measurement
-    ws.send_dict['A'] = car.speed()
+    ws.send_dict['B'] = car.speed()
     if led_status:
         # HUE color system, Red is 0, and Green is 120
         hue = car.mapping(car.speed(), 0, 70, 120, 0)
@@ -58,13 +58,13 @@ def on_receive(data):
         car.set_light_bottom_color([0,0,0])
     
     # mileage
-    ws.send_dict['E'] = car.speed.mileage
+    ws.send_dict['C'] = car.speed.mileage
 
     # radar
     ws.send_dict['D'] = car.get_radar_distance()
     
     # greyscale
-    ws.send_dict['L'] = car.get_grayscale_values()
+    ws.send_dict['H'] = car.get_grayscale_values()
 
 ws.on_receive = on_receive
 
