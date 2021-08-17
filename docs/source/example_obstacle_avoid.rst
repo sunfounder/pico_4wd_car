@@ -9,7 +9,7 @@ How it Works
 --------------
 
 .. image:: img/flowchart_obstacle_avoid.png
-
+    :width: 800
 
 Code
 ----------------

@@ -8,7 +8,7 @@ How it works
 --------------
 
 .. image:: img/flowchart_bull_fight.png
-
+    :width: 600
 
 Code
 ----------------

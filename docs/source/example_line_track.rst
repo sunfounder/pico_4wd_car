@@ -13,7 +13,7 @@ How it Works
 --------------
 
 .. image:: img/flowchart_line_track.png
-
+    :width: 800
 
 Code
 ----------------

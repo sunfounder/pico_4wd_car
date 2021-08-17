@@ -92,6 +92,7 @@ Its function has been written in ``ws.py``, we have loaded it in the chapter :re
 The specific workflow of APP Control gameplay is as follows:
 
 .. image:: img/flowchart_app_control.png
+    :width: 500
 
 **Code**
 

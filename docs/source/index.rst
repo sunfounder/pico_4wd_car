@@ -20,12 +20,12 @@ In addition, you can also use an app - SunFounder Controller - to DIY your own c
 
    introduction_to_pico
    setup_your_pico/setup_your_pico
-   your_first_micropython_program
    test_the_modules
    assemble_the_car
    examples
    micropy_basic_syntax/microPython_basic_syntax   
    faq
+   thank-robot
 
 
 Copyright Notice
