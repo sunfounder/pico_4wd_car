@@ -6,6 +6,6 @@ Assemble the Car
     
     If you accidentally turn the servo shaft, please take down the rocker arm, run ``test.py`` code (uncomment ``test_servo()``) again, and then continue to assemble.
 
-`Pico-4wd Assemble File <https://sunfounder.s3.amazonaws.com/docs/Pico-4wd+Car+Kit.pdf>`_
+* :download:`(PDF)Pico-4wd Assemble Instruction <https://github.com/sunfounder/sf-pdf/raw/master/assembly_file/a0000648-pico-4wd.pdf>`
 
 

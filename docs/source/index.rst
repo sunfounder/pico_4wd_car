@@ -6,7 +6,7 @@
 Welcome to Pico-4wd car's documentation!
 ==========================================
 
-The Pico-4wd is an Raspberry Pi Pico based, cool, robot car kit that everyone can have.
+The Pico-4wd is a Raspberry Pi Pico based, cool, robot car kit that everyone can have.
 
 Equipped with greyscale sensor module and ultrasonic module, it can perform line tracking, cliff detection, follow and obstacle avoidance functions. The RGB boards assembled at the bottom and rear of the car make it the coolest spirit in the dark.
 
