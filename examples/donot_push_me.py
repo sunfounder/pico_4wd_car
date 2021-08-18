@@ -1,7 +1,7 @@
 import pico_4wd as car
 import time
 
-car.GRAYSCALE_EDGE_REFERENCE = 500
+car.GRAYSCALE_EDGE_REFERENCE = 1000
 MOTOR_POWER = 50
 
 def shake_head():
