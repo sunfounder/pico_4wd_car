@@ -20,7 +20,7 @@ ws.start()
 
 def on_receive(data):
     # write control codes here.
-    num = int(data['H_region']*9/100)
+    num = int(data['H']*9/100)
     for i in range(0,num):
         car.write_light_color_at(i, [80, 50, 0])
     for i in range(num,8):
@@ -29,7 +29,7 @@ def on_receive(data):
     
     # write sensor codes here.    
     data = car.get_radar_distance()
-    ws.send_dict['D_region'] = data
+    ws.send_dict['D'] = data
 
 ws.on_receive = on_receive
 
