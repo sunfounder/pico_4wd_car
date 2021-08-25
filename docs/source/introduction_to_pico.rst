@@ -121,3 +121,6 @@ Pico RDP's Pins
 ------------------------
 
 .. image:: img/pico_drp_pin.png
+
+
+Here is the schematic of the Pico RDP: :download:`PDF Pico RDP Schematic https://github.com/sunfounder/sf-pdf/raw/master/schematic/PICO%20RDP.pdf`.
