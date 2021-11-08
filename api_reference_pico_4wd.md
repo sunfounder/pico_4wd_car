@@ -19,10 +19,11 @@ car.set_light_all_color([0, 100, 0]) # set all LED color to green
 car.set_light_all_color([0, 0, 100]) # set all LED color to blue
 ```
 
-`set_light_color_at(num, color)`: Set single LED color
+`set_light_color_at(num, color, preset=0)`: Set single LED color
 
 - `num`: int for the position of LED, from 0 to 23
 - `color`: list of [R, G, B], R/G/B range 0~255
+- `preset`: set LIGHT_REAR/LIGHT_BOTTOM_LEFT/LIGHT_BOTTOM_RIGHT
 - return: None
 
 ```python
@@ -82,10 +83,11 @@ import pico_4wd as car
 car.set_light_rear_color([100, 0, 0]) # set bottom LED strip color to red
 ```
 
-`write_light_color_at(num, color)`: Write single LED color to buffer, but not excute
+`write_light_color_at(num, color, preset=0)`: Write single LED color to buffer, but not excute
 
 - `num`: int for the position of LED, from 0 to 23
 - `color`: list of [R, G, B], R/G/B range 0~255
+- `preset`: set LIGHT_REAR/LIGHT_BOTTOM_LEFT/LIGHT_BOTTOM_RIGHT
 - return: None
 
 ```python
@@ -370,3 +372,6 @@ finally:
 - `RADAR_MAX_ANGLE`: Max angle for radar scanning
 - `RADAR_MIN_ANGLE`: Min angle for radar scanning
 - `RADAR_STEP_ANGLE`: Angle of every step for radar scanning
+- `LIGHT_REAR`: Rear light order (0/1/2)
+- `LIGHT_BOTTOM_LEFT`: Bottom left light order (0/1/2)
+- `LIGHT_BOTTOM_RIGHT`: Bottom right light order (0/1/2)
