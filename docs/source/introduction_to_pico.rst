@@ -75,7 +75,7 @@ Pico's Pins
         - 5 volts power
         - A source of 5 V power taken from your Pico’s micro USB port, and used to power hardware which needs more than 3.3 V.
 
-The best place to find everything you need to get started with your Raspberry Pi Pico is `here <https://www.raspberrypi.org/documentation/pico/getting-started/>`_
+The best place to find everything you need to get started with your `Raspberry Pi Pico <https://www.raspberrypi.com/documentation/microcontrollers/raspberry-pi-pico.html>`_.
 
 Or you can click on the links below: 
 
@@ -123,4 +123,4 @@ Pico RDP's Pins
 .. image:: img/pico_drp_pin.png
 
 
-Here is the schematic of the Pico RDP: :download:`PDF Pico RDP Schematic https://github.com/sunfounder/sf-pdf/raw/master/schematic/PICO%20RDP.pdf`.
+Here is the schematic of the Pico RDP: :download:`PDF Pico RDP Schematic <https://github.com/sunfounder/sf-pdf/raw/master/schematic/pico-rdp.pdf>`.
