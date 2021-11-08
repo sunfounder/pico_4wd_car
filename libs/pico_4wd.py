@@ -2,6 +2,9 @@ from pico_rdp import Motor, Speed, Servo, Ultrasonic, WS2812, mapping
 from machine import Pin, ADC
 import time
 
+LIGHT_REAR = 0
+LIGHT_BOTTOM_LEFT = 1
+LIGHT_BOTTOM_RIGHT = 2
 
 left_front  = Motor(17, 16, dir=1) # motor 1
 right_front = Motor(15, 14, dir=-1) # motor 2
@@ -36,32 +39,34 @@ def set_light_all_color(color):
         np[i] = color#[color[0], color[1], color[2]]
     np.write()
 
-def set_light_color_at(num, color):
-    np[num] = color#[color[0], color[1], color[2]]
+def set_light_color_at(num, color, preset=0):
+    write_light_color_at(num, color, preset=preset)
     np.write()
 
 def set_light_bottom_left_color(color):
     for i in range(8):
-        write_light_color_at(i+8, color)
+        write_light_color_at(i+8*LIGHT_BOTTOM_LEFT, color)
     light_excute()
 
 def set_light_bottom_right_color(color):
     for i in range(8):
-        write_light_color_at(i+16, color)
+        write_light_color_at(i+8*LIGHT_BOTTOM_RIGHT, color)
     light_excute()
 
 def set_light_bottom_color(color):
-    for i in range(16):
-        write_light_color_at(i+8, color)
+    for i in range(8):
+        write_light_color_at(i+8*LIGHT_BOTTOM_LEFT, color)
+    for i in range(8):
+        write_light_color_at(i+8*LIGHT_BOTTOM_RIGHT, color)
     light_excute()
 
 def set_light_rear_color(color):
     for i in range(8):
-        write_light_color_at(i, color)
+        write_light_color_at(8*LIGHT_REAR, color)
     light_excute()
 
-def write_light_color_at(num, color):
-    np[num] = color#[color[0], color[1], color[2]]
+def write_light_color_at(num, color, preset=0):
+    np[num + preset*8] = color#[color[0], color[1], color[2]]
 
 def light_excute():
     np.write()
@@ -209,3 +214,4 @@ def move(dir, power=0):
         set_motor_power_gradually(power, -power, power, -power)
     else:
         set_motor_power_gradually(0, 0, 0, 0)
+
