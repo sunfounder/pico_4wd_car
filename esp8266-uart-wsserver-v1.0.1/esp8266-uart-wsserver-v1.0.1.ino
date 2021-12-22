@@ -2,8 +2,10 @@
 #include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
 
-// for produce, uncomment this line
+// for production, uncomment this line
 // #define DEBUG
+
+#define SERIAL_TIMEOUT 100 // 100ms
 
 // Mode
 #define NONE 0
@@ -22,6 +24,47 @@ String rxBuf = "";
 uint8_t client_num = 0;
 
 WebSocketsServer webSocket = WebSocketsServer(8765);
+
+bool wifiClient();
+bool wifiAP();
+bool connectWiFi();
+String serialRead();
+void handleSet(String cmd);
+void handleGet(String cmd);
+String intToString(uint8_t * value, size_t length);
+void onWebSocketEvent(uint8_t cn, WStype_t type, uint8_t * payload, size_t length);
+
+void setup() {
+  Serial.begin(115200);
+  Serial.setTimeout(SERIAL_TIMEOUT);
+  #ifdef DEBUG
+  Serial.println("[DEBUG] Start!");
+  #endif
+  Serial.println("\r\n[OK]");
+}
+
+void loop() {
+  rxBuf = serialRead();
+  if (rxBuf.length() > 0) {
+    #ifdef DEBUG
+    Serial.print("[DEBUG] RX Receive: ");Serial.println(rxBuf);
+    #endif
+    delay(10);
+    if (rxBuf.substring(0, 4) == "SET+"){
+      handleSet(rxBuf.substring(4));
+    } else if (rxBuf.substring(0, 3) == "WS+"){
+      String out = rxBuf.substring(3);
+      #ifdef DEBUG
+      Serial.print("[DEBUG] Read from Serial: ");Serial.println(out);
+      #endif
+      webSocket.sendTXT(client_num, out);
+    }
+  }
+  if (isConnected){
+    webSocket.loop();
+  }
+  delay(10);
+}
 
 bool wifiClient(){
   // Connect to wifi
@@ -86,27 +129,30 @@ bool connectWiFi(){
   #endif
 
   isConnected = true;
+  webSocket = WebSocketsServer(port);
+  webSocket.begin();
+  webSocket.onEvent(onWebSocketEvent);
   #ifdef DEBUG
   Serial.println("[DEBUG] Websocket on!");
   #endif
-  webSocket = WebSocketsServer(8765);
-  webSocket.begin();
-  webSocket.onEvent(onWebSocketEvent);
   return true;
 }
 
 String serialRead() {
   String buf = "";
   char inChar;
-  while (Serial.available() || buf.length() != 0) {
-    inChar = (char)Serial.read();
-    // Serial.println((int)inChar);
+  int temp;
+  unsigned long timeoutStart = millis();
+  while (Serial.available() && millis() - timeoutStart < SERIAL_TIMEOUT) {
+    temp = Serial.read();
+    inChar = (char)temp;
     if (inChar == '\n') {
-      return buf;
+      break;
     } else if((int)inChar != 255){
       buf += inChar;
     }
   }
+  return buf;
 }
 
 void handleSet(String cmd){
@@ -131,7 +177,12 @@ void handleSet(String cmd){
   } else if (cmd.substring(0, 4) == "MODE"){
     mode = cmd.substring(4).toInt();
     #ifdef DEBUG
-    Serial.print("[DEBUG] Set mode: ");Serial.println(mode);
+    Serial.print("[DEBUG] Set mode: ");
+    if (mode == AP){
+      Serial.println("AP");
+    } else if (mode == STA) {
+      Serial.println("STA");
+    }
     #endif
     Serial.println("[OK]");
   } else if (cmd.substring(0, 5) == "RESET"){
@@ -179,10 +230,7 @@ String intToString(uint8_t * value, size_t length) {
   return buf;
 }
 
-void onWebSocketEvent(uint8_t cn,
-                      WStype_t type,
-                      uint8_t * payload,
-                      size_t length) {
+void onWebSocketEvent(uint8_t cn, WStype_t type, uint8_t * payload, size_t length) {
   String out;
   client_num = cn;
   #ifdef DEBUG
@@ -282,40 +330,4 @@ void onWebSocketEvent(uint8_t cn,
       break;
     }
   }
-}
-
-void setup() {
-  Serial.begin(115200);
-  #ifdef DEBUG
-  Serial.print("[DEBUG] Start!");Serial.println(password);
-  #endif
-  Serial.println("\r\n[OK]");
-}
-
-// for test
-// SET+SSIDMakerStarsHall
-// SET+SSIDbuibuibui
-// SET+PSKsunfounder
-
-void loop() {
-  rxBuf = serialRead();
-  if (rxBuf.length() > 0) {
-    #ifdef DEBUG
-    Serial.print("[DEBUG] RX Receive: ");Serial.println(rxBuf);
-    #endif
-    delay(10);
-    if (rxBuf.substring(0, 4) == "SET+"){
-      handleSet(rxBuf.substring(4));
-    } else if (rxBuf.substring(0, 3) == "WS+"){
-      String out = rxBuf.substring(3);
-      #ifdef DEBUG
-      Serial.print("[DEBUG] Read from Serial: ");Serial.println(out);
-      #endif
-      webSocket.sendTXT(client_num, out);
-    }
-  }
-  if (isConnected){
-    webSocket.loop();
-  }
-  delay(10);
 }

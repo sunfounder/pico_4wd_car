@@ -28,7 +28,7 @@ SET+PORT8765
 SET+MODE1
 ```
 
-`SET+CONNECT`: set Connect, return IP if connected
+`SET+START`: set Connect, return IP if connected
 
 ```
 SET+CONNECT
@@ -103,3 +103,7 @@ SET+MODE1
 SET+PORT8765
 SET+START
 ```
+
+## Changelog
+
+- 2021-12-23: tide code, add timeout for serial read
