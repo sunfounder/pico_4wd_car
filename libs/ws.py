@@ -19,7 +19,7 @@ class WS_Server():
         self.password = password
         self.mode = mode.lower()
         self.port = port
-        self.uart = UART(1, 115200, timeout=10000, timeout_char=1000)
+        self.uart = UART(1, 115200, timeout=100, timeout_char=10)
         self.listen_s = None
         self.client_s = None
         self.ws = None
@@ -29,13 +29,17 @@ class WS_Server():
 
         self.set("RESET")
 
-    def read(self):
+    def read(self, block=False):
         buf = ""
         while 1: 
             buf = self.uart.readline()
             if buf == None:
-                time.sleep_ms(10)
-                continue
+                # print("Timeout")
+                if block:
+                    # time.sleep_ms(10)
+                    continue
+                else:
+                    return None
             if buf[0] == 0xff:
                 buf = buf[1:]
             buf = buf.decode().replace("\r\n", "")
@@ -65,7 +69,7 @@ class WS_Server():
     def set(self, command, value=None):
         self._command("SET", command, value)
         while True:
-            result = self.read()
+            result = self.read(block=True)
             # print("Result: %s" % result)
             if result.startswith("[ERROR]"):
                 raise ValueError(result)
@@ -111,6 +115,7 @@ class WS_Server():
         # print("Received.")
         # print("ws loop, receive: %s" % receive)
         if receive == None:
+            self.send_data()
             return
         elif receive.startswith("[CONNECTED]"):
             print("Connected from %s" % receive.split(" ")[1])
