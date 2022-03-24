@@ -1,0 +1,406 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Test the Modules &mdash; SunFounder pico_4wd_car  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="https://ezblock.cc/readDocFile/topHead.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="https://ezblock.cc/readDocFile/topHead.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Assemble the Car" href="assemble_the_car.html" />
+    <link rel="prev" title="Open and Run the Code" href="python_start/open_run.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> SunFounder pico_4wd_car
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduce.html">Introduce</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_start/get_start.html">Get Started with MicroPython</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Test the Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#power-up-the-pico-rdp">Power up the Pico RDP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-py">Test.py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-motors">Test the Motors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-ultrasonic-module">Test the Ultrasonic Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-rgb-boards">Test the RGB Boards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-grayscale-sensor-module">Test the Grayscale Sensor Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-speed-module">Test the Speed Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-the-servo">Test the Servo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="assemble_the_car.html">Assemble the Car</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Micropython Projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/app_control.html">APP Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="syntax/micropython_basic_syntax.html">(Optional) MicroPython Basic Syntax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="thank-robot.html">Thank You</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SunFounder pico_4wd_car</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Test the Modules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/test_the_modules.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="test-the-modules">
+<h1>Test the Modules<a class="headerlink" href="#test-the-modules" title="Permalink to this headline">¶</a></h1>
+<p>This chapter is suitable for usability testing of the modules before assembly; or for final commissioning and maintenance of the Pico-4wd after assembly has been completed.</p>
+<p>Make sure you have completed the settings in <a class="reference internal" href="python_start/get_start.html#get-start"><span class="std std-ref">Get Started with MicroPython</span></a> before proceeding with this chapter.</p>
+<div class="section" id="power-up-the-pico-rdp">
+<h2>Power up the Pico RDP<a class="headerlink" href="#power-up-the-pico-rdp" title="Permalink to this headline">¶</a></h2>
+<p>In order to make the module work, you need to power up the Pico RDP and turn the power switch to ON.</p>
+<img alt="_images/wiring_test_battery.png" src="_images/wiring_test_battery.png" />
+</div>
+<div class="section" id="test-py">
+<h2>Test.py<a class="headerlink" href="#test-py" title="Permalink to this headline">¶</a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">test.py</span></code> file, the test code for the motor, Ultrasonic module, servo, WS2812 RGB Board, Grayscale sensor module and Speed Sensor module are integrated and can be selected in <code class="docutils literal notranslate"><span class="pre">try:</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Open the <code class="docutils literal notranslate"><span class="pre">test.py</span></code> file under the path of <code class="docutils literal notranslate"><span class="pre">pico_4wd_car/tests</span></code>, then click “Run Current Script” or simply press F5 to run it.</p></li>
+<li><p>Don’t forget to click on the “MicroPython (Raspberry Pi Pico)” interpreter in the bottom right corner.</p></li>
+<li><p>For detailed tutorials, please refer to <a class="reference internal" href="python_start/open_run.html#open-run-code-py"><span class="std std-ref">Open and Run Code Directly</span></a>.</p></li>
+</ul>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pico_4wd</span> <span class="k">as</span> <span class="nn">car</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">test_motor</span><span class="p">():</span>
+</span><span class="hll">    <span class="n">speed</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class="hll">    <span class="n">act_list</span> <span class="o">=</span> <span class="p">[</span>
+</span><span class="hll">        <span class="s2">&quot;forward&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="s2">&quot;backward&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="s2">&quot;left&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+</span><span class="hll">        <span class="s2">&quot;stop&quot;</span><span class="p">,</span>
+</span><span class="hll">    <span class="p">]</span>
+</span><span class="hll">    <span class="k">for</span> <span class="n">act</span> <span class="ow">in</span> <span class="n">act_list</span><span class="p">:</span>
+</span><span class="hll">        <span class="nb">print</span><span class="p">(</span><span class="n">act</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">speed</span><span class="p">)</span>
+</span><span class="hll">        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span>
+<span class="k">def</span> <span class="nf">test_sonar</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_servo</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_light</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_grayscale</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_speed</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">test_motor</span><span class="p">()</span>
+    <span class="c1"># test_sonar()</span>
+    <span class="c1"># test_servo()</span>
+    <span class="c1"># test_light()</span>
+    <span class="c1"># test_grayscale()</span>
+    <span class="c1"># test_speed()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The test steps are shown below:</p>
+<ol class="arabic simple">
+<li><p>Comment out all six lines of <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_sonar()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_servo()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_light()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_grayscale()</span></code> , <code class="docutils literal notranslate"><span class="pre">test_speed()</span></code> in <code class="docutils literal notranslate"><span class="pre">try</span></code>.</p></li>
+<li><p>Uncomment the statement corresponding to the module you need to test. If you need to test a motor, uncomment <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code>. You can only run one test item at a time.</p></li>
+<li><p>Make sure that the module is wired correctly to the main control board.</p></li>
+<li><p>Run the program by clicking the <strong>green play</strong> icon at the top left to run the current script, and then click the <strong>STOP</strong> icon to Stop/Restart backend.</p></li>
+<li><p>Some of these functions contain <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True</span></code> loops and you will need to stop them manually.</p></li>
+</ol>
+</div>
+<div class="section" id="test-the-motors">
+<h2>Test the Motors<a class="headerlink" href="#test-the-motors" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_motor.png" src="_images/wiring_test_motor.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> function and run <code class="docutils literal notranslate"><span class="pre">test.py</span></code>.</p>
+<p>This function will make the four motors work in a regular pattern. If you complete the assembly, this function will make the Pico-4wd perform five movements: forward, backward, left, right and stop.</p>
+</div>
+<div class="section" id="test-the-ultrasonic-module">
+<h2>Test the Ultrasonic Module<a class="headerlink" href="#test-the-ultrasonic-module" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_ultrasonic.png" src="_images/wiring_test_ultrasonic.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_sonar()</span></code> function and run <code class="docutils literal notranslate"><span class="pre">test.py</span></code>.</p>
+<p>This function will allow the ultrasonic module to detect an obstacle in front of it and print the distance of the obstacle.</p>
+</div>
+<div class="section" id="test-the-rgb-boards">
+<h2>Test the RGB Boards<a class="headerlink" href="#test-the-rgb-boards" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_rgb.png" src="_images/wiring_test_rgb.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_light()</span></code> function and run <code class="docutils literal notranslate"><span class="pre">test.py</span></code>.</p>
+<p>This function will cause the 24 LEDs (all on the 3 RGB boards) to emit red, green, blue and white light in turn.</p>
+</div>
+<div class="section" id="test-the-grayscale-sensor-module">
+<h2>Test the Grayscale Sensor Module<a class="headerlink" href="#test-the-grayscale-sensor-module" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_3ch.png" src="_images/wiring_test_3ch.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_grayscale()</span></code> function and run <code class="docutils literal notranslate"><span class="pre">test.py</span></code>.</p>
+<p>This function will print the values of the three probes of the grayscale module. When using it you should keep the probes about 7mm from the ground.</p>
+<ul class="simple">
+<li><p>Normally, on a white ground it will detect a value above <strong>50000</strong>.</p></li>
+<li><p>On a black ground it will detect a value below <strong>40000</strong>.</p></li>
+<li><p>On a cliff it will detect a value below <strong>10000</strong>.</p></li>
+<li><p>If the reading is <strong>0</strong>, this means that the probe has not detected the ground.</p></li>
+</ul>
+<p>Now calibrate this module.</p>
+<img alt="_images/wiring_test_3ch_clbrt.png" src="_images/wiring_test_3ch_clbrt.png" />
+<ul class="simple">
+<li><p>Place it above the white ground and turn the potentiometer clockwise so that the reading is greater than <strong>50000</strong> (usually between 20000-65535).</p></li>
+<li><p>Then place it above the dark ground and turn the potentiometer counterclockwise to make it less than <strong>10000</strong> (usually between 30000 and 60000).</p></li>
+<li><p>Repeat several times to get the maximum difference in both cases.</p></li>
+</ul>
+</div>
+<div class="section" id="test-the-speed-module">
+<h2>Test the Speed Module<a class="headerlink" href="#test-the-speed-module" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_speed.png" src="_images/wiring_test_speed.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_speed()</span></code> function and run <code class="docutils literal notranslate"><span class="pre">test.py</span></code>.</p>
+<p>After the code runs, when you back and forth put the jammed paper into the U-shaped slot on the speed module/take it out.
+The Shell in Thonny IDE will print the current speed.</p>
+<p>If you have already mounted it, this function will make the Pico-4wd move forward at variable speed and print out the motor power (as a percentage) and the travel speed (cm/s).
+To use it you should hover the car so that the motor rotation is not obstructed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The Thonny IDE contains a line graph tool, please open it by clicking <strong>View</strong> &gt; <strong>Plotter</strong> in the navigation bar to help you see how the printed values are changing.</p>
+</div>
+</div>
+<div class="section" id="test-the-servo">
+<h2>Test the Servo<a class="headerlink" href="#test-the-servo" title="Permalink to this headline">¶</a></h2>
+<img alt="_images/wiring_test_servo.png" src="_images/wiring_test_servo.png" />
+<p>Uncomment the <code class="docutils literal notranslate"><span class="pre">test_motor()</span></code> in <code class="docutils literal notranslate"><span class="pre">test.py</span></code> as shown below, and then run the code.</p>
+<p>Its function is to make the servo axis deflect once and finally freeze at 0°. You can load an idle Servo Arm on the Servo shaft before executing the program to better observe whether the program is executed smoothly.</p>
+<p>This part applies to the <strong>Assemble Ultrasonic Module</strong> in the chapter <a class="reference internal" href="assemble_the_car.html#assemble-the-car"><span class="std std-ref">Assemble the Car</span></a> (to be precise, step 2).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the next chapter <a class="reference internal" href="assemble_the_car.html#assemble-the-car"><span class="std std-ref">Assemble the Car</span></a>, the servo needs to be kept at 0°, so after the code is run this time, do not turn the servo shaft until the car is assembled.</p>
+<p>If you accidentally turn the servo axis, please take down the rocker arm, run this code (uncomment <code class="docutils literal notranslate"><span class="pre">test_servo()</span></code>) again, and then continue to assemble.</p>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pico_4wd</span> <span class="k">as</span> <span class="nn">car</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">test_motor</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_sonar</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">test_servo</span><span class="p">():</span>
+</span>    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;angle:</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="o">%</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">car</span><span class="o">.</span><span class="n">servo</span><span class="o">.</span><span class="n">set_angle</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.005</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_light</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_grayscale</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">def</span> <span class="nf">test_speed</span><span class="p">():</span>
+    <span class="c1">#...</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># test_motor()</span>
+    <span class="c1"># test_sonar()</span>
+<span class="hll">    <span class="n">test_servo</span><span class="p">()</span>
+</span>    <span class="c1"># test_light()</span>
+    <span class="c1"># test_grayscale()</span>
+    <span class="c1"># test_speed()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>
+    <span class="n">car</span><span class="o">.</span><span class="n">set_light_off</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="assemble_the_car.html" class="btn btn-neutral float-right" title="Assemble the Car" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="python_start/open_run.html" class="btn btn-neutral float-left" title="Open and Run the Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, SunFounder.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

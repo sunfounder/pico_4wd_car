@@ -1,0 +1,10 @@
+Widget List
+==================
+
+The control widgets are shown in the table:
+
+|sc_app_control_widget|
+
+The data widgets are shown in the table:
+
+|sc_app_show_widget|
