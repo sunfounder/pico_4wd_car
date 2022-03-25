@@ -1,6 +1,6 @@
 .. _thonny_ide:
 
-Install and Introduce Thonny IDE
+Install Thonny IDE
 =======================================
 
 Before you can start to program Pico with MicroPython, you need an integrated development environment (IDE), here we recommend Thonny. Thonny comes with Python 3.7 built in, just one simple installer is needed and you're ready to learn programming.

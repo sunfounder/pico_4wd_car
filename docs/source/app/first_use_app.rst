@@ -20,7 +20,6 @@ This section will guide you to complete the communication between Sunfounder Con
 
     Find ``my_4wd_car`` on the WLAN of the mobile phone (tablet), enter the password (12345678) and connect to it. 
     
-    .. |sc_app_my_esp8266|
 
     |sc_seach_wifi|
 

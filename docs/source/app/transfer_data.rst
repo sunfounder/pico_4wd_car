@@ -18,7 +18,7 @@ Data transfer between APP and Pico
     * Each time you rerun the code, you need to connect your device’s Wi-Fi to ``my_4wd_car`` , then turn on SunFounder Controller and reconnect.
     
     .. code-block:: python
-        :emphasize-lines: 20,22
+        :emphasize-lines: 21,23
 
         from ws import WS_Server
         import json
@@ -123,7 +123,7 @@ Data transfer between APP and Pico
 
 
     .. code-block:: python
-        :emphasize-lines: 20,22,23
+        :emphasize-lines: 21,23,24
 
         from ws import WS_Server
         import json
