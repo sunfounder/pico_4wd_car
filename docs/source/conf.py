@@ -144,7 +144,13 @@ rst_epilog += """
 .. |sc_save_main| image:: /img/esp8266/save_main.png
 .. |sc_app_control_example| image:: /img/esp8266/app_control_example.jpg
 .. |sc_seach_wifi| image:: /img/esp8266/seach_wifi.jpg
-
+.. |arduino_app1| image:: /img/esp8266/arduino_app1.png
+.. |arduino_app2| image:: /img/esp8266/arduino_app2.png
+.. |arduino_app3| image:: /img/esp8266/arduino_app3.png
+.. |arduino_app4| image:: /img/esp8266/arduino_app4.png
+.. |arduino_app5| image:: /img/esp8266/arduino_app5.png
+.. |arduino_app6| image:: /img/esp8266/arduino_app6.png
+.. |arduino_app7| image:: /img/esp8266/arduino_app7.png
 """
 
 

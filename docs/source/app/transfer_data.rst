@@ -87,7 +87,7 @@ Data transfer between APP and Pico
             # write sensor codes here.
             pass
     
-    .. code-block:: python
+    .. code-block::
 
         >>> %Run -c $EDITOR_CONTENT
             Connecting
