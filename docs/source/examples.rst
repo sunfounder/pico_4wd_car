@@ -17,6 +17,3 @@ Welcome to modify according to your own ideas and share with us.
     example_line_track
     example_bull_fight
     example_obstacle_avoid
-    
-    
-..example_app_control
