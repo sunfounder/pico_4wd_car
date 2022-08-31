@@ -17,9 +17,10 @@
 
 # -- Project information -----------------------------------------------------
 import sphinx_rtd_theme
+import time
 
 project = 'SunFounder pico_4wd_car'
-copyright = '2021, SunFounder'
+copyright = f'{time.localtime().tm_year}, SunFounder'
 author = 'www.sunfounder.com'
 
 
@@ -89,76 +90,44 @@ locale_dirs = ['locale/'] # .po files for other languages are placed in the loca
 gettext_compact = False # Support for generating the contents of the folders inside source/ into other languages.
 
 
-# pico micropython start
+
+# open link in a new window
+
 rst_epilog = """
-.. |mps_bootsel_onboard| image:: /img/micropython_start/bootsel_onboard.png
-.. |mps_th_files| image:: /img/micropython_start/th_files .png
-.. |mps_th_path| image:: /img/micropython_start/th_path.png
-.. |mps_th_pico| image:: /img/micropython_start/th_pico.png
-.. |mps_th_upload| image:: /img/micropython_start/th_upload.png
-.. |mps_th_done| image:: /img/micropython_start/th_done.png
-.. |mps_interpreter| image:: /img/micropython_start/interpreter.png
-.. |mps_index_htm| image:: /img/micropython_start/index_htm.png
-.. |mps_welcome_pico| image:: /img/micropython_start/welcome_pico.png
-.. |mps_download_uf2| image:: /img/micropython_start/download_uf2.png
-.. |mps_move_uf2| image:: /img/micropython_start/move_uf2.png
-.. |mps_download_thonny| image:: /img/micropython_start/download_thonny.png
-.. |mps_thonny_ide.jpg| image:: /img/micropython_start/thonny_ide.jpg
-.. |mps_hello_shell| image:: /img/micropython_start/hello_shell.png
-.. |mps_hello_world_script| image:: /img/micropython_start/hello_world_script.png
-.. |mps_where_save| image:: /img/micropython_start/where_save.png
-.. |mps_hello_world_save| image:: /img/micropython_start/hello_world_save.png
-.. |mps_open_code| image:: /img/micropython_start/open_code.png
-.. |mps_sec_inter| image:: /img/micropython_start/sec_inter.png
-.. |mps_run_it| image:: /img/micropython_start/run_it.png
-.. |mps_stop_it| image:: /img/micropython_start/stop_it.png
-.. |mps_save_as| image:: /img/micropython_start/save_as.png
-.. |mps_sec_pico| image:: /img/micropython_start/sec_pico.png
-.. |mps_sec_name| image:: /img/micropython_start/sec_name.png
-.. |mps_new_file| image:: /img/micropython_start/new_file.png
-.. |mps_copy_file| image:: /img/micropython_start/copy_file.png
 
-"""
+.. |link_ap_mode| raw:: html
 
+    <a href="https://www.windowscentral.com/whats-difference-between-access-point-ap-mode-and-router-mode" target="_blank">AP mode</a>
 
-# sunfounder controller
-rst_epilog += """
-.. |sc_app_install| image:: /img/esp8266/sc_app_install.png
-.. |sc_upload_ws| image:: /img/esp8266/upload_ws.png
-.. |sc_run_test| image:: /img/esp8266/run_test.png
-.. |sc_app_create_controller| image:: /img/esp8266/sc_app_create_controller.jpg
-.. |sc_app_interface| image:: /img/esp8266/sc_app_interface.jpg
-.. |sc_sec_radar| image:: /img/esp8266/sec_radar.jpg
-.. |sc_sec_slide| image:: /img/esp8266/sec_slide.jpg
-.. |sc_run_save| image:: /img/esp8266/run_save.jpg
-.. |sc_app_actuator| image:: /img/esp8266/sc_app_actuator.jpg
-.. |flowchart_app_control| image:: /img/esp8266/flowchart_app_control.png
-.. |sc_app_widget_act| image:: /img/esp8266/sc_app_act.png
-.. |sc_app_widget_dis| image:: /img/esp8266/sc_app_dis.png
-.. |sc_app_connect_anyway| image:: /img/esp8266/connect_anyway.png
-.. |sc_app_click-disconnect| image:: /img/esp8266/click-disconnect.jpg
-.. |sc_app_auto_connect| image:: /img/esp8266/auto_connect.jpg
-.. |sc_app_control_widget| image:: /img/esp8266/control_widget.png
-.. |sc_app_show_widget| image:: /img/esp8266/show_widget.png
-.. |sc_ws_test_data| image:: /img/esp8266/ws_test_data.png
-.. |sc_save_main| image:: /img/esp8266/save_main.png
-.. |sc_app_control_example| image:: /img/esp8266/app_control_example.jpg
-.. |sc_seach_wifi| image:: /img/esp8266/seach_wifi.jpg
-.. |arduino_app1| image:: /img/esp8266/arduino_app1.png
-.. |arduino_app2| image:: /img/esp8266/arduino_app2.png
-.. |arduino_app3| image:: /img/esp8266/arduino_app3.png
-.. |arduino_app4| image:: /img/esp8266/arduino_app4.png
-.. |arduino_app5| image:: /img/esp8266/arduino_app5.png
-.. |arduino_app6| image:: /img/esp8266/arduino_app6.png
-.. |arduino_app7| image:: /img/esp8266/arduino_app7.png
-"""
+.. |link_api_car| raw:: html
+
+    <a href="https://github.com/sunfounder/pico_4wd_car/blob/main/api_reference_pico_4wd.md" target="_blank">API</a>
+
+.. |link_realpython| raw:: html
+
+    <a href="https://realpython.com/micropython/" target="_blank">realpython</a>
+
+.. |link_micropython_pi| raw:: html
+
+    <a href="https://www.raspberrypi.com/documentation/microcontrollers/micropython.html#drag-and-drop-micropython" target="_blank">method</a>
+
+.. |link_thonny| raw:: html
+
+    <a href="https://thonny.org/" target="_blank">Thonny</a>
+
+.. |link_websocket| raw:: html
+
+    <a href="https://en.wikipedia.org/wiki/WebSocket" target="_blank">WebSocket - Wikipedia</a>
+
+.. |link_pico_4wd_github| raw:: html
+
+    <a href="https://github.com/sunfounder/pico_4wd_car" target="_blank">Pico-4wd Car - GitHub</a>
+
+.. |link_sunfounder_controller| raw:: html
+
+    <a href="https://docs.sunfounder.com/projects/sf-controller/en/latest/" target="_blank">SunFounder Control</a>
 
 
-# sunfounder controller
-rst_epilog += """
-.. |example_avoid| image:: /img/example_avoid.png
-.. |example_cliff| image:: /img/example_cliff.png
-.. |example_follow| image:: /img/example_follow.png
-.. |example_line| image:: /img/example_line.png
+
 
 """
