@@ -3,7 +3,7 @@ import json
 import time
 import pico_4wd as car
 
-NAME = 'my_pico_car'
+NAME = 'my_4wd_car'
 
 # Client Mode
 # WIFI_MODE = "sta"
