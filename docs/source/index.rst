@@ -41,7 +41,7 @@ The steps are as follows.
 
 **Source Code**
 
-:download:`SunFounder Pico-4wd Car Code<https://github.com/sunfounder/pico_4wd_car_main/archive/refs/heads/main.zip>`
+:download:`SunFounder Pico-4wd Car Code <https://github.com/sunfounder/pico_4wd_car/archive/refs/heads/main.zip>`
 
 Or check out the code at |link_pico_4wd_github|
 

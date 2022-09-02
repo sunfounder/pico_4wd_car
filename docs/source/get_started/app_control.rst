@@ -43,7 +43,7 @@ In order for Pico-4wd to be able to run specific scripts without being connected
 
     .. image:: img/app_control14.png
 
-#. Press ``Ctrl+Shift+S`` and select **Raspberry Pi Pico** in the popup window that appears. If this pop-up does not appear on yours, make sure you have plugged the Pico into your computer with a micro USB cable and select the "MicroPython (Raspberry Pi Pico).COMXX" interpreter in the bottom right corner.
+#. Stop the script from running and click **File** -> **Save as** or press ``Ctrl+Shift+S``, then select **Raspberry Pi Pico** in the popup window that appears. If this pop-up does not appear on yours, make sure you have plugged the Pico into your computer with a micro USB cable and select the "MicroPython (Raspberry Pi Pico).COMXX" interpreter in the bottom right corner.
 
     .. image:: img/app_control2.png
 

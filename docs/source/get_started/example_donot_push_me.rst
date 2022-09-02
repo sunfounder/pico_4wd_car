@@ -36,7 +36,11 @@ In this example, the car will be dormant. If you push it to a cliff, it will be 
 
 #. To enable Pico-4wd to run this code on boot, you need to save ``donot_push_me.py`` to the Raspberry Pi Pico as ``main.py``, as follows.
 
-    * Keep the ``donot_push_me.py`` file open, then press ``Ctrl+Shift+S`` and select **Raspberry Pi Pico** in the popup window that appears.
+    * Stop the script from running and click **File** -> **Save as**.
+
+    .. image:: img/do_push5.png
+
+    * Select **Raspberry Pi Pico** in the popup window that appears.
 
     .. image:: img/do_push2.png
 

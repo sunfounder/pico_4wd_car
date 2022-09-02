@@ -11,7 +11,7 @@ Here, Pico-4wd will follow your hand moving forward.
 
     .. image:: img/bull_fight1.png
 
-#. Press ``Ctrl+Shift+S`` to save ``donot_push_me.py`` to the Raspberry Pi Pico as ``main.py``.
+#. Click **File** -> **Save as** or press ``Ctrl+Shift+S`` to save ``donot_push_me.py`` to the Raspberry Pi Pico as ``main.py``.
 
     .. image:: img/bull_fight2.png
 

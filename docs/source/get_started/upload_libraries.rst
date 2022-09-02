@@ -10,7 +10,7 @@ Before using Pico-4wd Car, you need to upload its related libraries in Raspberry
 #. Download the relevant code from the link below.
 
 
-   * :download:`SunFounder Pico-4wd Car Code <https://github.com/sunfounder/pico_4wd_car_main/archive/refs/heads/main.zip>`
+   * :download:`SunFounder Pico-4wd Car Code <https://github.com/sunfounder/pico_4wd_car/archive/refs/heads/main.zip>`
 
 
 #. Open Thonny IDE and plug the Pico into your computer with a micro USB cable and click on the "MicroPython (Raspberry Pi Pico).COMXX" interpreter in the bottom right corner.
@@ -21,7 +21,7 @@ Before using Pico-4wd Car, you need to upload its related libraries in Raspberry
 
     .. image:: img/th_files.png
 
-#. Switch the path to the folder where you downloaded the `code package <https://github.com/sunfounder/pico_4wd_car_main/archive/refs/heads/main.zip>`_ before, and then go to the ``pico_4wd_car_main/libs`` folder.
+#. Switch the path to the folder where you downloaded the `code package <https://github.com/sunfounder/pico_4wd_car/archive/refs/heads/main.zip>`_ before, and then go to the ``pico_4wd_car_main/libs`` folder.
 
     .. image:: img/th_path.png
 

@@ -127,7 +127,10 @@ rst_epilog = """
 
     <a href="https://docs.sunfounder.com/projects/sf-controller/en/latest/" target="_blank">SunFounder Control</a>
 
+.. |link_micropython| raw:: html
 
+    <a href="https://en.wikipedia.org/wiki/MicroPython" target="_blank">MicroPython - Wikipedia</a>
+    
 
 
 """

@@ -3,14 +3,21 @@
 2. Install MicroPython on Your Pico
 ==========================================
 
-MicroPython is a full implementation of the Python 3 programming language that runs directly on embedded hardware like Raspberry Pi Pico. You get an interactive prompt (the REPL) to execute commands immediately via USB Serial, and a built-in filesystem. The Pico port of MicroPython includes modules for accessing low-level chip-specific hardware.
+MicroPython is a software implementation of a programming language largely compatible with Python 3, written in C, that is optimized to run on a microcontroller.
 
-* Reference: `MicroPython - Wikipedia <https://en.wikipedia.org/wiki/MicroPython>`_
+MicroPython consists of a Python compiler to bytecode and a runtime interpreter of that bytecode. The user is presented with an interactive prompt (the REPL) to execute supported commands immediately. Included are a selection of core Python libraries; MicroPython includes modules which give the programmer access to low-level hardware.
 
-Now to install MicroPython for Raspberry Pi Pico, Raspberry Pi officially provides a |link_micropython_pi|, by dragging ``rp2_pico_xxxx.uf2`` onto the Pico to complete the installation of MicroPython.
+* Reference: |link_micropython|
 
 
-Thonny provides a simpler way, the tutorial is as follows
+Now come to install MicroPython into Raspberry Pi Pico, Thonny IDE provides a very convenient way for you to install it with one click.
+
+
+
+.. note::
+    If you do not wish to upgrade Thonny, you can use the Raspberry Pi official |link_micropython_pi| by dragging and dropping an ``rp2_pico_xxxx.uf2`` file into Raspberry Pi Pico.
+
+
 
 #. Open Thonny IDE.
 
@@ -36,4 +43,4 @@ Thonny provides a simpler way, the tutorial is as follows
     .. image:: img/set_pico4.png
 
 
-Now that your Pico is ready to go, you can continue with the following steps.
+Congratulations, now your Raspberry Pi Pico is ready to go.

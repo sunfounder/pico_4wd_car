@@ -12,7 +12,7 @@ Let Pico-4wd do a challenging task: automatically avoid obstacles! When an obsta
 
     .. image:: img/obs_avoid1.png
 
-#. Press ``Ctrl+Shift+S`` to save ``donot_push_me.py`` to the Raspberry Pi Pico as ``main.py``.
+#. Click **File** -> **Save as** or press ``Ctrl+Shift+S`` to save ``donot_push_me.py`` to the Raspberry Pi Pico as ``main.py``.
 
     .. image:: img/obs_avoid2.png
 

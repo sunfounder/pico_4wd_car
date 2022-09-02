@@ -130,7 +130,7 @@ Test the Servo
 
     .. image:: img/run_test_servo.png
 
-Insert a rocker arm first to observe the rotation of the servo. Once the code has been run, the servo will rotate left and right once and then stop at 0°.
+Insert a rocker arm first to observe the rotation of the servo. After clicking on the Run button, the servo will rotate left and right once and then stop at 0°.
 
 .. note::
     For the next chapter, :ref:`assemble_the_car`, the servo must be held at 0°, so after this code run, do not turn the servo shaft until the car is complete.
