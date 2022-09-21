@@ -7,7 +7,8 @@ The flowcharts in each examples and the |link_api_car| documentation can help yo
 
 .. toctree::
     :maxdepth: 1
- 
+
+    example_motor_calibrate
     example_donot_push_me
     example_line_track
     example_follow_hand
