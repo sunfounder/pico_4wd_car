@@ -20,4 +20,4 @@ Because of assembly methods and other reasons, your motor may still need a calib
 
     .. image:: img/rdp_dir.png
 
-#. Run again ``move_Forward.py``, if the car is driving correctly, the calibration is completed.
+#. Run again ``move_forward.py``, if the car is driving correctly, the calibration is completed.
