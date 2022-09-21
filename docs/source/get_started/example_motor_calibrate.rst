@@ -10,7 +10,7 @@ Because of assembly methods and other reasons, your motor may still need a calib
     .. image:: img/sec_inter.png
 
 
-#. Go to the ``pico_4wd_car/examples`` path and double click on ``move_forward.py`` to open it. 这是一个非常简单的示例，它会让小车往前走。
+#. Go to the ``pico_4wd_car/examples`` path and double click on ``move_forward.py`` to open it. This is a very simple example, which will let the car go forward.
 
     .. image:: img/move_forward.png
 
