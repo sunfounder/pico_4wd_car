@@ -1,0 +1,3 @@
+[submodule "esp8266-uart-wsserver"]
+	path = esp8266-uart-wsserver
+	url = https://github.com/sunfounder/esp8266-uart-wsserver.git
