@@ -2,15 +2,22 @@ from machine import UART
 import time
 import json
 
+
 from machine import Pin
 led = Pin(25, Pin.OUT)
 
+"custom Exception"
+class TimeoutError(Exception):
+    pass
+
 class WS_Server():
+    WS_TIMEOUT = 3000 # ms
 
     send_dict = {
         'Name': '',
         'Type': 'PICO-4WD Car',
-        'Check': 'SunFounder Controller',
+        # 'Check': 'SunFounder Controller',
+        'Check': 'SC',
         }
 
     def __init__(self, name=None, ssid=None, password='', mode=None, port=8765):
@@ -19,26 +26,31 @@ class WS_Server():
         self.password = password
         self.mode = mode.lower()
         self.port = port
-        self.uart = UART(1, 115200, timeout=100, timeout_char=10)
+        # self.uart = UART(1, 115200, timeout=100, timeout_char=10)
+        self.uart = UART(1, 115200, timeout=10, timeout_char=5)
+
         self.listen_s = None
         self.client_s = None
         self.ws = None
         self.wlan = None
 
         self.send_dict["Name"] = self.name
+        print('reset ESP8266 module ...')
+        self.set("RESET", timeout=self.WS_TIMEOUT)
 
-        self.set("RESET")
 
     def read(self, block=False):
         buf = ""
-        while 1: 
+        # led_stat = False
+        while True: 
+            # led.value(not led_stat) 
             buf = self.uart.readline()
             if buf == None:
-                # print("Timeout")
                 if block:
                     # time.sleep_ms(10)
                     continue
                 else:
+                    # led.off()
                     return None
             if buf[0] == 0xff:
                 buf = buf[1:]
@@ -48,6 +60,7 @@ class WS_Server():
                 buf = buf.replace("[DEBUG]", "[ESP8266]")
                 print(buf)
             else:
+                # led.off()
                 return buf
 
     def write(self, value):
@@ -66,10 +79,17 @@ class WS_Server():
         command = "%s+%s" % (mode, command)
         self.write(command)
 
-    def set(self, command, value=None):
+
+    def set(self, command, value=None, timeout=None):
         self._command("SET", command, value)
+        t_s = time.ticks_ms()
         while True:
-            result = self.read(block=True)
+            if timeout != None:
+                if(time.ticks_ms() - t_s > timeout):
+                    raise TimeoutError('Set timeout %s ms'%timeout)
+            result = self.read(block=False)
+            if result == None:
+                continue
             # print("Result: %s" % result)
             if result.startswith("[ERROR]"):
                 raise ValueError(result)
@@ -85,35 +105,47 @@ class WS_Server():
         return result
 
     def start(self):
-        led.high()
-        if self.mode == "ap":
-            self.set("SSID", self.name)
-            led.low()
-            self.set("PSK", self.password)
-            self.set("MODE", 2)
-        elif self.mode == "sta":
-            self.set("SSID", self.ssid)
-            led.low()
-            self.set("PSK", self.password)
-            self.set("MODE", 1)
-        
-        self.set("PORT", self.port)
-        print("Connecting")
         try:
-            ip = self.set("START")
+            if self.mode == "sta":
+                self.set("MODE", 1, timeout=self.WS_TIMEOUT)
+            elif self.mode == "ap":
+                self.set("MODE", 2, timeout=self.WS_TIMEOUT)
+            self.set("SSID", self.ssid, timeout=self.WS_TIMEOUT)
+            self.set("PSK", self.password, timeout=self.WS_TIMEOUT)
+            self.set("PORT", self.port, timeout=self.WS_TIMEOUT)
+        except TimeoutError as e:
+            print(e)
+            print("Configuring WiFi Timeout.Please check whether the ESP8266 module is working.")
+            return False
+        
+        try:
+            if self.mode == "sta":
+                print("Connecting to %s ... "%self.ssid)
+            elif self.mode == "ap":
+                print("open AP %s ... "%self.ssid)
+            ip = self.set("START", timeout=None)
             print("WebServer started on ws://%s:%d" % (ip, self.port))
+            return True
         except ValueError as e:
             print(e)
             print("Connect Wifi error. Try another Wifi or AP mode.")
+            return False
+
 
     def on_receive(self, data):
         pass
 
     def loop(self):
         # print("waiting for uart data...")
+
+        st = time.ticks_ms()
         receive = self.read()
+        # print('ws_rx_ut: ', time.ticks_ms()-st)
+
         # print("Received.")
         # print("ws loop, receive: %s" % receive)
+
+        # st = time.ticks_ms()
         if receive == None:
             self.send_data()
             return
@@ -130,5 +162,7 @@ class WS_Server():
                     data = json.loads(data)
                 self.on_receive(data)
             except ValueError as e:
-                print(e)
+                print("\033[0;31m[%s\033[0m"%e)
             self.send_data()
+        # print('ws_rh_ut: ', time.ticks_ms()-st)
+
