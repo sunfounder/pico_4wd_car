@@ -177,9 +177,9 @@ def radar_scan():
         # print(radar_data)
         tmp = radar_data.copy()
         radar_data = []
-        return tmp
+        return angle, distance, tmp
     else:
-        return status
+        return angle, distance, status
 
 # slowly increase power of the motor, to avoid hight reverse voltage from motors
 def set_motor_power_gradually(*powers):
