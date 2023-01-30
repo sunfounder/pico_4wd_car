@@ -31,7 +31,8 @@ def get_dir(radar_data):
     pos = radar_data.index(paths[i])
     pos += (len(paths[i]) - 1) / 2
     delta = len(radar_data) / 3
-    
+
+
     if pos < delta:
         return "left"
     elif pos > 2 * delta:
@@ -43,7 +44,7 @@ def main():
     global status
     # General
     while True:
-        radar_data = car.radar_scan()
+        _, _, radar_data = car.radar_scan()
         # print("radar_data: %s" % radar_data)
         # If radar data return a int, means scan not finished, and the int is current angle status
         if isinstance(radar_data, int):
@@ -54,7 +55,7 @@ def main():
                 car.set_radar_scan_angle(180)
             continue
         else:
-            status = "Save"
+            status = "Safety"
         
         direction = get_dir(radar_data)
 
@@ -88,6 +89,7 @@ def main():
             car.move("forward", MOTOR_FORWARD_POWER)
 
 try:
+    # print('obstacle avoid')
     main()
 finally:
     car.move("stop")
