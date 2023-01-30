@@ -51,7 +51,8 @@ class Speed():
         self.right_rps = self.right_cps / 20.0
         self.right_speed = round(self.right_rps * self.WP, 2)
         self.speed = round((self.left_speed + self.right_speed) / 2, 2)
-        self._mileage += self.speed * (self.TIMER/1000)/ 100
+        # self._mileage += self.speed * (self.TIMER/1000)/ 100 # unit:m
+        self._mileage += self.speed * (self.TIMER/1000) # unit:cm
         # self.data.set("mileage",  self._mileage)
         self.left_count = 0
         self.right_count = 0
