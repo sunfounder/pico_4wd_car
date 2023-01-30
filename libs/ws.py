@@ -2,9 +2,8 @@ from machine import UART
 import time
 import json
 
-
 from machine import Pin
-led = Pin(25, Pin.OUT)
+onboard_led_ws = Pin(25, Pin.OUT)
 
 "custom Exception"
 class TimeoutError(Exception):
@@ -36,21 +35,26 @@ class WS_Server():
 
         self.send_dict["Name"] = self.name
         print('reset ESP8266 module ...')
-        self.set("RESET", timeout=self.WS_TIMEOUT)
-
+        while True:
+            try:
+                self.set("RESET", timeout=1500  )
+                break
+            except TimeoutError:
+                pass
+            except UnicodeError:
+                pass
+            except Exception as e:
+                print(e)
 
     def read(self, block=False):
         buf = ""
-        # led_stat = False
         while True: 
-            # led.value(not led_stat) 
             buf = self.uart.readline()
             if buf == None:
                 if block:
-                    # time.sleep_ms(10)
+                    time.sleep_ms(1)
                     continue
                 else:
-                    # led.off()
                     return None
             if buf[0] == 0xff:
                 buf = buf[1:]
@@ -60,7 +64,6 @@ class WS_Server():
                 buf = buf.replace("[DEBUG]", "[ESP8266]")
                 print(buf)
             else:
-                # led.off()
                 return buf
 
     def write(self, value):
@@ -79,11 +82,20 @@ class WS_Server():
         command = "%s+%s" % (mode, command)
         self.write(command)
 
-
     def set(self, command, value=None, timeout=None):
         self._command("SET", command, value)
         t_s = time.ticks_ms()
+        flag = 0
         while True:
+            if flag == 0:
+                onboard_led_ws.on()
+                flag = 1
+                time.sleep(0.1)
+            else:
+                onboard_led_ws.off()
+                flag = 0
+                time.sleep(0.1)
+
             if timeout != None:
                 if(time.ticks_ms() - t_s > timeout):
                     raise TimeoutError('Set timeout %s ms'%timeout)
@@ -131,21 +143,12 @@ class WS_Server():
             print("Connect Wifi error. Try another Wifi or AP mode.")
             return False
 
-
     def on_receive(self, data):
         pass
 
     def loop(self):
-        # print("waiting for uart data...")
-
-        st = time.ticks_ms()
         receive = self.read()
-        # print('ws_rx_ut: ', time.ticks_ms()-st)
 
-        # print("Received.")
-        # print("ws loop, receive: %s" % receive)
-
-        # st = time.ticks_ms()
         if receive == None:
             self.send_data()
             return
@@ -156,13 +159,12 @@ class WS_Server():
             print("Disconnected from %s" % receive.split(" ")[1])
         else:
             try:
-                # print("on revceive: %s" % receive)
                 data = json.loads(receive)
                 if isinstance(data, str):
                     data = json.loads(data)
                 self.on_receive(data)
+                self.send_data()
             except ValueError as e:
                 print("\033[0;31m[%s\033[0m"%e)
-            self.send_data()
-        # print('ws_rh_ut: ', time.ticks_ms()-st)
+           
 
