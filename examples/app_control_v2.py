@@ -4,50 +4,53 @@ from ws import WS_Server
 from machine import Pin
 from math import sqrt
 
-''' Use the app Sunfounder Controller to control the Pico-4WD-Car
+'''*****************************************************************************************
+Use the app Sunfounder Controller to control the Pico-4WD-Car
 
-Usage: 
+Usage:
     https://docs.sunfounder.com/projects/pico-4wd-car/en/latest/get_started/app_control.html
 
 Pico onboard LED status:
     - always on: working
-    - blink: error 
-'''
+    - blink: error
 
+*****************************************************************************************'''
 
-print("[ app control ]\n")
+VERSION = '1.1.0'
+print(f"[ Pico-4WD Car App Control {VERSION}]\n")
 
 ''' -------------- Onboard led Config -------------'''
 onboard_led = Pin(25, Pin.OUT)
 
 ''' ---------------- Custom Config ----------------'''
+'''Whether print serial receive '''
+RECEIVE_PRINT = False
+
 '''Set name'''
 NAME = 'my_4wd_car'
 
 '''Configure wifi'''
 # AP Mode
 # WIFI_MODE = "ap"
-# SSID = "YOUR_SSID_NAME"
-# PASSWORD = "YOUR_PASSWORD_HERE"
+# SSID = "" # your wifi name, if blank, use the set name "NAME"
+# PASSWORD = "12345678" # your password
 
 # STA Mode
-# WIFI_MODE = "sta"
-# SSID = "YOUR_SSID_HERE"
-# PASSWORD = "YOUR_PASSWORD_HERE"
+WIFI_MODE = "sta"
+SSID = "xiaoming_PC"
+PASSWORD = "bugaosuni"
 
-
-
-
-'''Configure default power''' 
+'''Configure default power'''
 DEFAULT_POWER = 60
 
-'''Configure steer sensitivity''' 
+'''Configure steer sensitivity'''
 steer_sensitivity = 0.8 # 0 ~ 1
 
-'''Configure grayscale module''' 
+'''Configure grayscale module'''
 GRAYSCALE_LINE_REFERENCE_DEFAULT = 10000
 GRAYSCALE_CLIFF_REFERENCE_DEFAULT = 2000
-'''Configure radar''' 
+
+'''Configure radar'''
 # Normal
 NORMAL_SCAN_ANGLE = 180
 NORMAL_SCAN_STEP = 5
@@ -77,19 +80,28 @@ singal_blink_interval = 500 # ms
 
 '''------------ Global Variables -------------'''
 led_status = False
-brightness = 0
-last_brightness = 0
+
+led_rear_brightness = 0.2
+led_rear_min_brightness = 0.05
+led_rear_max_brightness = 1
+
+led_theme_code = 0
+led_theme = {
+    "0": [ 
+        [255, 0, 255],  # all colors
+        # [80, 30, 0],  # steer color 
+        # [255, 0, 0],  # brake color
+    ],
+    "1": [ [0, 255, 0]],
+    "2": [ [0, 255, 255]],
+    "3": [ [0, 0, 255]],
+}
+led_theme_sum = len(led_theme)
 
 move_status = 'stop'
-last_move_status = False
+is_move_last  = False
 brake_light_status= False
 brake_light_time = 0
-
-left_turn_signal = False
-right_turn_signal = False
-hazard_lights = False
-singal_time_count = 0
-singal_on_flag = False
 
 mode = None
 throttle_power = 0
@@ -101,6 +113,8 @@ radar_status = "safety" # "safety" or "danger"
 
 grayscale_line_reference = 0
 grayscale_cliff_reference = 0
+
+line_out_time = 0
 
 '''------------ Instantiate WS_Server -------------'''
 ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
@@ -123,6 +137,28 @@ def my_car_move(throttle_power, steer_power, gradually=False):
     else:
         car.set_motor_power(power_l, power_r, power_l, power_r)
 
+
+def set_leds_on(leds_index:list, color:list = [255, 255, 255]):
+    ''' Set the color of the LED for the selected number
+
+    leds_index: list, select led indexers
+    color: RGB color
+    '''
+    for i in leds_index:
+        car.write_light_color_at(i, color)
+    car.light_excute()
+
+def set_leds_off(leds_index:list):
+    if led_status:
+        color = list(led_theme[str(led_theme_code)][0])
+        for i in range(3):
+            color[i] = int(color[i] * led_rear_brightness)
+    else:
+        color = [0, 0, 0]
+    for i in leds_index:
+        car.write_light_color_at(i, color)
+    car.light_excute()
+
 def get_dir(radar_data, split_str="0"):
     # get scan status of 0, 1
     radar_data = [str(i) for i in radar_data]
@@ -138,9 +174,9 @@ def get_dir(radar_data, split_str="0"):
     elif split_str == "1" and len(max_paths) < 2:
         return "stop"
 
-    # Calculate the direction of the widest 
+    # Calculate the direction of the widest
     pos = radar_data.index(max_paths)
-    pos += (len(max_paths) - 1) / 2 
+    pos += (len(max_paths) - 1) / 2
     delta = len(radar_data) / 3
     if pos < delta:
         return "left"
@@ -150,6 +186,8 @@ def get_dir(radar_data, split_str="0"):
         return "forward"
 
 def line_track():
+    global move_status, line_out_time
+
     if grayscale_line_reference != 0:
         car.GRAYSCALE_LINE_REFERENCE = grayscale_line_reference
     else:
@@ -157,31 +195,38 @@ def line_track():
 
     _power = line_track_power
     gs_data = car.get_greyscale_status()
+    # print(f"gs_data: {gs_data}")
 
-    # if gs_data == [0, 1, 0]:
-    #     my_car_move(_power, 0)
-    # elif gs_data == [0, 1, 1]:
-    #     my_car_move(_power, 50)
-    # elif gs_data == [0, 0, 1]:
-    #     my_car_move(_power, 95)
-    # elif gs_data == [1, 1, 0]:
-    #     my_car_move(_power, -50)
-    # elif gs_data == [1, 0, 0]:
-    #     my_car_move(_power, -95)
+    if gs_data == [0, 0, 0] or gs_data == [1, 1, 1] or gs_data == [1, 0, 1]:
+        if line_out_time == 0:
+            line_out_time = time.time()
+        if (time.time() - line_out_time > 2):
+            car.move('stop')
+            move_status = 'stop'
+            line_out_time = 0
+        return
+    else:
+        line_out_time = 0
 
     if gs_data == [0, 1, 0]:
-        car.set_motor_power(_power, _power, _power, _power)
+        car.set_motor_power(_power, _power, _power, _power) # forward
+        move_status = 'forward'
     elif gs_data == [0, 1, 1]:
-        car.set_motor_power(_power, int(_power/5), _power, int(_power/5))
+        car.set_motor_power(_power, int(_power/5), _power, int(_power/5)) # right 
+        move_status = 'right'
     elif gs_data == [0, 0, 1]:
-        car.set_motor_power(_power, int(-_power/2), _power, int(-_power/2))
+        car.set_motor_power(_power, int(-_power/2), _power, int(-_power/2)) # right plus
+        move_status = 'right'
     elif gs_data == [1, 1, 0]:
-        car.set_motor_power(int(_power/5), _power, int(_power/5), _power)
+        car.set_motor_power(int(_power/5), _power, int(_power/5), _power) # left
+        move_status = 'left'
     elif gs_data == [1, 0, 0]:
-        car.set_motor_power(int(-_power/2), _power, int(-_power/2), _power)
+        car.set_motor_power(int(-_power/2), _power, int(-_power/2), _power) # left plus
+        move_status = 'left'
 
 def obstacle_avoid():
-    global radar_status, radar_angle, radar_distance 
+    global radar_status, radar_angle, radar_distance
+    global move_status
 
     car.RADAR_REFERENCE = OBSTACLE_AVOID_REFERENCE
     car.RADAR_STEP_ANGLE = OBSTACLE_AVOID_SCAN_STEP
@@ -192,9 +237,10 @@ def obstacle_avoid():
     if isinstance(radar_data, int):
         # 0 means distance too close, 1 means distance safety
         if radar_data == 0 and radar_status != "danger":
-            print("Danger!")
+            # print("Danger!")
             radar_status = "danger"
             car.move("stop")
+            move_status = 'stop'
             car.set_radar_scan_angle(180)
         return
     else:
@@ -202,18 +248,22 @@ def obstacle_avoid():
 
     #---- analysis direction -----
     direction = get_dir(radar_data)
-    
+
     #--------- move ------------
     if direction == "left" or direction == "right":
         if direction == "left":
             _scan_angle = -OBSTACLE_AVOID_SCAN_ANGLE/2
+            set_leds_on([6, 7], singal_on_color)
+            set_leds_off([0, 1])
         else:
             _scan_angle = OBSTACLE_AVOID_SCAN_ANGLE/2
-
+            set_leds_on([0, 1], singal_on_color)
+            set_leds_off([6, 7])
         distance = car.get_radar_distance_at(-_scan_angle/2)
         # time.sleep(0.5)
         time.sleep(0.1)
         car.move(direction, OBSTACLE_AVOID_TURNING_POWER)
+        
         while True:
             distance = car.get_radar_distance_at(_scan_angle/2)
             status = car.get_radar_status(distance)
@@ -222,10 +272,12 @@ def obstacle_avoid():
     ## finally forward
     car.set_radar_scan_angle(OBSTACLE_AVOID_SCAN_ANGLE)
     car.move("forward", OBSTACLE_AVOID_FORWARD_POWER)
-        
+    set_leds_off([0, 1, 6, 7])
+
+
 def follow():
-    print("follow")
-    global radar_angle, radar_distance 
+    global radar_angle, radar_distance
+    global move_status
 
     car.set_radar_scan_angle(FOLLOW_SCAN_ANGLE)
     car.RADAR_STEP_ANGLE = FOLLOW_SCAN_STEP
@@ -244,49 +296,48 @@ def follow():
     #--------- move ------------
     if direction == "left":
         car.move("left", FOLLOW_TURNING_POWER)
-
+        move_status = 'left'
     elif direction == "right":
         car.move("right", FOLLOW_TURNING_POWER)
+        move_status = 'right'
     elif direction == "forward":
         car.move("forward", FOLLOW_FORWARD_POWER)
+        move_status = 'forward'
     else:
         car.move("stop")
+        move_status = 'stop'
+
 
 def singal_lights_handler():
-    global singal_time_count, singal_on_flag
-    _light_nums = [0, 1, 6, 7]
+    _light_on_nums = None
+    _light_off_nums = [0, 1, 6, 7]
 
-    if hazard_lights:
-        _light_on_nums = [0, 1, 6, 7]
-    elif left_turn_signal:
+    if move_status == 'left':
         _light_on_nums = [6, 7]
-    elif right_turn_signal:
+        _light_off_nums = [0, 1]
+    elif move_status == 'right':
         _light_on_nums = [0, 1]
+        _light_off_nums = [6, 7]
     else:
-        for i in _light_nums:
-            car.write_light_color_at(i, [0, 0, 0], preset=car.LIGHT_REAR)
-        car.light_excute() 
-        return
+        _light_on_nums = None
+        _light_off_nums = [0, 1, 6, 7]
+        
+    if _light_on_nums != None:
+        set_leds_on(_light_on_nums, singal_on_color)
 
-    if (time.ticks_ms() - singal_time_count > singal_blink_interval):
-        singal_time_count = time.ticks_ms()
-        singal_on_flag = not singal_on_flag
-        if singal_on_flag:
-            for i in _light_on_nums:
-                car.write_light_color_at(i, singal_on_color, preset=car.LIGHT_REAR)
-        else:
-            for i in _light_nums:
-                car.write_light_color_at(i, [0, 0, 0], preset=car.LIGHT_REAR)                  
-        car.light_excute()
+    if _light_off_nums != None:
+        set_leds_off(_light_off_nums)
+
 
 def brake_lights_handler():
-    global last_move_status, brake_light_status, brake_light_time
+    global is_move_last , brake_light_status, brake_light_time, led_status
+    _light_nums = [2, 3, 4, 5]
     if move_status == 'stop' :
-        if last_move_status:
+        if is_move_last :
             brake_light_status = True
-            last_move_status = False
+            is_move_last  = False
     else:
-        last_move_status = True
+        is_move_last  = True
 
     if brake_light_status == True:
         if brake_light_time == 0:
@@ -294,124 +345,145 @@ def brake_lights_handler():
         if(time.time() - brake_light_time > 0.5):
             brake_light_status = False
             brake_light_time = 0
-            for i in range(2, 6, 1):
-                car.write_light_color_at(i, [0, 0, 0], preset=car.LIGHT_REAR)
         else:
-            for i in range(2, 6, 1):
-                car.write_light_color_at(i, [255, 0, 0], preset=car.LIGHT_REAR)
+            set_leds_on(_light_nums, [255, 0, 0])
+    else:
+            set_leds_off(_light_nums)
 
 def bottom_lights_handler():
-    global led_status, last_brightness
+    global led_status
     if led_status:
-        if brightness != last_brightness:
-            last_brightness = brightness
-            car.set_light_bottom_color([brightness, brightness, brightness])
+        color = list(led_theme[str(led_theme_code)][0])
     else:
-        if last_brightness != 0:
-            last_brightness = 0
-            car.set_light_bottom_color([0, 0, 0])  
+        color = [0, 0, 0]
+    car.set_light_bottom_color(color)
 
 def on_receive(data):
-    global throttle_power, steer_power, move_status, last_move_status, mode 
-    global left_turn_signal, right_turn_signal, hazard_lights
+    global throttle_power, steer_power, move_status, is_move_last , mode
     global grayscale_line_reference, grayscale_cliff_reference
-    global led_status, brightness
+    global led_status, led_theme_code, led_theme_sum, led_rear_brightness
 
-    print("recv_data: %s"%data)
+    if RECEIVE_PRINT:
+        print("recv_data: %s"%data)
 
-#     ''' data to display'''
-#     # greyscale
-#     ws.send_dict['A'] = car.get_grayscale_values()
-#     # Speed measurement
-#     ws.send_dict['B'] = car.speed()
-#     # Speed mileage
-#     ws.send_dict['C'] = car.speed.mileage / 100 # unit: meter   
-#     # # radar and distance
-#     ws.send_dict['D'] = [radar_angle, radar_distance]
-#     ws.send_dict['J'] = radar_distance
-#     
-#     ''' remote control'''
-#     # Move - power
-#     if 'Q' in data.keys() and isinstance(data['Q'], int):
-#         throttle_power = data['Q']
-#     if 'K' in data.keys():
-#         if data['K'] == "left":
-#             if throttle_power == 0:
-#                 throttle_power = DEFAULT_POWER
-#             if steer_power > 0:
-#                 steer_power = 0
-#             steer_power -= int(throttle_power/2)
-#             if steer_power < -100:
-#                 steer_power = -100
-#         elif data['K'] == "right":
-#             if throttle_power == 0:
-#                 throttle_power = DEFAULT_POWER
-#             if steer_power < 0:
-#                 steer_power = 0
-#             steer_power += int(throttle_power/2)
-#             if steer_power > 100:
-#                 steer_power = 100
-#         elif data['K'] == "forward":
-#             steer_power = 0
-#             if throttle_power == 0:
-#                 throttle_power = DEFAULT_POWER
-#         elif data['K'] == "backward":
-#             steer_power = 0
-#             if throttle_power == 0:
-#                 throttle_power = -DEFAULT_POWER
-#         else:
-#             steer_power = 0
-# 
-#     # grayscale reference
-#     if 'A' in data.keys() and isinstance(data['A'], list):
-#         grayscale_cliff_reference = data['A'][0]
-#         grayscale_line_reference = data['A'][1]
-# 
-#     # singal lights
-#     if 'E' in data.keys():
-#         left_turn_signal = data['E']
-#     if 'F' in data.keys():
-#         right_turn_signal = data['F'] 
-#     if 'I' in data.keys():
-#         hazard_lights = data['I'] 
-# 
-#     # Bottom LEDs
-#     if 'M' in data.keys():
-#         led_status = data['M']
-#     if led_status and 'L' in data.keys() and isinstance(data['L'], int):
-#         brightness = data['L']
-# 
-#     # mode select: None / Line Track / Obstacle Avoid / Follow
-#     if 'N' in data.keys() and data['N'] == True:
-#         mode = 'line track'
-#     elif 'O' in data.keys() and data['O'] == True:
-#         mode = 'obstacle avoid'
-#     elif 'P' in data.keys() and data['P'] == True:
-#         mode = 'follow'
-#     else:
-#         mode = None
+    ''' data to display'''
+    # greyscale
+    ws.send_dict['A'] = car.get_grayscale_values()
+    # Speed measurement
+    ws.send_dict['B'] = car.speed() # uint: cm/s
+    # Speed mileage
+    ws.send_dict['C'] = car.speed.mileage # unit: meter
+    # # radar and distance
+    ws.send_dict['D'] = [radar_angle, radar_distance]
+    ws.send_dict['J'] = radar_distance
+
+    ''' remote control'''
+    # Move - power
+    if 'Q' in data.keys() and isinstance(data['Q'], int):
+        throttle_power = data['Q']
+        if throttle_power > 0:
+            move_status = 'forward'
+        elif throttle_power < 0:
+            move_status = 'backward'
+    else:
+        throttle_power = 0
+    # Move - direction
+    if 'K' in data.keys():
+        if data['K'] == "left":
+            move_status = 'left'
+            if throttle_power == 0:
+                throttle_power = DEFAULT_POWER
+            if steer_power > 0:
+                steer_power = 0
+            steer_power -= int(throttle_power/2)
+            if steer_power < -100:
+                steer_power = -100
+        elif data['K'] == "right":
+            move_status = 'right'
+            if throttle_power == 0:
+                throttle_power = DEFAULT_POWER
+            if steer_power < 0:
+                steer_power = 0
+            steer_power += int(throttle_power/2)
+            if steer_power > 100:
+                steer_power = 100
+        elif data['K'] == "forward":
+            move_status = 'forward'
+            steer_power = 0
+            if throttle_power == 0:
+                throttle_power = DEFAULT_POWER
+        elif data['K'] == "backward":
+            move_status = 'backward'
+            steer_power = 0
+            if throttle_power == 0:
+                throttle_power = -DEFAULT_POWER
+        else:
+            steer_power = 0
+
+    # grayscale reference
+    if 'A' in data.keys() and isinstance(data['A'], list):
+        grayscale_cliff_reference = data['A'][0]
+        grayscale_line_reference = data['A'][1]
+
+    # rear LEDs brightness
+    if throttle_power < 0:
+        led_rear_brightness = (-throttle_power)/100
+    else:
+        led_rear_brightness = throttle_power/100
+    if led_rear_brightness < led_rear_min_brightness:
+        led_rear_brightness = led_rear_min_brightness
+    elif led_rear_brightness > led_rear_max_brightness:
+        led_rear_brightness = led_rear_max_brightness
+
+    # LEDs switch
+    if 'E' in data.keys():
+        led_status = data['E']
+
+    if led_status:
+        # LEDs color theme change
+        if 'F' in data.keys() and data['F'] == True:
+            led_theme_code = (led_theme_code + 1) % led_theme_sum
+            print(f"set led theme color: {led_theme_code}, {led_theme[str(led_theme_code)][0]}")
+
+    # mode select: None / Line Track / Obstacle Avoid / Follow
+    if 'N' in data.keys() and data['N'] == True:
+        if mode != 'line track':
+            mode = 'line track'
+            print(f"change mode to: {mode}")
+    elif 'O' in data.keys() and data['O'] == True:
+        if mode != 'obstacle avoid':
+            mode = 'obstacle avoid'
+            print(f"change mode to: {mode}")
+    elif 'P' in data.keys() and data['P'] == True:
+        if mode != 'follow':
+            mode = 'follow'
+            print(f"change mode to: {mode}")
+    else:
+        if mode != None:
+            mode = None 
+            print(f"change mode to: {mode}")
+
 
 def remote_handler():
     global throttle_power, steer_power, move_status
     global radar_angle, radar_distance
     global grayscale_cliff_reference
-    
+
     ''' radar and distance '''
     if mode == None:
         car.set_radar_scan_angle(180)
-        radar_angle, radar_distance = car.get_radar_distance()    
+        radar_angle, radar_distance = car.get_radar_distance()
 
     ''' move '''
     # print('throttle_power: %s, steer_power: %s'%(throttle_power, steer_power))
-    if throttle_power == 0 and steer_power == 0:
-        move_status = 'stop'
-    else:
+    if throttle_power != 0 or steer_power != 0:
         my_car_move(throttle_power, steer_power, gradually=True)
-        move_status = 'move'
 
     ''' Line Track or Obstacle Avoid '''
-    if move_status == 'stop':
+    if throttle_power == 0 and steer_power == 0:
         if mode == 'line track':
+            radar_angle = 0
+            radar_distance = car.get_radar_distance_at(0)
             line_track()
         elif mode == 'obstacle avoid':
             obstacle_avoid()
@@ -419,12 +491,14 @@ def remote_handler():
             follow()
         else:
             car.move('stop', 0)
+            move_status = 'stop'
 
-    ''' Bottom Lights '''
+    # print(f'move_status {move_status}')
+    # ''' Bottom Lights '''
     bottom_lights_handler()
-    ''' Singal lights '''
+    # ''' Singal lights '''
     singal_lights_handler()
-    ''' Brake lights '''
+    # ''' Brake lights '''
     brake_lights_handler()
 
 def main():
@@ -435,11 +509,11 @@ def main():
         onboard_led.on()
         while True:
             ws.loop()
-
+   
             try:
-                remote_handler()   
+                remote_handler()
             except Exception as e:
-                print('remote_handler: %s'%e)            
+                print('remote_handler: %s'%e)
 
 if __name__ == "__main__":
     try:
@@ -450,7 +524,6 @@ if __name__ == "__main__":
         f.write("---------------\n")
         f.write('%s'%e)
         f.close()
-
     finally:
         car.move("stop")
         car.set_light_off()
