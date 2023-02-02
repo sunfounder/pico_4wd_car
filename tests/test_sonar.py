@@ -3,7 +3,7 @@ import time
 
 def test_sonar():
     while True:
-        distance = car.sonar.get_distance()
+        distance = car.get_radar_distance_at(0)
         print('distance:%s'% distance)
         time.sleep(1)
 
@@ -14,3 +14,4 @@ try:
 finally:
     car.move("stop")
     car.set_light_off()
+ 
