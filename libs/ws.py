@@ -22,6 +22,8 @@ class WS_Server():
     def __init__(self, name=None, ssid=None, password='', mode=None, port=8765):
         self.name = name
         self.ssid = ssid
+        if self.ssid == None or self.ssid == "":
+            self.ssid = name
         self.password = password
         self.mode = mode.lower()
         self.port = port
