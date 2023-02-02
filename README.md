@@ -1,5 +1,5 @@
 # SunFounder Pico-4wd Car Kit V2
-This is the code, drivers and some documents for Pico-4wd Car.
+This is the code, drivers and some documents for Pico-4wd Car.You can buy it on [our website](https://www.sunfounder.com/), or search sunfounder in Amazon.
 
 - [Pico-4wd Car](#nano-sloth-kit)
 - [Related Links](#related-links)
