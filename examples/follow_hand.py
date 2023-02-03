@@ -37,7 +37,7 @@ def get_dir(radar_data, split_str="0"):
 
 def main():
     while True:
-        _, _,radar_data = car.radar_scan()
+        radar_data = car.radar_scan()
 
         # If radar data return a int, means scan not finished, and the int is current angle status
         if isinstance(radar_data, int):
