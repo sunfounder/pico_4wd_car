@@ -78,6 +78,21 @@ singal_on_color = [80, 30, 0] # amber:[255, 191, 0]
 
 singal_blink_interval = 500 # ms
 
+
+'''------------ Configure Voice Control Commands -------------'''
+voice_commands = {
+    # action : [[command , similar commands], [run time(s)]
+    "forward": [["forward", "forwhat", "for what"], 3],
+    "backward": [["backward"], 3],
+    "left": [["left", "turn left"], 0.5],
+    "right": [["right", "turn right", "while"], 0.5],
+    "stop": [["stop"], 0.5],
+}
+
+current_voice_cmd = None
+voice_start_time = 0
+voice_max_time = 0
+
 '''------------ Global Variables -------------'''
 led_status = False
 
@@ -87,9 +102,9 @@ led_rear_max_brightness = 1
 
 led_theme_code = 0
 led_theme = {
-    "0": [ 
+    "0": [
         [255, 0, 255],  # all colors
-        # [80, 30, 0],  # steer color 
+        # [80, 30, 0],  # steer color
         # [255, 0, 0],  # brake color
     ],
     "1": [ [0, 255, 0]],
@@ -212,7 +227,7 @@ def line_track():
         car.set_motor_power(_power, _power, _power, _power) # forward
         move_status = 'forward'
     elif gs_data == [0, 1, 1]:
-        car.set_motor_power(_power, int(_power/5), _power, int(_power/5)) # right 
+        car.set_motor_power(_power, int(_power/5), _power, int(_power/5)) # right
         move_status = 'right'
     elif gs_data == [0, 0, 1]:
         car.set_motor_power(_power, int(-_power/2), _power, int(-_power/2)) # right plus
@@ -321,7 +336,7 @@ def singal_lights_handler():
     else:
         _light_on_nums = None
         _light_off_nums = [0, 1, 6, 7]
-        
+
     if _light_on_nums != None:
         set_leds_on(_light_on_nums, singal_on_color)
 
@@ -362,6 +377,7 @@ def on_receive(data):
     global throttle_power, steer_power, move_status, is_move_last , mode
     global grayscale_line_reference, grayscale_cliff_reference
     global led_status, led_theme_code, led_theme_sum, led_rear_brightness
+    global current_voice_cmd, voice_start_time, voice_max_time
 
     if RECEIVE_PRINT:
         print("recv_data: %s"%data)
@@ -460,27 +476,47 @@ def on_receive(data):
             print(f"change mode to: {mode}")
     else:
         if mode != None:
-            mode = None 
+            mode = None
             print(f"change mode to: {mode}")
+
+    # Voice control
+    if 'I' in data.keys():
+        voice_text = data['I']
+    if voice_text != None or voice_text != '':
+        print(f"voice_text: {voice_text}")
+        for vcmd in voice_commands:
+            if voice_text in voice_commands[vcmd][0]:
+                print(f"voice control match: {vcmd}")
+                current_voice_cmd = vcmd
+                voice_max_time =  voice_commands[vcmd][1]
+                break
+        else:
+            print(f"voice control without match")
 
 
 def remote_handler():
     global throttle_power, steer_power, move_status
     global radar_angle, radar_distance
     global grayscale_cliff_reference
+    global current_voice_cmd, voice_start_time, voice_max_time
 
     ''' radar and distance '''
     if mode == None:
         car.set_radar_scan_angle(180)
         radar_angle, radar_distance = car.get_radar_distance()
 
+
+    _joystick_touched = False
+    if throttle_power != 0 or steer_power != 0:
+        _joystick_touched = True
+
     ''' move '''
     # print('throttle_power: %s, steer_power: %s'%(throttle_power, steer_power))
-    if throttle_power != 0 or steer_power != 0:
+    if _joystick_touched:
         my_car_move(throttle_power, steer_power, gradually=True)
 
     ''' Line Track or Obstacle Avoid '''
-    if throttle_power == 0 and steer_power == 0:
+    if not _joystick_touched:
         if mode == 'line track':
             radar_angle = 0
             radar_distance = car.get_radar_distance_at(0)
@@ -492,6 +528,38 @@ def remote_handler():
         else:
             car.move('stop', 0)
             move_status = 'stop'
+
+    ''' Voice Control '''
+    if not _joystick_touched:
+        voice_control_power = 50
+        if current_voice_cmd != None and voice_max_time != 0:
+            if voice_start_time == 0:
+                voice_start_time = time.time()
+            if (time.time() - voice_start_time < voice_max_time):
+                if current_voice_cmd == "forward":
+                    car.move("forward", voice_control_power)
+                    move_status = "forward"
+                elif current_voice_cmd == "backward":
+                    car.move("backward", voice_control_power)
+                    move_status = "backward"
+                elif current_voice_cmd == "right":
+                    car.move("right", voice_control_power)
+                    move_status = "right"
+                elif current_voice_cmd == "left":
+                    car.move("left", voice_control_power)
+                    move_status = "left"
+                elif current_voice_cmd == "stop":
+                    car.move("stop", voice_control_power)
+                    move_status = "stop"
+            else:
+                current_voice_cmd = None
+                voice_start_time = 0
+                voice_max_time = 0
+    else:
+        current_voice_cmd = None
+        voice_start_time = 0
+        voice_max_time = 0
+
 
     # print(f'move_status {move_status}')
     # ''' Bottom Lights '''
@@ -509,7 +577,7 @@ def main():
         onboard_led.on()
         while True:
             ws.loop()
-   
+            
             try:
                 remote_handler()
             except Exception as e:
