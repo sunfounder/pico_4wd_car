@@ -404,6 +404,12 @@ def on_receive(data):
     if RECEIVE_PRINT:
         print("recv_data: %s"%data)
 
+    ''' if not connected, skip & stop '''
+    if not ws.is_connected():
+        car.servo.set_angle(0)
+        car.move('stop', 0)
+        return
+
     ''' data to display'''
     # greyscale
     ws.send_dict['A'] = car.get_grayscale_values()
@@ -502,6 +508,7 @@ def on_receive(data):
             print(f"change mode to: {mode}")
 
     # Voice control
+    voice_text = None
     if 'I' in data.keys():
         voice_text = data['I']
     if voice_text != None or voice_text != '':
@@ -521,6 +528,12 @@ def remote_handler():
     global radar_angle, radar_distance
     global grayscale_cliff_reference
     global current_voice_cmd, voice_start_time, voice_max_time
+
+    ''' if not connected, skip & stop '''
+    if not ws.is_connected():
+        car.servo.set_angle(0)
+        car.move('stop', 0)
+        return
 
     ''' radar and distance '''
     if mode == None:

@@ -34,6 +34,7 @@ class WS_Server():
         self.client_s = None
         self.ws = None
         self.wlan = None
+        self._is_connected = False
 
         self.send_dict["Name"] = self.name
         print('reset ESP8266 module ...')
@@ -145,6 +146,9 @@ class WS_Server():
             print("Connect Wifi error. Try another Wifi or AP mode.")
             return False
 
+    def is_connected(self):
+        return self._is_connected
+        
     def on_receive(self, data):
         pass
 
@@ -155,9 +159,11 @@ class WS_Server():
             self.send_data()
             return
         elif receive.startswith("[CONNECTED]"):
+            self._is_connected = True
             print("Connected from %s" % receive.split(" ")[1])
             self.send_data()
         elif receive.startswith("[DISCONNECTED]"):
+            self._is_connected = False
             print("Disconnected from %s" % receive.split(" ")[1])
         else:
             try:
