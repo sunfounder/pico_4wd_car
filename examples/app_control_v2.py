@@ -84,6 +84,9 @@ FOLLOW_REFERENCE = 25 # distance referenece (m)
 FOLLOW_FORWARD_POWER = 40
 FOLLOW_TURNING_POWER = 40
 
+# voice control power
+VOICE_CONTROL_POWER = 50
+
 '''Configure the power of the line_track mode'''
 line_track_power = 80
 
@@ -509,8 +512,12 @@ def on_receive(data):
 
     # Voice control
     voice_text = None
-    if 'I' in data.keys():
+    if 'I' in data.keys() and  data['I'] != '':
+        ws.send_dict['I'] = 1
         voice_text = data['I']
+    else:
+        ws.send_dict['I'] = 0
+        
     if voice_text != None or voice_text != '':
         print(f"voice_text: {voice_text}")
         for vcmd in voice_commands:
@@ -528,6 +535,7 @@ def remote_handler():
     global radar_angle, radar_distance
     global grayscale_cliff_reference
     global current_voice_cmd, voice_start_time, voice_max_time
+    global led_rear_brightness
 
     ''' if not connected, skip & stop '''
     if not ws.is_connected():
@@ -540,12 +548,13 @@ def remote_handler():
         car.set_radar_scan_angle(180)
         radar_angle, radar_distance = car.get_radar_distance()
 
+    ''' is joystick touched '''
     _joystick_touched = False
+    # print('throttle_power: %s, steer_power: %s'%(throttle_power, steer_power))
     if throttle_power != 0 or steer_power != 0:
         _joystick_touched = True
 
     ''' move '''
-    # print('throttle_power: %s, steer_power: %s'%(throttle_power, steer_power))
     if _joystick_touched:
         my_car_move(throttle_power, steer_power, gradually=True)
 
@@ -559,31 +568,30 @@ def remote_handler():
             obstacle_avoid()
         elif mode == 'follow':
             follow()
-        else:
-            car.move('stop', 0)
-            move_status = 'stop'
 
     ''' Voice Control '''
-    if not _joystick_touched:
-        voice_control_power = 50
+    if not _joystick_touched and mode == None:
         if current_voice_cmd != None and voice_max_time != 0:
             if voice_start_time == 0:
                 voice_start_time = time.time()
-            if (time.time() - voice_start_time < voice_max_time):
+            if ((time.time() - voice_start_time) < voice_max_time):
+                # led_rear_brightness
+                led_rear_brightness = VOICE_CONTROL_POWER/100
+                #
                 if current_voice_cmd == "forward":
-                    car.move("forward", voice_control_power)
+                    car.move("forward", VOICE_CONTROL_POWER)
                     move_status = "forward"
                 elif current_voice_cmd == "backward":
-                    car.move("backward", voice_control_power)
+                    car.move("backward", VOICE_CONTROL_POWER)
                     move_status = "backward"
                 elif current_voice_cmd == "right":
-                    car.move("right", voice_control_power)
+                    car.move("right", VOICE_CONTROL_POWER)
                     move_status = "right"
                 elif current_voice_cmd == "left":
-                    car.move("left", voice_control_power)
+                    car.move("left", VOICE_CONTROL_POWER)
                     move_status = "left"
                 elif current_voice_cmd == "stop":
-                    car.move("stop", voice_control_power)
+                    car.move("stop", VOICE_CONTROL_POWER)
                     move_status = "stop"
             else:
                 current_voice_cmd = None
@@ -594,6 +602,10 @@ def remote_handler():
         voice_start_time = 0
         voice_max_time = 0
 
+    ''' no operation '''
+    if not _joystick_touched and mode == None and current_voice_cmd == None:
+        move_status = "stop"
+        car.move('stop', 0)
 
     # print(f'move_status {move_status}')
     # ''' Bottom Lights '''
