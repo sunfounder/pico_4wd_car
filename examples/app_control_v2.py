@@ -2,7 +2,7 @@ import time
 import pico_4wd as car
 from ws import WS_Server
 from machine import Pin
-from math import sqrt
+import sys
 
 '''*****************************************************************************************
 Use the app Sunfounder Controller to control the Pico-4WD-Car
@@ -19,6 +19,21 @@ Pico onboard LED status:
 VERSION = '1.1.0'
 print(f"[ Pico-4WD Car App Control {VERSION}]\n")
 
+'''
+ "w" mode will clear the previous log first, if you need to keep it,
+ please use the "a" mode
+'''
+LOG_FILE = "log.txt"
+
+## "a" mode
+# with open(LOG_FILE, "a") as log_f:
+#     Separation_Line = "\n" + "-"*30 + "\n"
+#     log_f.write(Separation_Line)
+
+# "w" mode
+with open(LOG_FILE, "w") as log_f:
+    log_f.write("")
+
 ''' -------------- Onboard led Config -------------'''
 onboard_led = Pin(25, Pin.OUT)
 
@@ -31,14 +46,14 @@ NAME = 'my_4wd_car'
 
 '''Configure wifi'''
 # AP Mode
-# WIFI_MODE = "ap"
-# SSID = "" # your wifi name, if blank, use the set name "NAME"
-# PASSWORD = "12345678" # your password
+WIFI_MODE = "ap"
+SSID = "" # your wifi name, if blank, use the set name "NAME"
+PASSWORD = "12345678" # your password
 
 # STA Mode
-WIFI_MODE = "sta"
-SSID = "xiaoming_PC"
-PASSWORD = "bugaosuni"
+# WIFI_MODE = "sta"
+# SSID = "YOUR SSID"
+# PASSWORD = "YOUR PASSWORD"
 
 '''Configure default power'''
 DEFAULT_POWER = 60
@@ -132,7 +147,14 @@ grayscale_cliff_reference = 0
 line_out_time = 0
 
 '''------------ Instantiate WS_Server -------------'''
-ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
+try:
+    ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
+except Exception as e:
+    sys.print_exception(e)
+    with open(LOG_FILE, "a") as log_f:
+        log_f.write('\n> ')
+        sys.print_exception(e, log_f)
+    sys.exit(1) # if ws init failed, exit
 
 '''----------------- Fuctions ---------------------'''
 def my_car_move(throttle_power, steer_power, gradually=False):
@@ -505,7 +527,6 @@ def remote_handler():
         car.set_radar_scan_angle(180)
         radar_angle, radar_distance = car.get_radar_distance()
 
-
     _joystick_touched = False
     if throttle_power != 0 or steer_power != 0:
         _joystick_touched = True
@@ -577,25 +598,20 @@ def main():
         onboard_led.on()
         while True:
             ws.loop()
-            
-            try:
-                remote_handler()
-            except Exception as e:
-                print('remote_handler: %s'%e)
+            remote_handler()
 
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
-        print(e)
-        f = open('log.txt', 'w')
-        f.write("---------------\n")
-        f.write('%s'%e)
-        f.close()
+        sys.print_exception(e)
+        with open(LOG_FILE, "a") as log_f:
+            log_f.write('\n> ')
+            sys.print_exception(e, log_f)
     finally:
         car.move("stop")
         car.set_light_off()
-        while True:
+        while True: # pico onboard led blinking indicates error
             time.sleep(0.25)
             onboard_led.off()
             time.sleep(0.25)
