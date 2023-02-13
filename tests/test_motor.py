@@ -5,10 +5,10 @@ def test_motor():
     speed = 50
     act_list = [
         "forward",
-        "backward",
-        "left",
-        "right",
-        "stop",
+#         "backward",
+#         "left",
+#         "right",
+#         "stop",
     ]
     for act in act_list:
         print(act)
@@ -17,7 +17,9 @@ def test_motor():
 
 
 try:
-    test_motor()
+    while True:
+        test_motor()
+        time.sleep(2)
 
 finally:
     car.move("stop")

@@ -1,0 +1,97 @@
+'''
+    - 同时控制4个电机的函数
+        - set_motors_power(0, 0, 0, 0)
+        - 速度缓慢递增
+                    set_motor_power_gradually
+
+    - 前进 后退 左 右 
+        -简化的移动函数
+            - move("forward", power)
+'''
+
+from motor import Motor
+import time
+
+left_front  = Motor(17, 16, dir=-1)
+right_front = Motor(15, 14, dir= 1)
+left_rear   = Motor(13, 12, dir=-1)
+right_rear  = Motor(11, 10, dir= 1)
+motors = [left_front, right_front, left_rear, right_rear]
+
+
+def set_motors_power(powers:list):
+    ''' set motors power 
+        powers list, 1*4 list powers of each motor, the order is [left_front, right_front, left_rear, right_rear]
+    '''
+    if len(powers) != 4:
+        raise ValueError("powers should be a 1*4 list.")
+
+    for i, motor in enumerate(motors):
+        motor.run(powers[i])
+
+
+def set_motors_power_gradually(powers:list):
+    '''
+        slowly increase power of the motor, to avoid hight reverse voltage from motors
+    '''
+    flags = [True, True, True, True]
+    while flags[0] or flags[1] or flags[2] or flags[3]:
+        for i, motor in enumerate(motors):
+            if motor.current_power > powers[i]:
+                motor.run(motor.current_power - 1)
+            elif motor.current_power < powers[i]:
+                motor.run(motor.current_power + 1)
+            else:
+                flags[i] = False
+        time.sleep_ms(1)
+
+
+def stop():
+    set_motors_power([0, 0, 0, 0])
+
+
+def move(dir, power=0):
+    if dir == "forward":
+        set_motors_power_gradually([power, power, power, power])
+    elif dir == "backward":
+        set_motors_power_gradually([-power, -power, -power, -power])
+    elif dir == "left":
+        set_motors_power_gradually([-power, power, -power, power])
+    elif dir == "right":
+        set_motors_power_gradually([power, -power, power, -power])
+    else:
+        set_motors_power_gradually([0, 0, 0, 0])
+
+
+def test_set_power():
+    # fast
+    set_motors_power([100, 100, 100, 100])
+    time.sleep(0.5)
+    # stop
+    set_motors_power([0, 0, 0, 0])
+    time.sleep(0.5)
+    # gradually
+    set_motors_power_gradually([100, 100, 100, 100])
+    time.sleep(0.5)
+    # stop
+    set_motors_power([0, 0, 0, 0])
+    time.sleep(0.5)
+
+def test_move():
+    speed = 50
+    act_list = [
+        "forward",
+        "backward",
+        "left",
+        "right",
+        "stop",
+    ]
+    for act in act_list:
+        print(act)
+        move(act, speed)
+        time.sleep(1)
+
+
+if __name__ == "__main__":
+    test_set_power()
+    test_move()
