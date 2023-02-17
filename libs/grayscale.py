@@ -1,14 +1,12 @@
 from machine import Pin, ADC
 
 class Grayscale():
-    GRAYSCALE_EDGE_REFERENCE = 20
-    GRAYSCALE_LINE_REFERENCE = 10000
 
-    def __init__(self, pin0, pin1, pin2):
-        self.gs0 = ADC(Pin(26))
-        self.gs1 = ADC(Pin(27))
-        self.gs2 = ADC(Pin(28))
-        self.edge_ref = 20    # edge_reference
+    def __init__(self, pin0=26, pin1=27, pin2=28):
+        self.gs0 = ADC(Pin(pin0))
+        self.gs1 = ADC(Pin(pin1))
+        self.gs2 = ADC(Pin(pin2))
+        self.edge_ref = 1000    # edge_reference
         self.line_ref = 10000 # line_reference
 
     def get_value(self):
@@ -27,3 +25,22 @@ class Grayscale():
 
     def set_line_reference(self, value):
         self.line_ref = value
+
+if __name__ == '__main__':
+    import time
+    
+    # init
+    gs = Grayscale(26, 27, 28)
+
+    # config
+    gs.set_edge_reference(800)
+    gs.set_line_reference(12000)    
+
+    # detect
+    while True:
+        if gs.is_on_edge():
+            print("Danger!")
+        else:
+            print(gs.get_line_status())
+        time.sleep(0.2)
+        

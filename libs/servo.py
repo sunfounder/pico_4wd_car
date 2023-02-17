@@ -12,7 +12,7 @@ def mapping(x, in_min, in_max, out_min, out_max):
 class Servo():
     MAX_PW = 2500
     MIN_PW = 500
-    PERIOD = 0xffff   
+    PERIOD = 20000
 
     def __init__(self, pin):
         self.servo = PWM(Pin(pin, Pin.OUT))
@@ -27,13 +27,12 @@ class Servo():
             angle = -90
         if angle > 90:
             angle = 90
-        High_level_time = mapping(angle, -90, 90, self.MAX_PW, self.MIN_PW)
-        pwr =  High_level_time / 20000
-        value = int(pwr*self.PERIOD)
-        self.servo.duty_u16(value)
 
+        pulse_width=mapping(angle, -90, 90, self.MAX_PW, self.MIN_PW)
+        duty=int(mapping(pulse_width, 0, self.PERIOD, 0 ,0xffff))
+        self.servo.duty_u16(duty)
 
-def main():
+if __name__ == '__main__':
     servo = Servo(18)
     for i in range(0, -90, -1):
         servo.set_angle(i)
@@ -44,6 +43,3 @@ def main():
     for i in range(90, 0, -1):
         servo.set_angle(i)
         time.sleep(0.01)
-
-if __name__ == '__main__':
-    main()
