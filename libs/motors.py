@@ -36,6 +36,9 @@ def set_motors_power_gradually(powers:list):
     '''
         slowly increase power of the motor, to avoid hight reverse voltage from motors
     '''
+    if len(powers) != 4:
+        raise ValueError("powers should be a 1*4 list.")
+
     flags = [True, True, True, True]
     while flags[0] or flags[1] or flags[2] or flags[3]:
         for i, motor in enumerate(motors):
