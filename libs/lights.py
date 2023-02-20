@@ -22,11 +22,26 @@ def set_all_color(color):
         np[i] = color
     np.write()
 
-def set_color_at(num, color, preset=0):
-    if num > LIGHT_NUM:
-        raise ValueError("num must be less than LIGHT_NUM.")
-    np[num] = color
+# def set_color_at(num, color, preset=0):
+#     if num > LIGHT_NUM:
+#         raise ValueError("num must be less than LIGHT_NUM.")
+#     np[num] = color
+#     np.write()
+
+def set_color_at(num, color):
+    if isinstance(num,list):
+        for i in num:
+            if i > LIGHT_NUM:
+                raise ValueError("num element must be less than LIGHT_NUM.")
+            np[i] = color 
+    elif  type(num) is int:
+        if num > LIGHT_NUM:
+            raise ValueError("num must be less than LIGHT_NUM.")
+        np[num] = color
+    else:
+        raise ValueError("num must be list or int.")
     np.write()
+
 
 def set_bottom_left_color(color):
     for num in LIGHT_BOTTOM_LEFT:
@@ -87,6 +102,22 @@ if __name__ == "__main__":
         set_rear_middle_color(0x00aa00)
         time.sleep(0.5)
         set_rear_left_color(0x0000aa)
+        time.sleep(0.5)
+        
+        for i in range(8):
+            set_off()
+            time.sleep(0.01)
+            set_color_at(i,0xaa00cc)
+            time.sleep(0.3)
+            
+        set_off()
+        time.sleep(0.1)
+        set_color_at([1,3,5,7],0xccaa00)
+        time.sleep(0.5)
+        
+        set_off()
+        time.sleep(0.1)
+        set_color_at([0,2,4,6],0x00ccaa)
         time.sleep(0.5)
 
     finally:
