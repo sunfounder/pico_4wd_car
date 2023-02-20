@@ -37,7 +37,8 @@ class WS2812():
 
     def list_to_hex(self, color):
         if isinstance(color, list) and len(color) == 3:
-            return (color[0] << 8) + (color[1] << 16) + (color[2])
+            c = (color[0] << 8) + (color[1] << 16) + (color[2])
+            return c
         elif isinstance(color, int):
             value = (color & 0xFF0000)>>8 | (color & 0x00FF00)<<8 | (color & 0x0000FF)
             return value
@@ -59,24 +60,28 @@ class WS2812():
         return self.hex_to_list(self.buf[i])
 
     def __setitem__(self, i, value):
-        self.buf[i] = self.list_to_hex(value)
+        value = self.list_to_hex(value)
+        self.buf[i] = value
 
-
+    
 if __name__ == "__main__":
     
     LIGHT_PIN = 19
     LIGHT_NUM = 24
     np = WS2812(LIGHT_PIN, LIGHT_NUM)
     
-    
+    # blue
     for i in range(LIGHT_NUM):
-        np[i] = [0,255,110]
+        np[i] = 0x0000ff
     np.write()
     time.sleep(1)
-    
+    # off 
     for i in range(LIGHT_NUM):
-        np[i] = 0xFF00AA
-    np.write()
-    time.sleep(1)
+        np[i] = 0x000000
+    np.write()    
     
-    np.write_all(0)
+    # random
+    # import random
+    # for i in range(LIGHT_NUM):
+    #    np[i] = random.randint(0,0xFFFFFF)
+    # np.write()
