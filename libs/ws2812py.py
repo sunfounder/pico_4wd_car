@@ -64,20 +64,12 @@ class WS2812():
         self.buf[i] = value
 
 
-def main():
+if __name__ == "__main__":
+    
     LIGHT_PIN = 19
     LIGHT_NUM = 24
     np = WS2812(LIGHT_PIN, LIGHT_NUM)
-    # red
-    for i in range(LIGHT_NUM):
-        np[i] = [255, 0, 0]
-    np.write()
-    time.sleep(1)
-    # green
-    for i in range(LIGHT_NUM):
-        np[i] = 0x00ff00
-    np.write()
-    time.sleep(1)
+    
     # blue
     for i in range(LIGHT_NUM):
         np[i] = 0x0000ff
@@ -86,7 +78,10 @@ def main():
     # off 
     for i in range(LIGHT_NUM):
         np[i] = 0x000000
-    np.write()
-
-if __name__ == "__main__":
-    main()
+    np.write()    
+    
+    # random
+    # import random
+    # for i in range(LIGHT_NUM):
+    #    np[i] = random.randint(0,0xFFFFFF)
+    # np.write()

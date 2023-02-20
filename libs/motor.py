@@ -28,44 +28,41 @@ class Motor():
         else:
             value = mapping(abs(power), 0, 100, 20, 100)
             value = int(value / 100.0 * 0xffff)
-            value = 0xffff - value
 
             if power*self.dir > 0:
-                self.pwm1.duty_u16(value)
+                self.pwm1.duty_u16(0xffff - value)
                 self.pwm2.duty_u16(0xffff)
             else:
                 self.pwm1.duty_u16(0xffff)
-                self.pwm2.duty_u16(value)
+                self.pwm2.duty_u16(0xffff - value)
 
 
 
+if __name__ == '__main__':
 
-def main():
     # init
     left_front  = Motor(17, 16, dir=-1)
     right_front = Motor(15, 14, dir= 1)
     left_rear   = Motor(13, 12, dir=-1)
     right_rear  = Motor(11, 10, dir= 1)
-    # forward
-    for i in range(100):
-        left_front.move(i)
-        right_front.move(i)
-        left_rear.move(i)
-        right_rear.move(i)
-        time.sleep(0.05)
-    # forward
-    for i in range(100):
-        left_front.move(-i)
-        right_front.move(-i)
-        left_rear.move(-i)
-        right_rear.move(-i)
-        time.sleep(0.05)
-    # stop
-    left_front.move(0)
-    right_front.move(0)
-    left_rear.move(0)
-    right_rear.move(0)
-    time.sleep(0.05)
 
-if __name__ == '__main__':
-    main()
+    try:
+        # forward
+        power = 80
+        left_front.run(power)
+        right_front.run(power)
+        left_rear.run(power)
+        right_rear.run(power)  
+        time.sleep(5)
+
+    finally:
+        # stop
+        power = 0
+        left_front.run(power)
+        right_front.run(power)
+        left_rear.run(power)
+        right_rear.run(power) 
+        time.sleep(0.2)   
+
+
+
