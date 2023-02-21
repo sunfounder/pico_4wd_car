@@ -18,7 +18,7 @@ for i in range((RADAR_MAX_ANGLE-RADAR_MIN_ANGLE)/radar_step+1):
 
 def get_distance_at(angle):
     servo.set_angle(angle)
-    time.sleep(0.04)
+    #time.sleep(0.04)
     distance = sonar.get_distance()
     return distance
 
@@ -56,6 +56,10 @@ def radar_scan():
 
 def set_radar_scan_config(scan_range=RADAR_MAX_ANGLE-RADAR_MIN_ANGLE,step=abs(radar_step)):
     global RADAR_MAX_ANGLE, RADAR_MIN_ANGLE, radar_angle, radar_step, radar_data
+
+    step=abs(step)
+    if scan_range==RADAR_MAX_ANGLE-RADAR_MIN_ANGLE and step==abs(radar_step):
+        return
 
     RADAR_MAX_ANGLE = int(scan_range / 2)
     RADAR_MIN_ANGLE = -RADAR_MAX_ANGLE

@@ -23,9 +23,9 @@ class Servo():
             angle = int(angle)
         except:
             raise ValueError("Angle value should be int value, not %s"%angle)
-        if angle < -90:
+        if angle < -90: # most left
             angle = -90
-        if angle > 90:
+        if angle > 90: #most right
             angle = 90
 
         pulse_width=mapping(angle, -90, 90, self.MAX_PW, self.MIN_PW)
