@@ -44,13 +44,50 @@ def set_bottom_color(color):
     for num in LIGHT_BOTTOM_RIGHT:
         np[num] = color
     np.write()
-    
+
+def set_rear_right_color(color):
+    for num in LIGHT_REAR_RIGHT:
+        np[num] = color
+    np.write()    
+
+def set_rear_middle_color(color):
+    for num in LIGHT_REAR_MIDDLE:
+        np[num] = color
+    np.write()
+
+def set_rear_left_color(color):
+    for num in LIGHT_REAR_LEFT:
+        np[num] = color
+    np.write()
+
 def set_rear_color(color):
     for num in LIGHT_REAR:
         np[num] = color
     np.write()
 
-
 def set_off():
     set_all_color([0, 0, 0])
 
+# call function
+if __name__ == "__main__":
+    try:
+        import time
+        set_all_color(0x33aa66)
+        time.sleep(0.5)
+        set_bottom_left_color(0x6633ff)
+        time.sleep(0.5)
+        set_bottom_right_color([255,66,100])
+        time.sleep(0.5)
+        set_bottom_color(0x77ff00)
+        time.sleep(0.5)
+        set_rear_color(0x88aa00)
+        time.sleep(0.5)
+        set_rear_right_color(0xaa0000)
+        time.sleep(0.5)
+        set_rear_middle_color(0x00aa00)
+        time.sleep(0.5)
+        set_rear_left_color(0x0000aa)
+        time.sleep(0.5)
+
+    finally:
+        set_off()
