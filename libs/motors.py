@@ -1,16 +1,3 @@
-
-'''
-    - 同时控制4个电机的函数
-        - set_motors_power(0, 0, 0, 0)
-        - 速度缓慢递增
-                    set_motor_power_gradually
-
-    - 前进 后退 左 右 
-        -简化的移动函数
-            - move("forward", power)
-'''
-
-
 from motor import Motor
 import time
 
@@ -19,7 +6,6 @@ right_front = Motor(15, 14, dir= 1)
 left_rear   = Motor(13, 12, dir=-1)
 right_rear  = Motor(11, 10, dir= 1)
 motors = [left_front, right_front, left_rear, right_rear]
-
 
 def set_motors_power(powers:list):
     ''' set motors power 
@@ -30,7 +16,6 @@ def set_motors_power(powers:list):
 
     for i, motor in enumerate(motors):
         motor.run(powers[i])
-
 
 def set_motors_power_gradually(powers:list):
     '''
@@ -49,7 +34,6 @@ def set_motors_power_gradually(powers:list):
             else:
                 flags[i] = False
         time.sleep_ms(1)
-
 
 def stop():
     set_motors_power([0, 0, 0, 0])

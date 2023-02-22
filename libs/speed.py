@@ -30,7 +30,7 @@ class Speed():
         self.right_count += 1
 
     def on_timer(self,ch):
-        # mileage
+        # count for mileage
         self.total_count += self.left_count + self.right_count
         # revolutions per second
         rps = (self.left_count + self.right_count) * 1000 /self.duration /20.0 /2

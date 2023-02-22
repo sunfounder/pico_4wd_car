@@ -1,8 +1,3 @@
-'''
-    - servo_class.py 做成类
-        - 写成类
-        - 调用类控制舵机
-'''
 from machine import Pin, PWM
 import time
 

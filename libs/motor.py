@@ -1,13 +1,6 @@
-'''
-    - 为了方便控制多个电机，将单个电机控制做成一个类
-        - 写成类
-        - 调用类同时控制1个电机
-'''
-
 from machine import Pin, PWM
 import time
 
-# 重映射值
 def mapping(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 

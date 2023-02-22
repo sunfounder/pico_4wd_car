@@ -21,6 +21,7 @@ class Ultrasonic():
         """Measure pulse length and return calculated distance [cm]."""
         self._pulse()
         pulse_width = time_pulse_us(self._echo, Pin.on, self.TIMEOUT) / 1000000.0
+        #pulse_width = time_pulse_us(self._echo, Pin.on) / 1000000.0
         distance = pulse_width * self.SOUND_SPEED / 2 * 100
         return distance
     

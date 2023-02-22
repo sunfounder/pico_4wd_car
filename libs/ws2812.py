@@ -80,7 +80,7 @@ if __name__ == "__main__":
         np[i] = 0x000000
     np.write()    
     
-    # random
+    ## random
     # import random
     # for i in range(LIGHT_NUM):
     #    np[i] = random.randint(0,0xFFFFFF)
