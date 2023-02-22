@@ -17,10 +17,15 @@ for i in range((RADAR_MAX_ANGLE-RADAR_MIN_ANGLE)/radar_step+1):
     radar_data.append(None)
 
 def get_distance_at(angle):
-    servo.set_angle(angle)
+    global radar_angle
+    radar_angle = angle
+    servo.set_angle(radar_angle)
     #time.sleep(0.04)
-    distance = sonar.get_distance()
-    return distance
+    while True:
+        distance = sonar.get_distance()
+        if distance > 0:
+            return distance
+    
 
 def radar_move():
     global radar_angle, radar_step
@@ -54,23 +59,29 @@ def radar_scan():
     else:
         return radar_angle,distance,status
 
-def set_radar_scan_config(scan_range=RADAR_MAX_ANGLE-RADAR_MIN_ANGLE,step=abs(radar_step)):
+def set_radar_scan_config(scan_range=None,step=None):
     global RADAR_MAX_ANGLE, RADAR_MIN_ANGLE, radar_angle, radar_step, radar_data
-
-    step=abs(step)
-    if scan_range==RADAR_MAX_ANGLE-RADAR_MIN_ANGLE and step==abs(radar_step):
+    
+    # update changed
+    item = 0
+    if scan_range is None or scan_range is RADAR_MAX_ANGLE-RADAR_MIN_ANGLE:
+        item+=1
+    else:
+        RADAR_MAX_ANGLE = int(scan_range / 2)
+        RADAR_MIN_ANGLE = RADAR_MAX_ANGLE-scan_range
+    if step is None or abs(radar_step) is abs(step):
+        item+=1
+    else:
+        radar_step=int(step)
+    if item is 2: # if nothing change, return
         return
-
-    RADAR_MAX_ANGLE = int(scan_range / 2)
-    RADAR_MIN_ANGLE = -RADAR_MAX_ANGLE
-
-    radar_step=int(step)
-    radar_angle=0
-
+    
+    # re-create the data list
     radar_data =[]
-    for i in range((RADAR_MAX_ANGLE-RADAR_MIN_ANGLE)/radar_step +1):
-        radar_data.append(None)   
-
+    for i in range(scan_range/abs(radar_step) +1):
+        radar_data.append(None)
+    
+    radar_angle=0
     servo.set_angle(radar_angle)
 
 def set_radar_reference(ref):
@@ -86,6 +97,6 @@ if __name__ == '__main__':
             _,_,status = radar_scan()
             if type(status) is not int:
                 print(status)
-            time.sleep(0.2)
+            time.sleep(0.1)
     finally:
         servo.set_angle(0)
