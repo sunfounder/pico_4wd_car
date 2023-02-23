@@ -1,6 +1,7 @@
 from grayscale import Grayscale
 import motors as car
 import lights
+import time
 
 gs = Grayscale(26, 27, 28)
 gs.set_line_reference(10000)
@@ -35,3 +36,4 @@ try:
 finally:
     car.move("stop")
     lights.set_off()
+    time.sleep(0.05)

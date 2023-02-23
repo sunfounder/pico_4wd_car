@@ -41,3 +41,4 @@ if __name__ == "__main__":
     finally:
         move("stop")
         lights.set_off()
+        time.sleep(0.05)

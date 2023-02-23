@@ -37,3 +37,5 @@ try:
     main()
 finally:
     car.move("stop")
+    time.sleep(0.05)
+    
