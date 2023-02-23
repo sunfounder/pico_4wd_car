@@ -42,6 +42,7 @@ def running(direction,power):
 
 try:
     MOTOR_POWER = 20
+    radar.set_radar_reference(20)
     radar.set_radar_scan_config(scan_range=90, step=10)
     while True:
         _,_,radar_data = radar.radar_scan()
@@ -57,3 +58,4 @@ try:
 
 finally:
     car.move("stop")
+    time.sleep(0.05)
