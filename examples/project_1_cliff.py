@@ -25,6 +25,7 @@ def shake_head():
 
 def main():
     while True:
+        # print(gs.get_value())
         if gs.is_on_edge():
             car.move("backward", MOTOR_POWER)
             shake_head()
