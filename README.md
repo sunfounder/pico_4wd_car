@@ -3,6 +3,7 @@ This is the code, drivers and some documents for Pico-4wd Car.You can buy it on 
 
 - [Pico-4wd Car](#nano-sloth-kit)
 - [Related Links](#related-links)
+- [Sunfounder Controller](#sunfounder-controller)
 - [File Tree](#file-tree)
 - [About SunFounder](#about-sunfounder)
 - [Contact Us](#contact-us)
@@ -28,41 +29,41 @@ In addition, you can also use an app - SunFounder Controller - to DIY your own c
 - our website:
     https://sunfounder.com
 
-## File Tree
+## Sunfounder Controller
+- https://docs.sunfounder.com/projects/sf-controller/en/latest/index.html
+- layout:
+<div align="center">
+    <img src="./img/Pico-4WD-Car-V2 App layout.png" width="80%" height="80%"   align="center" title="App layout"/>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    <!-- <img src="./img/Nano_Sloth_V2.png" width="212" height="261" align="center" title="Nano_Sloth_V2"/> -->
+</div>
 
+## File Tree
     pico_4wd_car                               
-    ├─ esp8266-uart-wsserver   // websocket-uart firmware for esp01s                
-    ├─ examples                // examples                
+    ├─ esp8266-uart-wsserver            // websocket-uart firmware for esp01s         
+    ├─ examples                         // examples        
     │  ├─ app_control.py                       
-    │  ├─ app_control_v2.py                    
-    │  ├─ battery_test.py                      
-    │  ├─ bull_fight.py                        
-    │  ├─ donot_push_me.py                     
-    │  ├─ follow_hand.py                       
-    │  ├─ follow_hand_v2.py                    
-    │  ├─ line_track.py                        
-    │  ├─ mileage_test.py                      
-    │  └─ obstacle_avoid.py                    
+    │  ├─ project_1_cliff.py                   
+    │  ├─ project_2_line_track.py              
+    │  ├─ project_3_follow.py                  
+    │  ├─ project_4_avoid.py                   
+    │  └─ project_5_light.py                   
     ├─ img                                     
-    ├─ libs                    // library                
+    ├─ libs                             // library                          
+    │  ├─ grayscale.py                         
+    │  ├─ lights.py                            
+    │  ├─ motor.py                             
+    │  ├─ motors.py                            
     │  ├─ pico_4wd.py                          
     │  ├─ pico_rdp.py                          
-    │  └─ ws.py                                
-    ├─ tests                   // test examples                
-    │  ├─ app_test.py                          
-    │  ├─ light_effect.py                      
-    │  ├─ pico_4wd_test.py                     
-    │  ├─ test.py                              
-    │  ├─ test_grayscale.py                    
-    │  ├─ test_light.py                        
-    │  ├─ test_motor.py                        
-    │  ├─ test_servo.py                        
-    │  ├─ test_sonar.py                        
-    │  └─ test_speed.py                        
+    │  ├─ radar.py                             
+    │  ├─ servo.py                             
+    │  ├─ speed.py                             
+    │  ├─ ultrasonic.py                        
+    │  ├─ ws.py                                
+    │  └─ ws2812.py                            
     ├─ api_reference_pico_4wd.md               
     └─ README.md                               
-
-
 ## About SunFounder
 SunFounder is a company focused on STEAM education with products like open source robots, development boards, STEAM kit, modules, tools and other smart devices distributed globally. In SunFounder, we strive to help elementary and middle school students as well as hobbyists, through STEAM education, strengthen their hands-on practices and problem-solving abilities. In this way, we hope to disseminate knowledge and provide skill training in a full-of-joy way, thus fostering your interest in programming and making, and exposing you to a fascinating world of science and engineering. To embrace the future of artificial intelligence, it is urgent and meaningful to learn abundant STEAM knowledge.
 
