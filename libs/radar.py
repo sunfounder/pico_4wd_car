@@ -21,10 +21,11 @@ def get_distance_at(angle):
     radar_angle = angle
     servo.set_angle(radar_angle)
     #time.sleep(0.04)
-    while True: # avoid negative invalid values
-        distance = sonar.get_distance()
-        if distance > 0:
-            return distance
+    distance = sonar.get_distance()
+    if distance < 0:
+        return -1
+    else:
+        return distance
     
 def radar_move():
     global radar_angle, radar_step
@@ -37,7 +38,7 @@ def radar_move():
     radar_angle += radar_step
 
 def get_radar_status(distance):
-    if distance > RADAR_REFERENCE:
+    if distance > RADAR_REFERENCE or distance < 0:
         return 1
     else:
         return 0
