@@ -49,8 +49,8 @@ def move(action, power=0):
     elif action == "right":
         set_motors_power_gradually([power, -power, power, -power])
     else:
-        set_motors_power_gradually([0, 0, 0, 0])
-
+        # set_motors_power_gradually([0, 0, 0, 0])
+        set_motors_power([0, 0, 0, 0])
 
 
 if __name__ == "__main__":
