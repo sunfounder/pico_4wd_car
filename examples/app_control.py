@@ -322,10 +322,8 @@ def follow():
     if isinstance(radar_data, int):
         return
 
-    print(f'radar_data: {radar_data}')
     #---- analysis direction -----
     direction = get_dir(radar_data, split_str='1')
-    print(f'direction: {direction}')
 
     #--------- move ------------
     if direction == "left":
@@ -547,7 +545,6 @@ def remote_handler():
         return
     
     ''' radar and distance '''
-    print('radar in')
     if mode == None or mode == 'anti fall':
         if radar_on:
             radar.set_radar_scan_config(NORMAL_SCAN_ANGLE, NORMAL_SCAN_STEP)
@@ -555,8 +552,6 @@ def remote_handler():
         else:
             radar_angle = 0
             radar_distance = radar.get_distance_at(radar_angle)
-    print('radar out')
-    
 
     ''' move && anti-fall '''
     if mode == "anti fall":
