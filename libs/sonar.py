@@ -3,17 +3,17 @@ from ultrasonic import Ultrasonic
 import time
 
 servo = Servo(18)
-sonar = Ultrasonic(6, 7)
+ultrasonic = Ultrasonic(6, 7)
 
 sonar_angle = 0
 sonar_step = 30
 
-sonar_MAX_ANGLE = 90
-sonar_MIN_ANGLE = -90
-sonar_REFERENCE = 20
+SONAR_MAX_ANGLE = 90
+SONAR_MIN_ANGLE = -90
+SONAR_REFERENCE = 20
 
 sonar_data =[]
-for i in range((sonar_MAX_ANGLE-sonar_MIN_ANGLE)/sonar_step+1):
+for i in range((SONAR_MAX_ANGLE-SONAR_MIN_ANGLE)/sonar_step+1):
     sonar_data.append(None)
 
 def get_distance_at(angle):
@@ -21,7 +21,7 @@ def get_distance_at(angle):
     sonar_angle = angle
     servo.set_angle(sonar_angle)
     #time.sleep(0.04)
-    distance = sonar.get_distance()
+    distance = ultrasonic.get_distance()
     if distance < 0:
         return -1
     else:
@@ -29,16 +29,16 @@ def get_distance_at(angle):
     
 def sonar_move():
     global sonar_angle, sonar_step
-    if sonar_angle >= sonar_MAX_ANGLE:
-        sonar_angle = sonar_MAX_ANGLE
+    if sonar_angle >= SONAR_MAX_ANGLE:
+        sonar_angle = SONAR_MAX_ANGLE
         sonar_step = -abs(sonar_step)
-    elif sonar_angle <= sonar_MIN_ANGLE:
-        sonar_angle = sonar_MIN_ANGLE
+    elif sonar_angle <= SONAR_MIN_ANGLE:
+        sonar_angle = SONAR_MIN_ANGLE
         sonar_step = abs(sonar_step)
     sonar_angle += sonar_step
 
 def get_sonar_status(distance):
-    if distance > sonar_REFERENCE or distance < 0:
+    if distance > SONAR_REFERENCE or distance < 0:
         return 1
     else:
         return 0
@@ -50,7 +50,7 @@ def sonar_scan():
     global sonar_data
     sonar_move()
     distance = get_distance_at(sonar_angle)
-    index=int(mapping(sonar_angle, sonar_MIN_ANGLE, sonar_MAX_ANGLE, 0, len(sonar_data)-1))
+    index=int(mapping(sonar_angle, SONAR_MIN_ANGLE, SONAR_MAX_ANGLE, 0, len(sonar_data)-1))
     status=get_sonar_status(distance)
     sonar_data[index]=status
     if (index == 0 or index == len(sonar_data)-1) and None not in sonar_data:
@@ -59,15 +59,15 @@ def sonar_scan():
         return sonar_angle,distance,status
 
 def set_sonar_scan_config(scan_range=None,step=None):
-    global sonar_MAX_ANGLE, sonar_MIN_ANGLE, sonar_angle, sonar_step, sonar_data
+    global SONAR_MAX_ANGLE, SONAR_MIN_ANGLE, sonar_angle, sonar_step, sonar_data
     
     # update changed
     item = 0
-    if scan_range is None or scan_range is sonar_MAX_ANGLE-sonar_MIN_ANGLE:
+    if scan_range is None or scan_range is SONAR_MAX_ANGLE-SONAR_MIN_ANGLE:
         item+=1
     else:
-        sonar_MAX_ANGLE = int(scan_range / 2)
-        sonar_MIN_ANGLE = sonar_MAX_ANGLE-scan_range
+        SONAR_MAX_ANGLE = int(scan_range / 2)
+        SONAR_MIN_ANGLE = SONAR_MAX_ANGLE-scan_range
     if step is None or abs(sonar_step) is abs(step):
         item+=1
     else:
@@ -84,8 +84,8 @@ def set_sonar_scan_config(scan_range=None,step=None):
     servo.set_angle(sonar_angle)
 
 def set_sonar_reference(ref):
-    global sonar_REFERENCE
-    sonar_REFERENCE = int(ref)
+    global SONAR_REFERENCE
+    SONAR_REFERENCE = int(ref)
 
 
 if __name__ == '__main__':
