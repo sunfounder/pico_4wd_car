@@ -1,4 +1,4 @@
-import radar as radar
+import sonar as sonar
 import motors as car
 import time
 
@@ -30,22 +30,22 @@ def get_dir(data,split_str='0'):
 
 def running(direction,power):
     if direction is "left":
-        radar.get_distance_at(20) # face right
+        sonar.get_distance_at(20) # face right
         time.sleep(0.2)
         car.move("left", power*2)
         while True:
-            distance = radar.get_distance_at(20) # face right
-            status = radar.get_radar_status(distance)
+            distance = sonar.get_distance_at(20) # face right
+            status = sonar.get_sonar_status(distance)
             if status is 1: # right position is pass
                 break
         car.move("stop")
     elif direction is "right":
-        radar.get_distance_at(-20) # face left
+        sonar.get_distance_at(-20) # face left
         time.sleep(0.2)
         car.move("right", power*2)
         while True:
-            distance = radar.get_distance_at(-20) # face left
-            status = radar.get_radar_status(distance)
+            distance = sonar.get_distance_at(-20) # face left
+            status = sonar.get_sonar_status(distance)
             if status is 1: # left position is pass
                 break
         car.move("stop")
@@ -60,24 +60,24 @@ try:
     SCAN_RANGE_BLOCK = 180
     SCAN_STEP = 10
     status = "pass"
-    radar.set_radar_scan_config(scan_range=SCAN_RANGE_PASS, step=SCAN_STEP)
-    radar.set_radar_reference(30)
+    sonar.set_sonar_scan_config(scan_range=SCAN_RANGE_PASS, step=SCAN_STEP)
+    sonar.set_sonar_reference(30)
     while True:
-        _, _, radar_data = radar.radar_scan()
-        # If radar data return a int, means scan not finished, and the int is current angle status
-        # radar_data: 0 is block, 1 is pass
+        _, _, sonar_data = sonar.sonar_scan()
+        # If sonar data return a int, means scan not finished, and the int is current angle status
+        # sonar_data: 0 is block, 1 is pass
         time.sleep(0.04)
         
-        if isinstance(radar_data, int): 
-            if radar_data is 0 and status is "pass":
+        if isinstance(sonar_data, int): 
+            if sonar_data is 0 and status is "pass":
                 status = "block"
-                radar.set_radar_scan_config(SCAN_RANGE_BLOCK) # change scan range and re-scan
+                sonar.set_sonar_scan_config(SCAN_RANGE_BLOCK) # change scan range and re-scan
                 car.move("stop")
             continue # only list can go on
-        direction = get_dir(radar_data,split_str='0')
+        direction = get_dir(sonar_data,split_str='0')
         running(direction, MOTOR_POWER)
         status = "pass"
-        radar.set_radar_scan_config(SCAN_RANGE_PASS)
+        sonar.set_sonar_scan_config(SCAN_RANGE_PASS)
         
 finally:
     car.move("stop")

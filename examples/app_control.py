@@ -12,7 +12,7 @@ Pico onboard LED status:
 import time
 import sys
 import motors as car
-import radar as radar
+import sonar as sonar
 import lights as lights
 from speed import Speed
 from grayscale import Grayscale
@@ -65,7 +65,7 @@ steer_sensitivity = 0.8 # 0 ~ 1
 GRAYSCALE_LINE_REFERENCE_DEFAULT = 10000
 GRAYSCALE_CLIFF_REFERENCE_DEFAULT = 2000
 
-'''Configure radar'''
+'''Configure sonar'''
 # Normal
 NORMAL_SCAN_ANGLE = 180
 NORMAL_SCAN_STEP = 5
@@ -141,9 +141,9 @@ mode = None
 throttle_power = 0
 steer_power = 0
 
-radar_on = True
-radar_angle = 0
-radar_distance = 0
+sonar_on = True
+sonar_angle = 0
+sonar_distance = 0
 avoid_proc = "scan" # obstacle process, "scan", "getdir", "stop", "forward", "left", "right"
 avoid_has_obstacle = False
 
@@ -179,14 +179,14 @@ def my_car_move(throttle_power, steer_power, gradually=False):
     else:
         car.set_motors_power([power_l, power_r, power_l, power_r])
 
-'''------- get_dir (radar sacn data to direction) ---------------------'''
-def get_dir(radar_data, split_str="0"):
+'''------- get_dir (sonar sacn data to direction) ---------------------'''
+def get_dir(sonar_data, split_str="0"):
     # get scan status of 0, 1
-    radar_data = [str(i) for i in radar_data]
-    radar_data = "".join(radar_data)
+    sonar_data = [str(i) for i in sonar_data]
+    sonar_data = "".join(sonar_data)
 
     # Split 0, leaves the free path
-    paths = radar_data.split(split_str)
+    paths = sonar_data.split(split_str)
 
     # Calculate where is the widest
     max_paths = max(paths)
@@ -196,9 +196,9 @@ def get_dir(radar_data, split_str="0"):
         return "stop"
 
     # Calculate the direction of the widest
-    pos = radar_data.index(max_paths)
+    pos = sonar_data.index(max_paths)
     pos += (len(max_paths) - 1) / 2
-    delta = len(radar_data) / 3
+    delta = len(sonar_data) / 3
     if pos < delta:
         return "left"
     elif pos > 2 * delta:
@@ -242,23 +242,23 @@ def line_track():
 
 '''----------------- obstacle_avoid ---------------------'''
 def obstacle_avoid():
-    global radar_angle, radar_distance, avoid_proc, avoid_has_obstacle
+    global sonar_angle, sonar_distance, avoid_proc, avoid_has_obstacle
     global move_status
 
     # scan
     if avoid_proc == 'scan':
         if not avoid_has_obstacle:
-            radar.set_radar_scan_config(OBSTACLE_AVOID_SCAN_ANGLE, OBSTACLE_AVOID_SCAN_STEP)
+            sonar.set_sonar_scan_config(OBSTACLE_AVOID_SCAN_ANGLE, OBSTACLE_AVOID_SCAN_STEP)
             move_status = 'forward'
             car.move('forward', OBSTACLE_AVOID_FORWARD_POWER)
         else:
-            radar.set_radar_scan_config(180, OBSTACLE_AVOID_SCAN_STEP)
+            sonar.set_sonar_scan_config(180, OBSTACLE_AVOID_SCAN_STEP)
             move_status = 'stop'
             car.move('stop')
-        radar_angle, radar_distance, radar_data = radar.radar_scan()
-        if isinstance(radar_data, int):
+        sonar_angle, sonar_distance, sonar_data = sonar.sonar_scan()
+        if isinstance(sonar_data, int):
             # 0 means distance too close, 1 means distance safety
-            if radar_data == 0:
+            if sonar_data == 0:
                 avoid_has_obstacle = True
                 return
             else:
@@ -268,7 +268,7 @@ def obstacle_avoid():
 
     # getdir
     if avoid_proc == 'getdir':
-        avoid_proc = get_dir(radar_data)
+        avoid_proc = get_dir(sonar_data)
 
     # move: stop, forward
     if avoid_proc == 'stop':
@@ -286,44 +286,44 @@ def obstacle_avoid():
         if avoid_proc == 'left':
             move_status = 'left'
             car.move('left', OBSTACLE_AVOID_TURNING_POWER)
-            radar_angle = 20 # servo turn right 20 
+            sonar_angle = 20 # servo turn right 20 
         else:
             move_status = 'right'
             car.move('right', OBSTACLE_AVOID_TURNING_POWER)
-            radar_angle = -20 # servo turn left 20 
-        radar.servo.set_angle(radar_angle)
+            sonar_angle = -20 # servo turn left 20 
+        sonar.servo.set_angle(sonar_angle)
         time.sleep(0.2)
         avoid_proc = 'turn'
 
     # turn: left, right
     if avoid_proc == 'turn':
-        radar_distance = radar.get_distance_at(radar_angle)
-        status = radar.get_radar_status(radar_distance)
+        sonar_distance = sonar.get_distance_at(sonar_angle)
+        status = sonar.get_sonar_status(sonar_distance)
         if status == 1:
             avoid_has_obstacle = False
             avoid_proc = 'scan'
             move_status = 'forward'
             car.move("forward", OBSTACLE_AVOID_FORWARD_POWER)
-            radar.servo.set_angle(0)
+            sonar.servo.set_angle(0)
 
 '''----------------- follow ---------------------'''
 def follow():
-    global radar_angle, radar_distance
+    global sonar_angle, sonar_distance
     global move_status
 
-    radar.set_radar_scan_config(FOLLOW_SCAN_ANGLE, FOLLOW_SCAN_STEP)
-    radar.set_radar_reference(FOLLOW_REFERENCE)
+    sonar.set_sonar_scan_config(FOLLOW_SCAN_ANGLE, FOLLOW_SCAN_STEP)
+    sonar.set_sonar_reference(FOLLOW_REFERENCE)
 
     #--------- scan -----------
-    radar_angle, radar_distance, radar_data = radar.radar_scan()
+    sonar_angle, sonar_distance, sonar_data = sonar.sonar_scan()
     # time.sleep(0.02)
 
-    # If radar data return a int, means scan not finished, and the int is current angle status
-    if isinstance(radar_data, int):
+    # If sonar data return a int, means scan not finished, and the int is current angle status
+    if isinstance(sonar_data, int):
         return
 
     #---- analysis direction -----
-    direction = get_dir(radar_data, split_str='1')
+    direction = get_dir(sonar_data, split_str='1')
 
     #--------- move ------------
     if direction == "left":
@@ -389,7 +389,7 @@ def on_receive(data):
     global throttle_power, steer_power, move_status, is_move_last , mode, joystick_touched
     global led_status, led_theme_code, led_theme_sum, lights_brightness
     global current_voice_cmd, voice_start_time, voice_max_time
-    global radar_on
+    global sonar_on
     global anti_fall_enabled
 
     if RECEIVE_PRINT:
@@ -397,7 +397,7 @@ def on_receive(data):
 
     ''' if not connected, skip & stop '''
     if not ws.is_connected():
-        radar.servo.set_angle(0)
+        sonar.servo.set_angle(0)
         car.move('stop', 0)
         return
 
@@ -408,9 +408,9 @@ def on_receive(data):
     ws.send_dict['B'] = round(speed.get_speed(), 2) # uint: cm/s
     # Speed mileage
     ws.send_dict['C'] = speed.get_mileage() # unit: meter
-    # # radar and distance
-    ws.send_dict['D'] = [radar_angle, radar_distance]
-    ws.send_dict['J'] = radar_distance
+    # # sonar and distance
+    ws.send_dict['D'] = [sonar_angle, sonar_distance]
+    ws.send_dict['J'] = sonar_distance
 
     ''' remote control'''
     # Move - power
@@ -482,11 +482,11 @@ def on_receive(data):
             led_theme_code = (led_theme_code + 1) % led_theme_sum
             print(f"set led theme color: {led_theme_code}, {led_theme[str(led_theme_code)][0]}")
 
-    # enable radar_sacn in normal mode
+    # enable sonar_sacn in normal mode
     # if 'G' in data.keys() and data['M'] == True:
-    #     radar_on = True
+    #     sonar_on = True
     # else:
-    #     radar_on = False
+    #     sonar_on = False
 
     # mode select: None / Anti fall / Line Track / Obstacle Avoid / Follow
     if 'M' in data.keys() and data['M'] == True:
@@ -500,7 +500,7 @@ def on_receive(data):
     elif 'O' in data.keys() and data['O'] == True:
         if mode != 'obstacle avoid':
             mode = 'obstacle avoid'
-            radar.set_radar_reference(OBSTACLE_AVOID_REFERENCE)
+            sonar.set_sonar_reference(OBSTACLE_AVOID_REFERENCE)
             print(f"change mode to: {mode}")
     elif 'P' in data.keys() and data['P'] == True:
         if mode != 'follow':
@@ -533,25 +533,25 @@ def on_receive(data):
 '''----------------- remote_handler ---------------------'''
 def remote_handler():
     global throttle_power, steer_power, move_status, joystick_touched
-    global radar_angle, radar_distance
+    global sonar_angle, sonar_distance
     global current_voice_cmd, voice_start_time, voice_max_time
     global lights_brightness
     global on_edge
 
     ''' if not connected, skip & stop '''
     if not ws.is_connected():
-        radar.servo.set_angle(0)
+        sonar.servo.set_angle(0)
         car.move('stop', 0)
         return
     
-    ''' radar and distance '''
+    ''' sonar and distance '''
     if mode == None or mode == 'anti fall':
-        if radar_on:
-            radar.set_radar_scan_config(NORMAL_SCAN_ANGLE, NORMAL_SCAN_STEP)
-            radar_angle, radar_distance, _ = radar.radar_scan()
+        if sonar_on:
+            sonar.set_sonar_scan_config(NORMAL_SCAN_ANGLE, NORMAL_SCAN_STEP)
+            sonar_angle, sonar_distance, _ = sonar.sonar_scan()
         else:
-            radar_angle = 0
-            radar_distance = radar.get_distance_at(radar_angle)
+            sonar_angle = 0
+            sonar_distance = sonar.get_distance_at(sonar_angle)
 
     ''' move && anti-fall '''
     if mode == "anti fall":
@@ -573,8 +573,8 @@ def remote_handler():
     ''' mode: Line Track or Obstacle Avoid or Follow '''
     if not joystick_touched and mode != 'anti fall':
         if mode == 'line track':
-            radar_angle = 0
-            radar_distance = radar.get_distance_at(0)
+            sonar_angle = 0
+            sonar_distance = sonar.get_distance_at(0)
             line_track()
         elif mode == 'obstacle avoid':
             obstacle_avoid()
@@ -634,7 +634,7 @@ def remote_handler():
 
 '''----------------- main ---------------------'''
 def main():
-    radar.servo.set_angle(0)
+    sonar.servo.set_angle(0)
     car.move('stop')
     ws.on_receive = on_receive
     if ws.start():

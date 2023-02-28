@@ -56,7 +56,7 @@ In addition, you can also use an app - SunFounder Controller - to DIY your own c
     │  ├─ motors.py                            
     │  ├─ pico_4wd.py                          
     │  ├─ pico_rdp.py                          
-    │  ├─ radar.py                             
+    │  ├─ sonar.py                             
     │  ├─ servo.py                             
     │  ├─ speed.py                             
     │  ├─ ultrasonic.py                        

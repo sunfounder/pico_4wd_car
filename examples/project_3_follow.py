@@ -1,4 +1,4 @@
-import radar as radar
+import sonar as sonar
 import motors as car
 import time
 
@@ -42,18 +42,18 @@ def running(direction,power):
 
 try:
     MOTOR_POWER = 20
-    radar.set_radar_reference(20)
-    radar.set_radar_scan_config(scan_range=90, step=10)
+    sonar.set_sonar_reference(20)
+    sonar.set_sonar_scan_config(scan_range=90, step=10)
     while True:
-        _,_,radar_data = radar.radar_scan()
-        # If radar data return a int, means scan not finished, and the int is current angle status
-        # radar_data: 0 is block, 1 is pass
+        _,_,sonar_data = sonar.sonar_scan()
+        # If sonar data return a int, means scan not finished, and the int is current angle status
+        # sonar_data: 0 is block, 1 is pass
         time.sleep(0.04)
         
-        if isinstance(radar_data,int):
+        if isinstance(sonar_data,int):
             continue # only list can go on
 
-        direction = get_dir(radar_data,split_str='1')
+        direction = get_dir(sonar_data,split_str='1')
         running(direction,MOTOR_POWER)
 
 finally:
