@@ -9,7 +9,7 @@ Combine the servo and ultrasonic module and you get a mechanical scanning sonar.
 
 You can learn how ``sonar.py`` is encapsulated in the following steps.
 
-**1. sonar scanning**
+**1. sonar scanning** (``sonar_7.1_scan.py``)
 
 The Pico 4WD Car scans for obstacles within 180° of the front. Simply put, the servo rotates back and forth and the ultrasonic module detects every specific angle.
 
@@ -20,7 +20,7 @@ The Pico 4WD Car scans for obstacles within 180° of the front. Simply put, the 
     import time
 
     servo = Servo(18)
-    sonar = Ultrasonic(6, 7)
+    ultrasonic = Ultrasonic(6, 7)
 
     sonar_angle = 0
     sonar_step = 30
@@ -30,10 +30,11 @@ The Pico 4WD Car scans for obstacles within 180° of the front. Simply put, the 
         sonar_angle = angle
         servo.set_angle(sonar_angle)
         #time.sleep(0.04)
-        while True: # avoid negative invalid values
-            distance = sonar.get_distance()
-            if distance > 0:
-                return distance
+        distance = ultrasonic.get_distance()
+        if distance < 0:
+            return -1
+        else:
+            return distance
 
     def sonar_move():
         global sonar_angle, sonar_step
@@ -51,7 +52,7 @@ The Pico 4WD Car scans for obstacles within 180° of the front. Simply put, the 
         print("angle: ",sonar_angle, "   distance: ",distance)
         time.sleep(0.3)
 
-**2. Output distances together**
+**2. Output distances together** (``sonar_7.2_data.py``)
 
 For more comprehensive data, we need to have the distances detected in each direction output together.
 
@@ -63,7 +64,7 @@ For more comprehensive data, we need to have the distances detected in each dire
     import time
 
     servo = Servo(18)
-    sonar = Ultrasonic(6, 7)
+    ultrasonic = Ultrasonic(6, 7)
 
     sonar_angle = 0
     sonar_step = 30
@@ -80,10 +81,11 @@ For more comprehensive data, we need to have the distances detected in each dire
         sonar_angle = angle
         servo.set_angle(sonar_angle)
         #time.sleep(0.04)
-        while True: # avoid negative invalid values
-            distance = sonar.get_distance()
-            if distance > 0:
-                return distance
+        distance = ultrasonic.get_distance()
+        if distance < 0:
+            return -1
+        else:
+            return distance
 
     def sonar_move():
         global sonar_angle, sonar_step
@@ -110,19 +112,19 @@ For more comprehensive data, we need to have the distances detected in each dire
         print(sonar_scan())
         time.sleep(0.3)
 
-**3. Determine if there are obstacles**
+**3. Determine if there are obstacles** (``sonar_7.3_status.py``)
 
 Most of the time, the car only needs to know whether there are obstacles in all directions.   
 
 .. code-block:: python
-    :emphasize-lines: 13,52,53
+    :emphasize-lines: 13,53,54
 
     from servo import Servo
     from ultrasonic import Ultrasonic
     import time
 
     servo = Servo(18)
-    sonar = Ultrasonic(6, 7)
+    ultrasonic = Ultrasonic(6, 7)
 
     sonar_angle = 0
     sonar_step = 30
@@ -140,10 +142,11 @@ Most of the time, the car only needs to know whether there are obstacles in all 
         sonar_angle = angle
         servo.set_angle(sonar_angle)
         #time.sleep(0.04)
-        while True: # avoid negative invalid values
-            distance = sonar.get_distance()
-            if distance > 0:
-                return distance
+        distance = ultrasonic.get_distance()
+        if distance < 0:
+            return -1
+        else:
+            return distance
 
     def sonar_move():
         global sonar_angle, sonar_step
@@ -156,7 +159,7 @@ Most of the time, the car only needs to know whether there are obstacles in all 
         sonar_angle += sonar_step
 
     def get_sonar_status(distance):
-        if distance > sonar_REFERENCE:
+        if distance > SONAR_REFERENCE or distance < 0:
             return 1
         else:
             return 0
@@ -177,7 +180,7 @@ Most of the time, the car only needs to know whether there are obstacles in all 
         print(sonar_scan())
         time.sleep(0.1)
 
-**4. Get complete data before judging**
+**4. Get complete data before judging** (``sonar_7.4_data_cycle.py``)
 
 Additionally, if we use ``sonar_data`` directly for obstacle determination, the data on the left becomes an interference item when the left side obstacle disappears and the sonar scans the right side.
 
@@ -211,7 +214,7 @@ It makes more sense to determine an obstacle after a sonar cycle has been scanne
         time.sleep(0.1)
 
 
-**5. Further optimization**
+**5. Further optimization** (``sonar_7.5_config.py``)
 
 In order to be compatible with more complex programs, we created two more functions to modify the rotation rules and distance determination of the sonar.
 

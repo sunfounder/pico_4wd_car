@@ -56,7 +56,7 @@ Now let's start writing the script to see how the motors turn.
         pinA.low()
         pinB.high()
 
-#. Copy the above code into Thonny or open the ``motor_2.1_cw.py`` under the path of ``pico_4wd_car-v2.0\examples``.
+#. Copy the above code into Thonny or open the ``motor_2.1_cw.py`` under the path of ``pico_4wd_car-v2.0\examples\learning``.
 
 #. Use a micro USB cable to connect the Pico to your computer and select the "MicroPython (Raspberry Pi Pico) COMxx" interpreter.
 

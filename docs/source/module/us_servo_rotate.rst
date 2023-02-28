@@ -26,7 +26,7 @@ So we get the following code.
         set_angle(servo,angle)
         time.sleep(0.1)
 
-You can copy the above code into Thonny or open the ``servo_rotate.py`` under the path of ``pico_4wd_car-v2.0\examples``. Then click the |thonny_run| button or press ``F5`` to run it.
+You can copy the above code into Thonny or open the ``sonar_servo_2.1_rotate.py`` under the path of ``pico_4wd_car-v2.0\examples``. Then click the |thonny_run| button or press ``F5`` to run it.
 
 When you power up the Pico 4WD car, you will see the servo rotate from 0° to 180°.
 

@@ -10,7 +10,7 @@ As well as the two main Cortex-M0+ processing cores, there are two PIO blocks th
 You can't program these cores with MicroPython - you have to use a special language for them - but you can program them from MicroPython.
 
 
-#. The code to control RGB Board using PIO is shown below. You can copy the above code into Thonny or open the ``rgb_light.py`` under the path of ``pico_4wd_car-v2.0\examples``.
+#. The code to control RGB Board using PIO is shown below. You can copy the above code into Thonny or open the ``rgb_2.1_light.py`` under the path of ``pico_4wd_car-v2.0\examples``.
 
     .. note::
 
