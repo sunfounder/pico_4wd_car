@@ -25,9 +25,9 @@ def get_line_status():
     return line_status
 
 while True:
+    print(get_value())
+    time.sleep(0.2)
     if is_on_edge():
         print("Danger!")
-        time.sleep(0.2)
     else:
         print(get_line_status())
-        time.sleep(0.2)
