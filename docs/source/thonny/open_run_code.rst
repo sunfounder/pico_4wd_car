@@ -23,7 +23,7 @@ Open and Run Script Directly
 
 #. Open Script
 
-    For example, ``grayscale_2.1_get_value.py``.
+    For example, ``grayscale_2_get_value.py``.
 
     If you double click on it, a new window will open on the right. You can open more than one script at the same time.
 
@@ -49,7 +49,7 @@ Open and Run Script Directly
 
     The code can be saved as a separate file within the **Raspberry Pi Pico** by clicking on **File** -> **Save As**.
 
-    .. image:: img/open_save_as.png
+    .. image:: img/save_as.png
 
     Select **Raspberry Pi Pico**.
 
@@ -101,7 +101,7 @@ You can also create a new script to copy the code from the project page and run 
 
     The script can be saved as a separate file within the **Raspberry Pi Pico** or **This Computer** by by pressing **Ctrl+S** or clicking the **Save** button on Thonny.
 
-    .. image:: img/open_save_as.png
+    .. image:: img/save_as.png
 
     Then click **OK** after entering the file name and extension ``.py``.
 

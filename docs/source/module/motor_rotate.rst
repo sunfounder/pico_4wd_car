@@ -56,10 +56,11 @@ Now let's start writing the script to see how the motors turn.
         pinA.low()
         pinB.high()
 
-#. Copy the above code into Thonny or open the ``motor_2.1_cw.py`` under the path of ``pico_4wd_car-v2.0\examples\learning``.
+#. Copy the above code into Thonny or open the ``motor_2_cw.py`` under the path of ``pico_4wd_car-v2.0\examples\learn_modules``.
 
 #. Use a micro USB cable to connect the Pico to your computer and select the "MicroPython (Raspberry Pi Pico) COMxx" interpreter.
 
+    .. image:: img/sec_inter12.png
 
 #. Click |thonny_run| button or simply press ``F5`` to run it.
 
@@ -73,8 +74,9 @@ Now let's start writing the script to see how the motors turn.
 
 #. As you hold the Pico 4WD Car up high, you will be able to see the right rear motor turning clockwise.
 
+Next you can run the following scripts in sequence to see what happens.
 
-**Stop the Motor** (``motor_2.2_stop.py``)
+**Stop the Motor**
 
     Write two ``high`` levels, motor stops.
 
@@ -88,7 +90,7 @@ Now let's start writing the script to see how the motors turn.
         pinA.high()
         pinB.high()
 
-**Motor Turns Counter-clockwise** (``motor_2.3_ccw.py``)
+**Motor Turns Counter-clockwise**
 
     Reversing the ``high`` and ``low`` levels, the motor will rotate counterclockwise.
 
@@ -102,7 +104,7 @@ Now let's start writing the script to see how the motors turn.
         pinA.high()
         pinB.low()
 
-**Stop 4 Motors** (``motor_2.4_stop_all.py``)
+**Stop 4 Motors**
 
     Stop all motors.
 

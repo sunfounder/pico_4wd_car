@@ -9,7 +9,7 @@ In order to be able to make the RGB Board light up different colors and display 
     The encapsulated library ``ws2812.py`` has been saved in ``pico_4wd_car-v2.0\libs``, which may differ from the ones shown in the course, so please refer to the file under ``libs`` path when using it.
 
 
-**Hex Format** (``rgb_3.1_class.py``)
+**Hex Format**
 
     Next, let's look at the simple encapsulated code.
 
@@ -67,7 +67,7 @@ In order to be able to make the RGB Board light up different colors and display 
     Now you can copy this code into Thonny and then click the |thonny_run| button or press ``F5`` to run it. When you power up the Pico 4WD car, you will see 3 RGB boards lit up in magenta color.
 
 
-**RGB Format** (``rgb_3.2_convert.py``)
+**RGB Format**
 
     Additionally to hexadecimal, people often prefer RGB color representations. 
     Therefore, we perform a little optimization, converting colors from HEX to RGB.

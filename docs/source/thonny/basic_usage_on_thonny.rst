@@ -1,12 +1,14 @@
+.. _usage_thonny:
+
 1. Basic Usage on Thonny
 ============================
 
-在这个章节中，你将学习如何下载和安装Thonny，安装MicroPython固件，上传库，运行脚本以及让脚本离线运行。
+In this section, you will learn how to download and install Thonny, install MicroPython firmware, upload libraries, run scripts and make scripts run offline.
 
-如果你对Thonny的使用很熟悉了，你可以跳过这个章节。
+If you are familiar with using Thonny, you can skip this chapter.
 
-对于 :ref:`install_micropython_on_pico` 和 :ref:`upload_libraries_py` 后面带了可选标志，是因为Pico 4WD Car出厂时，已经安装了MicroPython固件和安装了相应的库。
-所以这两步一般情况下可不做，当然你想做也没有问题。
+For :ref:`install_micropython_on_pico` and :ref:`upload_libraries_py` with optional flags after them, it is because the Pico 4WD Car is shipped with MicroPython firmware and the corresponding libraries already installed.
+So these two steps can be left out in general, but of course you can do it if you want.
 
 .. toctree::
     :maxdepth: 2

@@ -1,4 +1,4 @@
-5. ``motor.py`` module (Control Motor)
+5. ``motor.py`` Module (Control Motor)
 ===============================================
 
 

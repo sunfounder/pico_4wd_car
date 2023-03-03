@@ -8,9 +8,14 @@ As described in :ref:`cpn_speed`, the speed module's speed measurement principle
     :align: center
 
 .. note::
-    Before running the following scripts, it is recommended to hang the car in the air so that the 4 wheels can turn freely.
 
-**1. Counting** (``speed_2.1_count.py``)
+    * The complete script ``speed_2_get_speed.py`` is in the path ``pico_4wd_car\examples\learn_modules``.
+
+    * Before running the following scripts, it is recommended to hang the car in the air so that the 4 wheels can turn freely.
+
+Here are the steps to implement the speed calculation, which you can copy into Thonny to run.
+
+**1. Counting**
 
     Let's count how many times the infrared rays pass through the encode disk in a minute.
 
@@ -49,11 +54,11 @@ As described in :ref:`cpn_speed`, the speed module's speed measurement principle
             motors.stop()
             time.sleep(0.2)
 
-    Copy the above code into Thonny or open the ``speed_2.1_count.py`` under the path of ``pico_4wd_car-v2.0\examples``. Then click the |thonny_run| button or press ``F5`` to run it.
+    Copy the above code into Thonny and click the |thonny_run| button or press ``F5`` to run it.
 
     After powering up the Pico 4WD car, you will see the 4 motors turning (forward) while seeing the count in the Shell.
 
-**2. Calculate the RPM** (``speed_2.2_rpm.py``)
+**2. Calculate the RPM**
 
     Now let's calculate the RPM based on the counts. To improve the accuracy of the calculation, the calculation period is set to 200ms.
 
@@ -103,7 +108,7 @@ As described in :ref:`cpn_speed`, the speed module's speed measurement principle
 
     After running the script, click **View** -> **Plotter** to view the RPM curve, and you can see that the higher the power, the faster the RPM.
 
-**3. Calculate moving speed** (``speed_2.3_move_speed.py``)
+**3. Calculate moving speed**
 
     Next, the RPM is converted to moving speed (unit:cm/s). Here the moving speed is actually the RPM multiplied by the circumference of the wheel.
 
@@ -152,7 +157,7 @@ As described in :ref:`cpn_speed`, the speed module's speed measurement principle
             motors.stop()
             time.sleep(0.2) 
 
-**4. Calculate the speed on both sides** (``speed_2.4_2motor.py``)
+**4. Calculate the speed on both sides**
 
 In the case of a turn, there may be a situation where one side of the wheel is not rotating, but the car is actually moving. Then we can use both sides of the speed module to reduce error.
 

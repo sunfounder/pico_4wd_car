@@ -1,4 +1,4 @@
-4. Grayscale Module
+3. Grayscale Module
 ===========================
 
 In this section, you will learn how grayscale modules work, judging the environment by grayscale and making a module (library).

@@ -10,7 +10,7 @@
 * **GND**: Negative battery terminal.
 
 
-This is a custom battery pack made by SunFounder consisting of two 18650 batteries with a capacity of 2200mAh. The connector is XH2.54-4P, which can be charged directly after being inserted into the Zeus Car shield.
+This is a custom battery pack made by SunFounder consisting of two 18650 batteries with a capacity of 2200mAh. The connector is XH2.54-4P, which can be charged directly after being inserted into the Pico RDP.
 
 
 **Pins Out**

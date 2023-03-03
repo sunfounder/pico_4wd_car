@@ -12,12 +12,14 @@ For example, the following two functions can be used to know if a cliff or black
     is_on_edge()
     get_line_status()
 
-
 .. note::
 
     The final encapsulated library ``grayscale.py`` has been saved in ``pico_4wd_car-v2.0\libs``, which may differ from the ones shown in the course, so please refer to the file under ``libs`` path when using it.
 
-#. Encapsulate the code related to the grayscale module into a library, as follows.
+
+**1. Create Grayscale class**
+
+    Encapsulate the code related to the grayscale module into a library, as follows.
 
 
     .. code-block:: python
@@ -54,7 +56,9 @@ For example, the following two functions can be used to know if a cliff or black
             else:
                 print(gs.get_line_status())
 
-#. We have written cliff and black line thresholds in this module(library), but the thresholds are different for different environments when using it. So 2 other functions were created to make it easy for you to modify the thresholds in the main program.
+**2. Add threshold changeable function**
+
+    We have written cliff and black line thresholds in this module(library), but the thresholds are different for different environments when using it. So 2 other functions were created to make it easy for you to modify the thresholds in the main program.
 
     .. code-block:: python
         :emphasize-lines: 23,24,26,27,33,34
@@ -87,17 +91,21 @@ For example, the following two functions can be used to know if a cliff or black
             def set_line_reference(self, value):
                 self.line_ref = value
 
-        # init
-        gs = Grayscale(26, 27, 28)
+        if __name__ == '__main__':
+            import time
+            
+            # init
+            gs = Grayscale(26, 27, 28)
 
-        # config
-        gs.set_edge_reference(800)
-        gs.set_line_reference(12000)    
+            # config
+            gs.set_edge_reference(800)
+            gs.set_line_reference(12000)    
 
-        # detect
-        while True:
-            if gs.is_on_edge():
-                print("Danger!")
-            else:
-                print(gs.get_line_status())
+            # detect
+            while True:
+                if gs.is_on_edge():
+                    print("Danger!")
+                else:
+                    print(gs.get_line_status())
+                time.sleep(0.2)
 

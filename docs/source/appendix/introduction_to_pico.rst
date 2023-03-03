@@ -23,7 +23,7 @@ and its amazing community – will support you every step of the way. In the pro
 * 8 × Programmable I/O (PIO) state machines for custom peripheral support
 * Supported input power 1.8–5.5V DC
 * Operating temperature -20°C to +85°C
-* Castellated module allows soldering direct to carrier boards
+* Castellated module allows soldering direct to ier boards
 * Drag-and-drop programming using mass storage over USB
 * Low-power sleep and dormant modes
 * Accurate on-chip clock

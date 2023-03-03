@@ -62,6 +62,6 @@ In this case, the mileage is calculated by multiplying the total number of revol
         motors.stop()
         time.sleep(0.2) 
 
-Copy the above code into Thonny or open the ``speed_3.1_mileage.py`` under the path of ``pico_4wd_car-v2.0\examples``. Then click the |thonny_run| button or press ``F5`` to run it.
+Copy the above code into Thonny or open the ``speed_3_get_mileage.py`` under the path of ``pico_4wd_car-v2.0\examples\learn_modules``. Then click the |thonny_run| button or press ``F5`` to run it.
 
 After powering up the Pico 4WD car, you can see that the speed keeps cycling between high and low, and Mileage keeps adding up unless you click |thonny_stop| to stop the script from running.

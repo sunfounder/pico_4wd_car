@@ -1,4 +1,4 @@
-5. Speed Module
+4. Speed Module
 =================
 
 .. toctree::

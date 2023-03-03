@@ -34,18 +34,18 @@ Q3: Unable to connect to COM51: Cannot configure port?
 
 When you plug in your Raspberry Pi Pico to your computer, some times the above error message will appear, at this time you need to re-plug the USB cable and reopen the Thonny IDE.
 
-.. _speech_control_android:
+.. _stt_android:
 
-Q4：How do I use the Speech Control function on my Android device?
+Q4：How can I use the STT mode on my Android device?
 ------------------------------------------------------------------------
 
-Android devices cannot use the speech control function. Because the speech control function requires the Android mobile device to be connected to the Internet and to install the Google service component.
+Android devices cannot use the STT mode. Because the STT mode requires the Android mobile device to be connected to the Internet and to install the Google service component.
 
 Now follow the steps below.
 
 #. Modify the AP mode of ``app_control.py`` to STA mode.
 
-    * Open the ``grayscale_2.1_get_value.py`` under the path of ``pico_4wd_car-v2.0\examples``. 
+    * Open the ``app_control.py`` under the path of ``pico_4wd_car-v2.0\examples\learn_modules``. 
     * Then comment out the AP mode related code. Uncomment the STA mode related co'decode and fill in  the ``SSD`` and ``PASSWORD`` of your home Wi-Fi.
 
         .. image:: img/sta_mode.png
@@ -76,7 +76,7 @@ Now follow the steps below.
     .. image:: img/sta_connect.png
 
 
-#. Press and hold the Speech Control(I) widget after clicking the |app_run| button. A prompt will appear indicating that it is listening. Say the following command to move the car.
+#. Press and hold the **STT(I)** widget after clicking the |app_run| button. A prompt will appear indicating that it is listening. Say the following command to move the car.
 
     .. image:: img/sta_listening.png
 

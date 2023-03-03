@@ -13,4 +13,5 @@ In this section, you will learn how the servo works, how to make it turn to diff
     us_ultrasonic_intro
     us_ultrasonic_detect
     us_ultrasonic_module
-    us_sonar
+    us_sonar_scan
+    us_sonar_module

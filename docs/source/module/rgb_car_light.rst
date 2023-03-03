@@ -1,6 +1,6 @@
 
-4. ``light.py``
-=================
+4. ``light.py`` Module
+===============================
 
 If we want to add light effects to the car, we will need to change some LEDs separately. In order to add left turn indicator, we must control the LEDs with serial number 6 and 7; if we modify the right bottom RGB Board, we must control the LEDs with serial number 16~23.
 

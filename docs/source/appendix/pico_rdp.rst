@@ -32,7 +32,7 @@ Pico RDP Pinout
     * **Battery Indicators**: Two indicators represent different power levels. When both battery indicators are off, you need to use the USB-C cable to charge. When charging, these two indicators will flash.
 
 * Battery Port：
-    * 6.6V~8.4V PH2.0-5P power input.
+    * 6.6V ~ 8.4V PH2.0-5P power input.
     * Powering the Pico RDP and Raspberry Pi Pico at the same time.
 
 * Power Switch

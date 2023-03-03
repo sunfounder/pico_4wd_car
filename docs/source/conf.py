@@ -176,9 +176,6 @@ rst_epilog += """
 .. |app_connect| image:: /img/app/app_connect.jpg
     :width: 20
 
-.. |app_speech_i| image:: /img/app/app_speech_i.png
-    :width: 40
-
 .. |thonny_run| image:: /thonny/img/thonny_run.png
     :width: 20
 

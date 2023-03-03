@@ -1,6 +1,9 @@
+.. _learn_modules:
+
 2. Learn Modules
-================
-在这个章节中，你将学习每个模块的工作原理，如何测试以及将相关的代码都写入到库里面，以便后期做有趣项目的时候调用。
+==================
+
+Here, you will learn how each module works, and how to use them in scripts as well as write all the relevant code to the library to be used later in your projects.
 
 
 .. toctree::

@@ -30,7 +30,7 @@ Happily, handling Pico PWM in MicroPython is very simple, requiring only three s
     pin.duty_u16(0xFFFF)
 
 
-**Rotating the motor at high speed** (``motor_3.1_speed_high.py``)
+**Rotating the motor at high speed** (``motor_3_set_speed.py``)
 
     * Set pinB to high, i.e. PWM value is 0xFFFF (65535).
     * Then the motor will rotate clockwise by setting pinA to any value between 0 and 0xFFFF. In general, the smaller the value, the faster the speed, and the maximum speed is obtained at 0.
@@ -52,9 +52,9 @@ Happily, handling Pico PWM in MicroPython is very simple, requiring only three s
         pwmB.duty_u16(0xFFFF)
 
 
-**Rotating motor at slow speed** (``motor_3.2_speed_low.py``)
+**Rotating motor at slow speed**
 
-    Now come and turn the left front motor clockwise in the same way, but you will find that it will spin much slower.
+    Now turn the left front motor clockwise in the same way, but you will find that it will spin much slower.
 
         .. code-block:: python
 
@@ -72,7 +72,7 @@ Happily, handling Pico PWM in MicroPython is very simple, requiring only three s
             pwmA.duty_u16(0xFFFF)
             pwmB.duty_u16(0xAAAA)
 
-**Stop 4 Motors** (``motor_3.3_speed_stop_all.py``)
+**Stop 4 Motors**
 
     To stop all motors, write ``0xFFFF`` to all PWM pins.
 
