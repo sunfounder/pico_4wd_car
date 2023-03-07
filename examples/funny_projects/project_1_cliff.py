@@ -12,6 +12,7 @@ servo = Servo(18)
 servo.set_angle(0)
 
 MOTOR_POWER = 50
+
 def shake_head():
     for angle in range(0, 90, 10):
         servo.set_angle(angle)
@@ -25,10 +26,9 @@ def shake_head():
 
 def main():
     while True:
-        # print(gs.get_value())
+        print(gs.get_value())
         if gs.is_on_edge():
             car.move("backward", MOTOR_POWER)
-            shake_head()
             shake_head()
         else:
             car.move("stop")

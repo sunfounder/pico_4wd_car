@@ -12,6 +12,6 @@ def set_angle(pin,angle):
     duty=int(mapping(pulse_width, 0, 20, 0,65535))
     pin.duty_u16(duty)
 
-for angle in range(0,180,5):
+for angle in range(-90,90,5):
     set_angle(servo,angle)
     time.sleep(0.1)
