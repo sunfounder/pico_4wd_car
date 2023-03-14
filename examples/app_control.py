@@ -652,6 +652,7 @@ if __name__ == "__main__":
             log_f.write('\n> ')
             sys.print_exception(e, log_f)
     finally:
+        ws.set("RESET", timeout=2500)
         car.move("stop")
         lights.set_off()
         while True: # pico onboard led blinking indicates error
