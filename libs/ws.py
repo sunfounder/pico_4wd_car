@@ -18,11 +18,11 @@ def log(msg):
 
 class WS_Server():
     WS_TIMEOUT = 3000 # ms
-
+    SEND_INTERVAL = 100 # ms
+    
     send_dict = {
         'Name': '',
         'Type': 'PICO-4WD Car',
-        # 'Check': 'SunFounder Controller',
         'Check': 'SC',
         }
 
@@ -42,12 +42,12 @@ class WS_Server():
         self.ws = None
         self.wlan = None
         self._is_connected = False
+        # self.last_send_time = 0
 
         self.send_dict["Name"] = self.name
         print('reset ESP8266 module ...')
-        self.set("RESET", timeout=2500)
-        print('reset ESP8266 module ... Done')
-
+        esp8266_version = self.set("RESET", timeout=2500)
+        print(f'ESP8266 module firmware version {esp8266_version}')
 
     def read(self, block=False):
         buf = ""
@@ -201,7 +201,9 @@ class WS_Server():
 
     def loop(self):
         receive = self.read()
-
+        # if receive is not None:
+        #     print(f"ws.loop received: {receive}")
+            
         if receive == None:
             self.send_data()
             return
@@ -212,14 +214,23 @@ class WS_Server():
         elif receive.startswith("[DISCONNECTED]"):
             self._is_connected = False
             print("Disconnected from %s" % receive.split(" ")[1])
+        elif receive.startswith("[APPSTOP]"):
+            self._is_connected = False
         else:
             try:
                 data = json.loads(receive)
                 if isinstance(data, str):
                     data = json.loads(data)
+                self._is_connected = True
                 self.on_receive(data)
                 self.send_data()
             except ValueError as e:
-                print("\033[0;31m[%s\033[0m"%e)
+                pass
+                # print("\033[0;31m[%s\033[0m"%e)
+        
+        # if (time.ticks_ms() - self.last_send_time > self.SEND_INTERVAL):
+        #     self.send_data()
+        #     self.last_send_time = time.ticks_ms()
+
            
 
