@@ -1,5 +1,4 @@
 import time
-import motors as car
 from ws import WS_Server
 from machine import Pin
 

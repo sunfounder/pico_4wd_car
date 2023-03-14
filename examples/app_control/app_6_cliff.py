@@ -21,7 +21,7 @@ PASSWORD = "12345678" # your password
 
 '''------------ Global Variables -------------'''
 # car move - D-pad & throttle
-joystick_touched = False      
+dpad_touched = False      
 throttle_power = 0
 steer_power = 0
 steer_sensitivity = 0.8 # 0 ~ 1
@@ -59,7 +59,7 @@ def my_car_move(throttle_power, steer_power, gradually=False):
 
 '''----------------- on_receive (ws.loop()) ---------------------'''
 def on_receive(data):
-    global throttle_power, steer_power, joystick_touched
+    global throttle_power, steer_power, dpad_touched
     global mode
 
     ''' if not connected, skip & stop '''
@@ -82,28 +82,28 @@ def on_receive(data):
     if 'K' in data.keys():
         #print(data['K'])
         if data['K'] == "left":
-            joystick_touched = True
+            dpad_touched = True
             if steer_power > 0:
                 steer_power = 0
             steer_power -= int(throttle_power/2)
             if steer_power < -100:
                 steer_power = -100
         elif data['K'] == "right":
-            joystick_touched = True
+            dpad_touched = True
             if steer_power < 0:
                 steer_power = 0
             steer_power += int(throttle_power/2)
             if steer_power > 100:
                 steer_power = 100
         elif data['K'] == "forward":
-            joystick_touched = True
+            dpad_touched = True
             steer_power = 0
         elif data['K'] == "backward":
-            joystick_touched = True
+            dpad_touched = True
             steer_power = 0
             throttle_power = -throttle_power
         else:
-            joystick_touched = False
+            dpad_touched = False
             steer_power = 0
 
     # grayscale reference
@@ -127,25 +127,25 @@ def on_receive(data):
     
 
 def remote_handler():
-    global throttle_power, steer_power, joystick_touched
+    global throttle_power, steer_power, dpad_touched
 
     ''' move && anti-fall '''
     if mode == "anti fall":
         if grayscale.is_on_edge():
-            if joystick_touched and throttle_power<0: # only for backward
+            if dpad_touched and throttle_power<0: # only for backward
                 my_car_move(throttle_power, steer_power, gradually=True)
             else:
                 car.move("stop")
         else:
-            if joystick_touched:
+            if dpad_touched:
                 my_car_move(throttle_power, steer_power, gradually=True)
             else:
                 car.move("stop")                
-    elif joystick_touched:
+    elif dpad_touched:
         my_car_move(throttle_power, steer_power, gradually=True)
 
     ''' no operation '''
-    if not joystick_touched:
+    if not dpad_touched:
         car.move('stop')
 
 

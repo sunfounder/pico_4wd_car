@@ -126,7 +126,7 @@ led_theme = {
 }
 led_theme_sum = len(led_theme)
 
-joystick_touched = False
+dpad_touched = False
 move_status = 'stop'
 is_move_last  = False
 brake_light_status= False
@@ -386,7 +386,7 @@ def bottom_lights_handler():
 
 '''----------------- on_receive (ws.loop()) ---------------------'''
 def on_receive(data):
-    global throttle_power, steer_power, move_status, is_move_last , mode, joystick_touched
+    global throttle_power, steer_power, move_status, is_move_last , mode, dpad_touched
     global led_status, led_theme_code, led_theme_sum, lights_brightness
     global current_voice_cmd, voice_start_time, voice_max_time
     global sonar_on
@@ -422,7 +422,7 @@ def on_receive(data):
     # Move - direction
     if 'K' in data.keys():
         if data['K'] == "left":
-            joystick_touched = True
+            dpad_touched = True
             move_status = 'left'
             if steer_power > 0:
                 steer_power = 0
@@ -430,7 +430,7 @@ def on_receive(data):
             if steer_power < -100:
                 steer_power = -100
         elif data['K'] == "right":
-            joystick_touched = True
+            dpad_touched = True
             move_status = 'right'
             if steer_power < 0:
                 steer_power = 0
@@ -438,16 +438,16 @@ def on_receive(data):
             if steer_power > 100:
                 steer_power = 100
         elif data['K'] == "forward":
-            joystick_touched = True
+            dpad_touched = True
             move_status = 'forward'
             steer_power = 0
         elif data['K'] == "backward":
-            joystick_touched = True
+            dpad_touched = True
             move_status = 'backward'
             steer_power = 0
             throttle_power = -throttle_power
         else:
-            joystick_touched = False
+            dpad_touched = False
             move_status = 'stop'
             steer_power = 0
 
@@ -532,7 +532,7 @@ def on_receive(data):
 
 '''----------------- remote_handler ---------------------'''
 def remote_handler():
-    global throttle_power, steer_power, move_status, joystick_touched
+    global throttle_power, steer_power, move_status, dpad_touched
     global sonar_angle, sonar_distance
     global current_voice_cmd, voice_start_time, voice_max_time
     global lights_brightness
@@ -556,22 +556,22 @@ def remote_handler():
     ''' move && anti-fall '''
     if mode == "anti fall":
         if grayscale.is_on_edge():
-            if joystick_touched and move_status == "backward":
+            if dpad_touched and move_status == "backward":
                 my_car_move(throttle_power, steer_power, gradually=True)
             else:
                 move_status = "stop"
                 car.move("stop")
         else:
-            if joystick_touched:
+            if dpad_touched:
                 my_car_move(throttle_power, steer_power, gradually=True)
             else:
                 move_status = "stop"
                 car.move("stop")                
-    elif joystick_touched:
+    elif dpad_touched:
         my_car_move(throttle_power, steer_power, gradually=True)
 
     ''' mode: Line Track or Obstacle Avoid or Follow '''
-    if not joystick_touched and mode != 'anti fall':
+    if not dpad_touched and mode != 'anti fall':
         if mode == 'line track':
             sonar_angle = 0
             sonar_distance = sonar.get_distance_at(0)
@@ -582,7 +582,7 @@ def remote_handler():
             follow()
 
     ''' Voice Control '''
-    if current_voice_cmd != None and not joystick_touched and (mode == None or mode == 'anti fall'):
+    if current_voice_cmd != None and not dpad_touched and (mode == None or mode == 'anti fall'):
         if mode == 'anti fall':
             if grayscale.is_on_edge() and current_voice_cmd != "backward":
                 car.move("stop")
@@ -621,7 +621,7 @@ def remote_handler():
         voice_max_time = 0
 
     ''' no operation '''
-    if not joystick_touched and mode == None and current_voice_cmd == None:
+    if not dpad_touched and mode == None and current_voice_cmd == None:
         move_status = "stop"
         car.move('stop')
 
