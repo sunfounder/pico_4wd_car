@@ -9,7 +9,7 @@ SunFounder Pico 4WD Car V2.0 Kit
 
 Do you want to learn to program or have your own programming robot? The market is filled with a wide variety of robots, some of which use the micro:bit platform, others use Arduino or Raspberry Pi platforms. If you're not sure what to select and where to begin, then our Pico 4WD car can help you begin your journey of discovery.
 
-This car uses the Raspberry Pi Pico, a powerful small microcontroller introduced by Raspberry Pi in recent years, which can be used to learn MicroPython, Arduino or a graphical programming language.
+This car uses the Raspberry Pi Pico, a powerful small microcontroller introduced by Raspberry Pi in recent years, which can be used to learn MicroPython, Arduino or graphical programming language.
 
 A simple structure and full functionality make the Pico 4WD car a perfect choice for your needs. There are a variety of features on it, including remote control, line tracking, cliff detection, obstacle avoidance, object following, and more.
 
@@ -62,7 +62,7 @@ The steps are as follows.
 
 **Source Code**
 
-:download:`SunFounder Pico-4wd Car Code <https://github.com/sunfounder/pico_4wd_car/archive/refs/heads/main.zip>`
+:download:`SunFounder Pico-4wd Car Code <https://github.com/sunfounder/pico_4wd_car/archive/refs/heads/v2.0.zip>`
 
 Or check out the code at |link_pico_4wd_github|
 

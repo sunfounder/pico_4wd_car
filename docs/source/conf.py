@@ -149,7 +149,7 @@ rst_epilog = """
 
 .. |link_pico_4wd_github| raw:: html
 
-    <a href="https://github.com/sunfounder/pico_4wd_car" target="_blank">Pico-4wd Car - GitHub</a>
+    <a href="https://github.com/sunfounder/pico_4wd_car/tree/v2.0" target="_blank">Pico-4wd Car - GitHub</a>
 
 .. |link_sunfounder_controller| raw:: html
 

@@ -8,7 +8,7 @@ With the previous section :ref:`cpn_grayscale`, you can know that the value on t
 
 **Code**
 
-You will see that if you hang the Pico 4WD car in the air, the Shell will print "Danger!". If the grayscale module detects a black line, True will be printed. On white surfaces, False will be printed.
+You will see that if you hang the Pico 4WD car in the air, the Shell will print "Danger!". If the grayscale module detects a black line, ``True`` will be printed. On white surfaces, ``False`` will be printed.
 
 
 .. code-block:: python

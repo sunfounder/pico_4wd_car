@@ -9,6 +9,11 @@ Here, the SunFounder self-developed App - SunFounder Controller is used. With th
 
 Let's see how to control Pico 4WD car with this APP.
 
+
+.. note::
+
+    If the ``main.py`` file in the Raspberry Pi Pico has been modified, but you still want to use Play Mode, then you just need to save the ``app_control.py`` file under the ``pico_4wd_car\examples\app_control`` path as ``main.py`` again.
+
 Quick User Guide
 --------------------------
 
@@ -142,7 +147,7 @@ STT（I）
 
 The Pico 4WD Car can also be controlled using STT in SunFounder Controller. Pico 4WD Car will perform the set actions based on the commands you say to your mobile device.
 
-Now press and hold the **STT(I)** widget and say any of the following commands to see what happens.
+Now tap and hold the **STT(I)** widget and say any of the following commands to see what happens.
 
 .. image:: img/sta_listening.png
     :width: 600
@@ -160,7 +165,7 @@ Grayscale Module Related
 
 While this controller is running, **Grayscale Value(A)** will show the values of the three grayscale sensors in real time.
 
-If you want to switch to Line Track mode (open the **Line Track(N)** widget), then you need to set the Line Track threshold and Grayscale threshold according to the current environment first, as follows.
+If you want to switch to Line Track mode (open the **Line Track(N)** widget), then you need to set the thresholds according to the current environment first, as follows.
 
 #. Place the grayscale module in three environments: white, black and hanging in the air (10cm or more) to see how the data in the changes.
 

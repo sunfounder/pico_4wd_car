@@ -6,10 +6,8 @@
 .. image:: img/follow.gif
     :align: center
 
-In this project, Pico-4wd car will follow the object in front of it, for example, if you put your hand in front of it, it will rush towards your hand.
-
-And it will also play the advantages of sonar scanning, will determine whether your hand is located in front of its left or directly in front, adjust its direction before moving forward.
-
+In this project, Pico-4wd car will follow the object in front of it. For example, if you put your hand in front of Pico 4WD, it will rush towards your hand.
+And it will also play the advantage of sonar scanning, will judge your hand position and then adjust the forward direction.
 
 .. note::
 

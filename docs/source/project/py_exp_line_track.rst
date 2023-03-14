@@ -4,7 +4,7 @@
 .. image:: img/line_track.gif
     :align: center
 
-Let Pico-4wd walk its exclusive avenue! Use t'hethe black electrical tape to stick a line on a light-colored floor (or table). After running the script, you will see Pico-4wd tracking this line forward.
+Let Pico-4wd walk its exclusive avenue! Use the black electrical tape to stick a line on a light-colored floor (or table). After running the script, you will see Pico-4wd tracking this line forward.
 
 .. note::
 
@@ -58,13 +58,9 @@ Below are the steps to implement the line track function, and you can copy them 
 
 **2. Tracking the line**
 
-    * When the detected greyscale value of the corresponding channel is less than ``set_line_reference(10000)``, a ``1`` will be output, which means a black line is detected.
+    * When the detected grayscale value of the corresponding channel is less than ``set_line_reference(10000)``, a ``1`` will be output, which means a black line is detected.
     * Then all three sets of data (``[0, 1, 0]``) will be output by ``get_line_status()``.
-    * When the **middle** sensor detects a black line (value of 1), let the car go forward.
-    * When the **middle** and **right** sensors detect the black line, the car turns right at a small angle
-    * When the **right** sensor detects the black line, the car turns right at a large angle
-    * Similarly, when the **left** and **middle** sensors detect the black line, the car will turn left at a small angle.
-    * When the **left** sensor detects the black line, the car will turn left at a large angle
+    * The car is then moved according to the detection data from the three sensors.
 
     .. code-block:: python
 
@@ -81,15 +77,15 @@ Below are the steps to implement the line track function, and you can copy them 
             while True:
                 gs_data = gs.get_line_status()
                 if gs_data == [0, 1, 0]:
-                    car.set_motors_power([MOTOR_POWER, MOTOR_POWER, MOTOR_POWER, MOTOR_POWER])
+                    car.set_motors_power([MOTOR_POWER, MOTOR_POWER, MOTOR_POWER, MOTOR_POWER]) # forward
                 elif gs_data == [0, 1, 1]:
-                    car.set_motors_power([MOTOR_POWER, 0, MOTOR_POWER, 0])
+                    car.set_motors_power([MOTOR_POWER, 0, MOTOR_POWER, 0]) # turn right at a small angle
                 elif gs_data == [0, 0, 1]:
-                    car.set_motors_power([MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER])
+                    car.set_motors_power([MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER]) # turn right at a small angle
                 elif gs_data == [1, 1, 0]:
-                    car.set_motors_power([0, MOTOR_POWER, 0, MOTOR_POWER])
+                    car.set_motors_power([0, MOTOR_POWER, 0, MOTOR_POWER]) # turn left at a small angle
                 elif gs_data == [1, 0, 0]:
-                    car.set_motors_power([-MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER])
+                    car.set_motors_power([-MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER]) # turn left at a small angle
 
         try:
             line_track()
@@ -119,22 +115,22 @@ Below are the steps to implement the line track function, and you can copy them 
             while True:
                 gs_data = gs.get_line_status()
                 if gs_data == [0, 1, 0]:
-                    car.set_motors_power([MOTOR_POWER, MOTOR_POWER, MOTOR_POWER, MOTOR_POWER])
+                    car.set_motors_power([MOTOR_POWER, MOTOR_POWER, MOTOR_POWER, MOTOR_POWER]) # forward
                     lights.set_bottom_color([0, 100, 0])
                 elif gs_data == [0, 1, 1]:
-                    car.set_motors_power([MOTOR_POWER, 0, MOTOR_POWER, 0])
+                    car.set_motors_power([MOTOR_POWER, 0, MOTOR_POWER, 0]) # turn right at a small angle
                     lights.set_off()
                     lights.set_bottom_left_color([50, 50, 0])
                 elif gs_data == [0, 0, 1]:
-                    car.set_motors_power([MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER])
+                    car.set_motors_power([MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER]) # turn right at a small angle
                     lights.set_off()
                     lights.set_bottom_left_color([100, 5, 0])
                 elif gs_data == [1, 1, 0]:
-                    car.set_motors_power([0, MOTOR_POWER, 0, MOTOR_POWER])
+                    car.set_motors_power([0, MOTOR_POWER, 0, MOTOR_POWER]) # turn left at a small angle
                     lights.set_off()
                     lights.set_bottom_right_color([50, 50, 0])
                 elif gs_data == [1, 0, 0]:
-                    car.set_motors_power([-MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER])
+                    car.set_motors_power([-MOTOR_POWER, MOTOR_POWER, -MOTOR_POWER, MOTOR_POWER]) # turn left at a small angle
                     lights.set_off()
                     lights.set_bottom_right_color([100, 0, 0])
 

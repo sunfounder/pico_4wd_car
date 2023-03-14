@@ -76,7 +76,7 @@ Now follow the steps below.
     .. image:: img/sta_connect.png
 
 
-#. Press and hold the **STT(I)** widget after clicking the |app_run| button. A prompt will appear indicating that it is listening. Say the following command to move the car.
+#. Tap and hold the **STT(I)** widget after clicking the |app_run| button. A prompt will appear indicating that it is listening. Say the following command to move the car.
 
     .. image:: img/sta_listening.png
 

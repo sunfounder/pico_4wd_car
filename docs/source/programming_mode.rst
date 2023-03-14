@@ -20,3 +20,4 @@ The programming mode chapter is divided into 3 main parts in total, and you are 
     thonny/basic_usage_on_thonny
     module/learn_modules
     project/funny_project
+    app/app_project
