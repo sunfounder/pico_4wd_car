@@ -19,7 +19,7 @@ from grayscale import Grayscale
 from ws import WS_Server
 from machine import Pin
 
-VERSION = '1.2.0'
+VERSION = '1.3.0'
 print(f"[ Pico-4WD Car App Control {VERSION}]\n")
 
 '''
@@ -532,7 +532,7 @@ def on_receive(data):
 
 '''----------------- remote_handler ---------------------'''
 def remote_handler():
-    global throttle_power, steer_power, move_status, dpad_touched
+    global mode, throttle_power, steer_power, move_status, dpad_touched
     global sonar_angle, sonar_distance
     global current_voice_cmd, voice_start_time, voice_max_time
     global lights_brightness
@@ -542,6 +542,7 @@ def remote_handler():
     if not ws.is_connected():
         sonar.servo.set_angle(0)
         car.move('stop', 0)
+        mode = None
         return
     
     ''' sonar and distance '''
