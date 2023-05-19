@@ -34,16 +34,20 @@ class WS_Server():
         while 1: 
             buf = self.uart.readline()
             if buf == None:
-                # print("Timeout")
                 if block:
-                    # time.sleep_ms(10)
+                    time.sleep_ms(1)
                     continue
                 else:
                     return None
-            if buf[0] == 0xff:
+
+            if buf[0] < 0x31 or buf[0] > 0xfe:
                 buf = buf[1:]
+                print("buf error: %s" % buf)
+                if buf == '':
+                    buf = None
+                    return buf
+
             buf = buf.decode().replace("\r\n", "")
-            # print("buf: %s" % buf)
             if buf.startswith("[DEBUG] "):
                 buf = buf.replace("[DEBUG]", "[ESP8266]")
                 print(buf)
