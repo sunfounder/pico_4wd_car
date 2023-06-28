@@ -53,11 +53,11 @@ Quick User Guide
 
     * We have preset controller for Pico-4wd, you can choose it directly.
 
-        .. image:: img/choose_preset.png
+        .. image:: img/choose_preset.PNG
 
     * Define a name for this Controller and click **Confirm**.
 
-        .. image:: img/set_name.png
+        .. image:: img/set_name.PNG
 
     * You are now inside the controller, which already has several widgets set up. Click the |app_save| button in the upper right corner.
 
