@@ -38,7 +38,7 @@ with open(LOG_FILE, "w") as log_f:
     log_f.write("")
 
 ''' -------------- Onboard led Config -------------'''
-onboard_led = Pin(25, Pin.OUT)
+onboard_led = Pin('LED', Pin.OUT)
 
 ''' ---------------- Custom Config ----------------'''
 '''Whether print serial receive '''
@@ -396,7 +396,7 @@ def on_receive(data):
         print("recv_data: %s"%data)
 
     ''' if not connected, skip & stop '''
-    if not ws.is_connected():
+    if not ws.is_started():
         sonar.servo.set_angle(0)
         car.move('stop', 0)
         return
@@ -539,7 +539,7 @@ def remote_handler():
     global on_edge
 
     ''' if not connected, skip & stop '''
-    if not ws.is_connected():
+    if not ws.is_started():
         sonar.servo.set_angle(0)
         car.move('stop', 0)
         mode = None
@@ -655,7 +655,6 @@ if __name__ == "__main__":
     finally:
         car.move("stop")
         lights.set_off()
-        ws.set("RESET", timeout=2500)
         while True: # pico onboard led blinking indicates error
             time.sleep(0.25)
             onboard_led.off()

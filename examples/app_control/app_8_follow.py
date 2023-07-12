@@ -38,7 +38,7 @@ mode = None
 
 '''------------ Instantiate -------------'''
 ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
-onboard_led = Pin(25, Pin.OUT) 
+onboard_led = Pin('LED', Pin.OUT) 
 
 
 '''------- get_dir (sonar sacn data to direction) ---------------------'''
@@ -101,7 +101,7 @@ def on_receive(data):
     global mode
 
     ''' if not connected, skip & stop '''
-    if not ws.is_connected():
+    if not ws.is_started():
         return
 
     ''' data to display'''

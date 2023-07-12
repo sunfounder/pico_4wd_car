@@ -129,7 +129,7 @@ def on_receive(data):
     global led_status, led_theme_code, led_theme_sum
 
     ''' if not connected, skip & stop '''
-    if not ws.is_connected():
+    if not ws.is_started():
         return
 
     # Move - power

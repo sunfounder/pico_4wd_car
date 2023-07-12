@@ -1,9 +1,10 @@
-from machine import UART
+
+import socket
+import uos
+import network
+import uwebsocket
 import time
 import json
-
-from machine import Pin
-onboard_led_ws = Pin(25, Pin.OUT)
 
 "custom Exception"
 class TimeoutError(Exception):
@@ -17,9 +18,8 @@ def log(msg):
         time.sleep(0.01)
 
 class WS_Server():
-    WS_TIMEOUT = 3000 # ms
-    SEND_INTERVAL = 100 # ms
-    
+
+    PING_PONG_TIMEOUT = 3000 # ms
     send_dict = {
         'Name': '',
         'Type': 'PICO-4WD Car',
@@ -27,210 +27,172 @@ class WS_Server():
         }
 
     def __init__(self, name=None, ssid=None, password='', mode=None, port=8765):
-        self.name = name
-        self.ssid = ssid
-        if self.ssid == None or self.ssid == "":
-            self.ssid = name
-        self.password = password
-        self.mode = mode.lower()
         self.port = port
-        # self.uart = UART(1, 115200, timeout=100, timeout_char=10)
-        self.uart = UART(1, 115200, timeout=10, timeout_char=5)
-
         self.listen_s = None
         self.client_s = None
         self.ws = None
         self.wlan = None
-        self._is_connected = False
-        # self.last_send_time = 0
+        self.name = name
+        self.ssid = ssid
+        self.password = password
+        self.mode = mode
+        self.send_dict['Name'] = name
+        self._is_started = False
+        self.ping_pong_timeout_start = 0
+    
+    def server_handshake(self, sock):
+        clr = sock.makefile("rwb", 0)
+        l = clr.readline()
 
-        self.send_dict["Name"] = self.name
-        print('reset ESP8266 module ...')
-        esp8266_version = self.set("RESET", timeout=2500)
-        print(f'ESP8266 module firmware version {esp8266_version}')
+        webkey = None
 
-    def read(self, block=False):
-        buf = ""
-        while True: 
-            buf = self.uart.readline()
-            if buf == None:
-                if block:
-                    time.sleep_ms(1)
-                    continue
-                else:
-                    return None
+        while 1:
+            l = clr.readline()
+            if not l:
+                raise OSError("EOF in headers")
+            if l == b"\r\n":
+                break
+            h, v = [x.strip() for x in l.split(b":", 1)]
+            if h == b'Sec-WebSocket-Key':
+                webkey = v
 
-            if buf[0] < 0x31 or buf[0] > 0xfe:
-                buf = buf[1:]
-                log("bufxx: %s" % buf)
-                if buf == '':
-                    buf = "GARBLED" # Garbled characters
-                    return buf
-                     
-            buf = buf.decode().replace("\r\n", "")
-            if buf.startswith("[DEBUG] "):
-                buf = buf.replace("[DEBUG]", "[ESP8266]")
-            else:
-                return buf
+        if not webkey:
+            raise OSError("Not a websocket request")
 
+        respkey = webkey + b"258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
+        respkey = hashlib.sha1(respkey).digest()
+        respkey = binascii.b2a_base64(respkey)[:-1]
+
+        resp = b"""\
+HTTP/1.1 101 Switching Protocols\r
+Upgrade: websocket\r
+Connection: Upgrade\r
+Sec-WebSocket-Accept: %s\r
+\r
+""" % respkey
+
+        sock.send(resp)
+
+        
+    def setup_conn(self, accept_handler):
+        self.listen_s = socket.socket()
+        self.listen_s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+        ai = socket.getaddrinfo("0.0.0.0", self.port)
+        addr = ai[0][4]
+
+        self.listen_s.bind(addr)
+        self.listen_s.listen(5)
+        if accept_handler:
+            self.listen_s.setsockopt(socket.SOL_SOCKET, 20, accept_handler)
+        for i in (network.AP_IF, network.STA_IF):
+            iface = network.WLAN(i)
+            if iface.active():
+                print("WebServer started on ws://%s:%d" % (iface.ifconfig()[0], self.port))
+        return self.listen_s
+
+    def accept_conn(self, listen_sock):
+        cl, remote_addr = listen_sock.accept()
+        print("\nWebSocket connection from:", remote_addr)
+        self.client_s = cl
+        self.server_handshake(cl)
+        self.ws = uwebsocket.websocket(cl, True)
+        self.ws.write(json.dumps(self.send_dict))
+        print("have sended!")
+        cl.setblocking(False)
+
+    def read(self):
+        if self.ws == None:
+            return None
+        recv = self.ws.read()
+        if recv != None and recv != b"":
+            recv = recv.decode()
+            # print("accept_conn: %s" % recv)
+            return recv
+        else:
+            return None
+
+#     def read(self):
+#         if self.ws == None:
+#             return None
+#         print('read 1')
+#         buffer = ''
+#         while True:
+#             recv = self.ws.read(1)
+#             if recv != None and recv != b"":
+#                 recv = recv.decode()
+#                 buffer += recv
+#                 if recv == '}':
+#                     break;
+#             else:
+#                 break
+#         print('read 2')
+#         return buffer
+
+    def is_started(self):
+        return self._is_started
+        
     def write(self, value):
-        value = "%s\n" % value
         value = value.encode()
-        self.uart.write(value)
+        self.ws.write(value)
 
     def send_data(self):
         data = json.dumps(self.send_dict)
-        self._command("WS", data)
+        self.write(data)
 
-    def _command(self, mode, command, value=None):
-        command += str(value) if value != None else ""
-        command = "%s+%s" % (mode, command)
-        self.write(command)
-
-    def set(self, command, value=None, timeout=None):
-        flag = 0
-        retry_count = 0
-        retry_max_count = 3
-        t_s = 0
-
-        # retry function
-        def retry():
-            nonlocal  t_s, retry_count
-            self._command("SET", command, value)
-            t_s = time.ticks_ms()
-            retry_count = retry_count + 1
-
-        # send command
-        self._command("SET", command, value)
-        # get start time
-        t_s = time.ticks_ms()
-
-        while True:
-            # onboard LED flash
-            if flag == 0:
-                onboard_led_ws.on()
-                flag = 1
-                time.sleep(0.1)
-            else:
-                onboard_led_ws.off()
-                flag = 0
-                time.sleep(0.1)
-
-            # Timeout handle
-            if timeout != None:
-                if(time.ticks_ms() - t_s > timeout):
-                    if retry_count < retry_max_count:
-                        log(f"TimeoutError. retry {retry_count} ...     ")
-                        retry()
-                        continue
-                    raise TimeoutError('Set timeout %s ms'%timeout)
-
-            # UnicodeError
-            try:
-                result = self.read(block=False)
-            except UnicodeError:
-                if retry_count < retry_max_count:
-                    log(f"UnicodeError retry {retry_count} ...")
-                    retry()
-                    continue
-                log("UnicodeError")
-            
-            # result
-            if result == None:
-                continue
-            elif result.startswith("[ERROR]"):
-                if retry_count < retry_max_count:
-                    log(f"{result} retry {retry_count} ...")
-                    retry()
-                    continue
-                log("result == [ERROR]")
-                
-            elif result == 'GARBLED':
-                if retry_count < retry_max_count:
-                    log(f"result GARBLED retry {retry_count} ...")
-                    retry()
-                    continue
-                log("result GARBLED ")
-
-            elif result.startswith("[OK]"):
-                result = result[4:]
-                result = result.strip(" ")
-                break
-            else:
-                continue
-
-        return result
-
-    def _get(self, command):
-        self._command("GET", command)
-        result = self.read()
-        return result
+    def stop(self):
+        if self.client_s:
+            self.client_s.close()
+        if self.listen_s:
+            self.listen_s.close()
+        self.wlan.active(False)
 
     def start(self):
-        try:
-            if self.mode == "sta":
-                self.set("MODE", 1, timeout=self.WS_TIMEOUT)
-            elif self.mode == "ap":
-                self.set("MODE", 2, timeout=self.WS_TIMEOUT)
-            self.set("SSID", self.ssid, timeout=self.WS_TIMEOUT)
-            self.set("PSK", self.password, timeout=self.WS_TIMEOUT)
-            self.set("PORT", self.port, timeout=self.WS_TIMEOUT)
-        except TimeoutError as e:
-            print(e)
-            print("Configuring WiFi Timeout.Please check whether the ESP8266 module is working.")
-            return False
-        
-        try:
-            if self.mode == "sta":
-                print("Connecting to %s ... "%self.ssid)
-            elif self.mode == "ap":
-                print("open AP %s ... "%self.ssid)
-            ip = self.set("START", timeout=None)
-            print("WebServer started on ws://%s:%d" % (ip, self.port))
-            return True
-        except ValueError as e:
-            print(e)
-            print("Connect Wifi error. Try another Wifi or AP mode.")
-            return False
+        if self.mode == "ap":
+            self.wlan = network.WLAN(network.AP_IF)
+            self.wlan.config(essid=self.name, password=self.password)
+            self.wlan.active(True)  # turning on the hotspot
+        elif self.mode == "sta":
+            self.wlan = network.WLAN(network.STA_IF)
+            self.wlan.active(True)
+            self.wlan.connect(self.ssid, self.password)
+            for _ in range(5):
+                if self.wlan.isconnected():
+                    print('network config:', self.wlan.ifconfig())
+                    break
+                time.sleep(1)
+            if not self.wlan.isconnected():
+                print("wifi connected fail ")
+        self.setup_conn(self.accept_conn)
+        self.ping_pong_timeout_start = time.ticks_ms()
+        return True
 
-    def is_connected(self):
-        return self._is_connected
-        
     def on_receive(self, data):
         pass
 
     def loop(self):
+        if time.ticks_ms() - self.ping_pong_timeout_start > self.PING_PONG_TIMEOUT:
+            self._is_started = False
         receive = self.read()
-        # if receive is not None:
-        #     print(f"ws.loop received: {receive}")
-            
-        if receive == None:
-            self.send_data()
-            return
-        elif receive.startswith("[CONNECTED]"):
-            self._is_connected = True
-            print("Connected from %s" % receive.split(" ")[1])
-            self.send_data()
-        elif receive.startswith("[DISCONNECTED]"):
-            self._is_connected = False
-            print("Disconnected from %s" % receive.split(" ")[1])
-        elif receive.startswith("[APPSTOP]"):
-            self._is_connected = False
+        # print("Received.")
+        # print("ws loop, receive: %s" % receive)
+        if receive == None or len(receive) == 0:
+            pass
+        elif receive == 'ping':
+            self.write('pong')
+            self.ping_pong_timeout_start = time.ticks_ms()
+            self._is_started = False
         else:
             try:
+                # print("on revceive: %s" % receive)
                 data = json.loads(receive)
                 if isinstance(data, str):
                     data = json.loads(data)
-                self._is_connected = True
                 self.on_receive(data)
-                self.send_data()
+                self.ping_pong_timeout_start = time.ticks_ms()
+                self._is_started = True
             except ValueError as e:
-                pass
-                # print("\033[0;31m[%s\033[0m"%e)
-        
-        # if (time.ticks_ms() - self.last_send_time > self.SEND_INTERVAL):
-        #     self.send_data()
-        #     self.last_send_time = time.ticks_ms()
-
-           
-
+                print(e)
+            self.send_data()
+            
+        time.sleep_ms(10)

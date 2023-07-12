@@ -29,7 +29,7 @@ steer_sensitivity = 0.8 # 0 ~ 1
 
 '''------------ Instantiate -------------'''
 ws = WS_Server(name=NAME, mode=WIFI_MODE, ssid=SSID, password=PASSWORD)
-onboard_led = Pin(25, Pin.OUT) 
+onboard_led = Pin('LED', Pin.OUT) 
 speed = Speed(8, 9)
 
 
@@ -56,7 +56,7 @@ def on_receive(data):
     global throttle_power, steer_power, move_status, dpad_touched
 
     ''' if not connected, skip & stop '''
-    if not ws.is_connected():
+    if not ws.is_started():
         return
 
     # Speed measurement
