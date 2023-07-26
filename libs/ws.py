@@ -5,6 +5,8 @@ import network
 import uwebsocket
 import time
 import json
+import hashlib
+import binascii
 
 "custom Exception"
 class TimeoutError(Exception):
