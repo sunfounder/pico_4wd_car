@@ -19,8 +19,8 @@ from grayscale import Grayscale
 from ws import WS_Server
 from machine import Pin
 
-VERSION = '1.3.0'
-print(f"[ Pico-W-4WD Car App Control {VERSION}]\n")
+VERSION = '1.3.1'
+print(f"[ Pico-4WD Car App Control {VERSION}]\n")
 
 '''
  "w" mode will clear the previous log first, if you need to keep it,
